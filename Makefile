@@ -1,54 +1,66 @@
-NAME		=	cub3d
-CC			=	cc
-CFLAGS		=	#-Wall -Wextra -Werror
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/01 02:28:03 by olaaroub          #+#    #+#              #
+#    Updated: 2024/12/01 17:41:32 by olaaroub         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-MINILBX		=	minilibx-linux/libmlx_Linux.a
-PATH_MLX	=	minilibx-linux/
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -fsanitize=address -g3
+MAKEFLAGS := --no-print-directory
 
-LIBFT		=	tools/libft/libft.a
-LIBFT_PATH	=	tools/libft
+# ITALICBOLD
+GREEN = \033[0;32m
+RESET = \033[0m
+BOLD = \033[1m
+LARGE = \033[2m
+SRC = $(wildcard src_parsing/*.c)
+SRC += $(wildcard src_execution/*.c)
+SRC += $(wildcard tools/*.c)
 
-TOOLS		=	tools/get_next_line/get_next_line.c tools/get_next_line/get_next_line_utils.c tools/free_memory/add_to_trash.c tools/free_memory/free_trash.c tools/is.c tools/ft_error.c tools/duplicate_map.c tools/free_memory/free_map.c tools/get_or_set_struct.c tools/get_postion.c
-PARSING		=	pars/check_opt.c pars/read_map.c pars/check_wall.c pars/check_player.c pars/flodfile.c
-GAME		=	game/main.c game/draw.c game/keys.c game/keys2.c game/imgs_functions.c
-SRC			=	main.c $(TOOLS) $(PARSING) $(GAME)
-SRC_O		=	$(SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
+
+NAME = cub3D
+LIB = libft/libft.a
+MINILIBX = minilibx-linux/libmlx_Linux.a
 
 all: $(NAME)
 
-$(LIBFT): 
-	@make -C $(LIBFT_PATH) > test
-	@make -C $(LIBFT_PATH) bonus > test
-	@echo libft DONE
+$(NAME): $(OBJ) $(LIB) $(MINILIBX)
+	@stty -echoctl
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -o $(NAME)
+	make clean
+	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
 
-$(MINILBX):
-	@make -C $(PATH_MLX) > test
-	@echo minilibx DONE
 
-$(NAME): $(LIBFT) $(MINILBX) $(SRC_O)
-	@echo objecte DONE
-	@$(CC) $(CFLAGS) $(SRC_O) $(MINILBX) $(LIBFT) -L$(PATH_MLX) -lmlx -lXext -lX11 -lm  -o $(NAME)
-	@echo $(NAME) DONE
-	@rm -f test
+$(MINILIBX):
+	@$(MAKE) -C minilibx-linux
+	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(LIB):
+	@$(MAKE) -C libft
+	@echo "✅ $(LARGE)$(BOLD)$(GREEN)libft$(RESET)"
 
 clean:
-	@rm -f $(SRC_O)
-	@make -C $(LIBFT_PATH) clean > test
-	@echo all objecte clean
-	@rm test
-	 
+	@rm -rf $(OBJ)
+	@make clean -C minilibx-linux
+	@make clean -C libft
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo the programe clean
-	@make -C $(LIBFT_PATH) fclean > test
-	@rm test
+	@rm -rf $(NAME)
+	@rm -rf $(LIB)
+	@rm -rf $(MINILIBX)
 
-re: fclean all
+re:
+	@make fclean
+	@make all
 
-.SECONDARY: $(SRC_O)
-
-.PHONY: all clean fclean re test
+.PHONY: all fclean clean re bonus
+.SECONDARY: $(OBJ)
+.SILENT: $(OBJ) $(NAME) $(MINILIBX) $(LIB)

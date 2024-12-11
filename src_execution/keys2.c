@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/01 02:40:07 by olaaroub         ###   ########.fr       */
+/*   Updated: 2024/12/10 23:12:39 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int move(int key, void *parm)
     static int x = 20;
     static int y = 20;
 
+    (void)parm;
     if (key == 65363 && x == 40 && data_global()->map.map[data_global()->j][data_global()->i + 1] != '1')
     {
         data_global()->map.map[data_global()->j][data_global()->i + 1] = data_global()->map.map[data_global()->j][data_global()->i];

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/01 02:41:09 by olaaroub         ###   ########.fr       */
+/*   Updated: 2024/12/10 23:17:13 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_data
 void	check_option(char *str);
 int		is_texture(char *line);
 int		is_color(char *line);
-int		is_white_space(char c);
+// int		is_white_space(char c);
 int 	is_emty(char *line);
 t_map   read_map(char *file);
 void    free_trash(t_list **trash);
@@ -77,6 +77,7 @@ t_data	*data_global();
 void	get_postion(t_data *data, char **map);
 void	flodfile(char **map, int i, int j);
 void	check_floodfile(char **map);
+
 
 // -----------------------------------
 

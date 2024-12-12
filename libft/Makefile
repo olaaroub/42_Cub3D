@@ -6,7 +6,7 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 11:35:23 by olaaroub          #+#    #+#              #
-#    Updated: 2024/12/01 02:52:55 by olaaroub         ###   ########.fr        #
+#    Updated: 2024/12/10 23:19:02 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRCS += ft_printf.c ft_putchar.c ft_putstr.c ft_putptr.c ft_putnbr_base.c ft_pla
 
 #=== GET_NEXT_LINE ===#
 
-SRCS += get_next_line_utils.c get_next_line.c
+SRCS += get_next_line_utils.c get_next_line.c mini_utils.c
 
 OBJ = $(SRCS:.c=.o)
 

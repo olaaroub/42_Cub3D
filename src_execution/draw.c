@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/01 02:39:55 by olaaroub         ###   ########.fr       */
+/*   Updated: 2024/12/10 23:11:12 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	drawing1(t_img *img, int x, int y, int color)
 
 void	drawing_player(t_img *img)
 {
-	int	i;
-
 	data_global()->offset = 20;
 	drawing1(img, data_global()->x, data_global()->y, 0xfcba03);
 

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:33:24 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/01 02:38:36 by olaaroub         ###   ########.fr       */
+/*   Updated: 2024/12/10 23:09:25 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void    check_floodfile(char **map)
 
 void    flodfile(char **map, int i, int j)
 {
-    if (j < 0 || j >= ft_strlen_blm9lob(map) ||i < 0 || i >= ft_strlen(map[j]))
+    int len;
+
+    len = ft_strlen(map[j]);
+    if (j < 0 || j >= ft_strlen_blm9lob(map) ||i < 0 || i >= len)
         return ;
     if (map[j][i] == '1' || map[j][i] == 'F' || map[j][i] == ' ')
         return ;

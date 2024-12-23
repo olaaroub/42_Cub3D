@@ -3,74 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   keys2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/10 23:12:39 by olaaroub         ###   ########.fr       */
+/*   Updated: 2024/12/23 22:02:08 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 
-void move2(int key, int *x, int *y)
-{
-    if (key == 65363 && (*x != 40 || data_global()->map.map[data_global()->j][data_global()->i + 1] != '1'))
-    {
-        data_global()->x += 20;
-        *x += 20;
-    }
-    else if (key == 65362 && (*y != 0 || data_global()->map.map[data_global()->j  - 1][data_global()->i] != '1'))
-    {
-        data_global()->y -= 20;
-        *y -= 20;
-    }
-    else if (key == 65361 && (*x != 0 || data_global()->map.map[data_global()->j][data_global()->i - 1] != '1'))
-    {
-        data_global()->x -= 20;
-        *x -= 20;
-    }
-    else if (key == 65364 && (*y != 40 || data_global()->map.map[data_global()->j  + 1][data_global()->i] != '1'))
-    {
-        data_global()->y += 20;
-        *y += 20;
-    }
-}
-
 int move(int key, void *parm)
 {
-    static int x = 20;
-    static int y = 20;
+
+    int x = data_global()->x;
+    int y = data_global()->y;
+    char **map = data_global()->map.map;
 
     (void)parm;
-    if (key == 65363 && x == 40 && data_global()->map.map[data_global()->j][data_global()->i + 1] != '1')
-    {
-        data_global()->map.map[data_global()->j][data_global()->i + 1] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->i++;
-        x = -20;
-    }
-    else if (key == 65361 && x == 0 && data_global()->map.map[data_global()->j][data_global()->i - 1] != '1')
-    {
-        data_global()->map.map[data_global()->j][data_global()->i - 1] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->i--;
-        x = 60;
-    }
-    else if (key == 65362 && y == 0 && data_global()->map.map[data_global()->j - 1][data_global()->i] != '1')
-    {
-        data_global()->map.map[data_global()->j  - 1][data_global()->i] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->j--;
-        y = 60;
-    }
-    else if (key == 65364 && y == 40 && data_global()->map.map[data_global()->j + 1][data_global()->i] != '1')
-    {
-        data_global()->map.map[data_global()->j  + 1][data_global()->i] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->j++;
-        y = -20;
-    }
-    move2(key, &x, &y);
+    printf("x: %d  y: %d\n", x, y);
+    if(key == RIGHT && map[y / SOF][(x + SOP + FRM - 1) / SOF] != '1' && map[(y + SOP - 1) / SOF][(x + SOP + FRM - 1) / SOF] != '1')
+        data_global()->x += FRM;
+    if (key == LEFT && map[y / SOF][(x - FRM) / SOF] != '1' && map[(y + SOP - 1) / SOF][(x - FRM) / SOF] != '1')
+        data_global()-> x -= FRM;
+    if (key == DOWN && map[(y + SOP + FRM - 1) / SOF][x / SOF] != '1' && map[(y + SOP + FRM - 1) / SOF][(x + SOP - 1) / SOF] != '1')
+        data_global()->y += FRM;
+    if (key == UP && map[(y - FRM ) / SOF][x / SOF] != '1' && map[(y - FRM) / SOF][(x + SOP - 1) / SOF] != '1')
+        data_global()->y -= FRM;
+    printf("x: %d  y: %d\n", x, y);
+
     return 0;
 }
+
+

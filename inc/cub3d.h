@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/10 23:17:13 by olaaroub         ###   ########.fr       */
+/*   Updated: 2024/12/23 22:04:31 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 #include <stdio.h>
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
+
+// ---------define the macros for moves-----------
+
+#define UP 119
+#define DOWN 115
+#define LEFT 97
+#define RIGHT 100
+
+#define FRM 5 // this macro to haw match  moves the player do in single clik !
+#define SOP 20 // this is size of player (x and y)!
+#define SOF 60 // this is size of foolr
+
 
 typedef struct s_map
 {
@@ -54,6 +66,7 @@ typedef struct s_data
 	unsigned int	color;
 	unsigned int	color_player;
 	t_map			map;
+	t_img			*img;
 	int				offset;
 }	t_data;
 

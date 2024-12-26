@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/23 22:04:31 by ohammou-         ###   ########.fr       */
+/*   Updated: 2024/12/25 14:37:24 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define CUB3D_H
 
 #include <stdio.h>
+#include <math.h>
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
 
@@ -24,9 +25,16 @@
 #define LEFT 97
 #define RIGHT 100
 
+#define RIGHT_V 65363
+#define LEFT_V 65361
+
 #define FRM 5 // this macro to haw match  moves the player do in single clik !
 #define SOP 20 // this is size of player (x and y)!
 #define SOF 60 // this is size of foolr
+
+#define PI 3.14159265
+#define TOW_PI 6.28318530
+#define ROT_SPEED ( PI / 30)
 
 
 typedef struct s_map
@@ -68,6 +76,7 @@ typedef struct s_data
 	t_map			map;
 	t_img			*img;
 	int				offset;
+	double			angle;
 }	t_data;
 
 
@@ -99,9 +108,12 @@ int 	mouse(int botton,int key, int y, void *par);
 int		esc(int key, void *param);
 int		krwa();
 void	open_the_window();
-int 	drawing();
+int		drawing(t_img *img);
 int		move(int key, void *parm);
 void	get_data_addr(t_img *img);
-void 	put_and_destroy_img(t_img *img);
+void 	put_img(t_img *img);
+int		drawing_ray(t_img *img);
+void	ft_pixelput(t_img *img, int x, int y, int color);
+
 
 #endif

@@ -6,18 +6,19 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/25 14:37:24 by ohammou-         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:32:47 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef CUB3D_H
 #define CUB3D_H
 
-#include <stdio.h>
-#include <math.h>
 #include "../minilibx-linux/mlx.h"
 #include "../libft/libft.h"
 
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
 // ---------define the macros for moves-----------
 
 #define UP 119
@@ -31,6 +32,7 @@
 #define FRM 5 // this macro to haw match  moves the player do in single clik !
 #define SOP 20 // this is size of player (x and y)!
 #define SOF 60 // this is size of foolr
+#define SPEED 2
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
@@ -112,8 +114,8 @@ int		drawing(t_img *img);
 int		move(int key, void *parm);
 void	get_data_addr(t_img *img);
 void 	put_img(t_img *img);
-int		drawing_ray(t_img *img);
+int		drawing_ray(t_img *img, double angle);
 void	ft_pixelput(t_img *img, int x, int y, int color);
 
-
+void drawing_rays(t_img *img);
 #endif

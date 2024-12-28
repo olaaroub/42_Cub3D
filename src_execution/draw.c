@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/25 13:29:04 by ohammou-         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:24:07 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	drawing_player(t_img *img)
 {
 	data_global()->offset = SOP;
 	drawing1(img, data_global()->x, data_global()->y, 0xfcba03);
-	drawing_ray(img);
+	drawing_rays(img);
 
 }
 

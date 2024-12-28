@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/25 13:07:55 by ohammou-         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:27:53 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	main_of_drawing()
 	data_global()->i = data_global()->x;
 	data_global()->j = data_global()->y;
 
-	data_global()->x = (data_global()->x * 60) + 20;
-	data_global()->y = (data_global()->y * 60) + 20;
+	data_global()->x = (data_global()->x * SOF) + SOF / 3;
+	data_global()->y = (data_global()->y * SOF) + SOF / 3;
 	get_data_addr(img);
 	drawing(img);
 	mlx_key_hook(data_global()->mlx_win, esc, NULL);

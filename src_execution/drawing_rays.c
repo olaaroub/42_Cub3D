@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/26 19:59:57 by ohammou-         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:26:19 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,66 @@
         
 */
 
-
-int drawing_ray(t_img *img)
+int get_length(double ray_angle)
 {
     int x_start = data_global()->x + SOP / 2;
     int y_start = data_global()->y + SOP / 2;
 
-    int ray_length = 100; // Length of the ray
-    int x_end = x_start + ray_length * cos(data_global()->angle);
-    int y_end = y_start - ray_length * sin(data_global()->angle);
+    char **map = data_global()->map.map;
 
-    // Interpolate and draw the line from (x_start, y_start) to (x_end, y_end)
+    int screen_width = data_global()->x_max * 60;  // Assuming this is defined
+    int screen_height = data_global()->y_max * 60; // Assuming this is defined
+
+    double x = x_start;
+    double y = y_start;
+
+    double step_size = 1.0; // Step size to move along the ray
+    int max_length = 1000; // Maximum ray length (arbitrary large value)
+    int steps = 0;
+
+    while (steps < max_length) 
+    {
+        // Increment along the ray
+        x += step_size * cos(ray_angle);
+        y -= step_size * sin(ray_angle);
+
+        // Convert to grid coordinates
+        int grid_x = (int)(x / SOF);
+        int grid_y = (int)(y / SOF);
+
+        // Check if we're outside the screen boundaries
+        if (x < 0 || y < 0 || x >= screen_width || y >= screen_height)
+            break;
+
+        // Check if the ray hit a wall
+        if (map[grid_y][grid_x] == '1')
+            break;
+
+        steps++;
+    }
+
+    return steps * step_size; // Return the length of the ray
+}
+
+
+
+// int get_lenght()
+// {
+    
+// }
+
+int drawing_ray(t_img *img, double angle)
+{
+    int x_start = data_global()->x + SOP / 2;
+    int y_start = data_global()->y + SOP / 2;
+
+    int ray_length = get_length(angle);
+    int x_end = x_start + ray_length * cos(angle);
+    int y_end = y_start - ray_length * sin(angle);
+
     int dx = x_end - x_start;
     int dy = y_end - y_start;
-    int steps = 0; // Determine the number of steps
+    int steps = 0;
     if (abs(dx) > abs(dy))
         steps = abs(dx);
     else
@@ -53,21 +99,24 @@ int drawing_ray(t_img *img)
     int i = 0;
     while (i <= steps) 
     {
-        ft_pixelput(img, (int)x, (int)y, 0x00FF00); // Draw pixel
+        ft_pixelput(img, (int)x, (int)y, 0x00FF00);
         x += x_inc;
         y += y_inc;
         i++;
     }
-    i = 0;
-    x = x_start;
-    y = y_start;
-    while (i <= steps) 
-    {
-        ft_pixelput(img, (int)x, (int)y, 0x0000FF); // Draw pixel
-        x -= x_inc;
-        y -= y_inc;
-        i++;
-    }
-    // printf("Ray endpoint: x: %d    y: %d\n", x_end, y_end);
     return 0;
+}
+
+
+void drawing_rays(t_img *img)
+{
+    double start = data_global()->angle - PI / 6;
+    double end = data_global()->angle + PI  / 6;
+
+    while (start < end)
+    {
+        drawing_ray(img, start);
+        start += ROT_SPEED / 4;
+    }
+    
 }

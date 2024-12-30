@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/23 22:04:47 by ohammou-         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:24:07 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,16 @@ void	drawing_player(t_img *img)
 {
 	data_global()->offset = SOP;
 	drawing1(img, data_global()->x, data_global()->y, 0xfcba03);
+	drawing_rays(img);
 
 }
 
-int	drawing()
+int	drawing(t_img *img)
 {
-	t_img img;
 	int	x;
 	int	y;
 
 	y = 0;
-	get_data_addr(&img);
 	while (data_global()->map.map[y])
 	{
 		x = 0;
@@ -70,15 +69,15 @@ int	drawing()
 		{
 			data_global()->offset = SOF;
 			if (data_global()->map.map[y][x] == '1')
-				drawing1(&img, x * SOF, y * SOF, 0xFFFFFF);
+				drawing1(img, x * SOF, y * SOF, 0xFFFFFF);
 			else if (data_global()->map.map[y][x] != ' ')
-				drawing1(&img, x * SOF, y * SOF, 0xFF0000);
+				drawing1(img, x * SOF, y * SOF, 0xFF0000);
 			x++;
 		}
 		y++;
 	}
-	drawing_player(&img);
-	put_and_destroy_img(&img);
+	drawing_player(img);
+	put_img(img);
 	return 0;
 }
 

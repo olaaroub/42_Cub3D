@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/28 16:32:47 by ohammou-         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:21:16 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int		drawing(t_img *img);
 int		move(int key, void *parm);
 void	get_data_addr(t_img *img);
 void 	put_img(t_img *img);
-int		drawing_ray(t_img *img, double angle);
+int 	drawing_ray(t_img *img, double angle, int ray_length);
 void	ft_pixelput(t_img *img, int x, int y, int color);
 
 void drawing_rays(t_img *img);

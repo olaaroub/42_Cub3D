@@ -3,74 +3,116 @@
 /*                                                        :::      ::::::::   */
 /*   keys2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/10 23:12:39 by olaaroub         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:47:02 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-
-void move2(int key, int *x, int *y)
+bool isValidMove(int end_x, int end_y)
 {
-    if (key == 65363 && (*x != 40 || data_global()->map.map[data_global()->j][data_global()->i + 1] != '1'))
+    int x;
+    int y;
+    char **map;
+
+    x = data_global()->x;
+    y = data_global()->y;
+    map = data_global()->map.map;
+    if (map[(y - end_y) / SOF][(x + end_x) / SOF] != '1'
+            && map[(y - end_y) / SOF][(x + SOP - 1 + end_x) / SOF] != '1'
+            && map[(y - end_y + SOP - 1) / SOF][(x + end_x) / SOF] != '1'
+            && map[(y - end_y + SOP - 1) / SOF][(x + end_x + SOP - 1) / SOF] != '1')
+        return true;
+    
+    return false;
+}
+
+void moveUp()
+{
+    int end_x;
+    int end_y;
+
+    end_x = roundf(FRM * cos(data_global()->angle) * SPEED);
+    end_y = roundf(FRM * sin(data_global()->angle) * SPEED);
+    if (isValidMove(end_x, end_y))
     {
-        data_global()->x += 20;
-        *x += 20;
+        data_global()->x += end_x;
+        data_global()->y -= end_y;
     }
-    else if (key == 65362 && (*y != 0 || data_global()->map.map[data_global()->j  - 1][data_global()->i] != '1'))
+}
+
+void moveDown()
+{
+    int end_x;
+    int end_y;
+
+    end_x = roundf(FRM * cos(data_global()->angle + PI) * SPEED);
+    end_y = roundf(FRM * sin(data_global()->angle + PI) * SPEED);
+
+    if (isValidMove(end_x, end_y))
     {
-        data_global()->y -= 20;
-        *y -= 20;
+        data_global()->x += end_x;
+        data_global()->y -= end_y;
     }
-    else if (key == 65361 && (*x != 0 || data_global()->map.map[data_global()->j][data_global()->i - 1] != '1'))
+}
+
+void moveLeft()
+{
+    int end_x;
+    int end_y;
+
+    end_x = roundf(FRM * cos(data_global()->angle + PI / 2) * SPEED);
+    end_y = roundf(FRM * sin(data_global()->angle + PI / 2) * SPEED);
+    if (isValidMove(end_x, end_y))
     {
-        data_global()->x -= 20;
-        *x -= 20;
+        data_global()->x += end_x;
+        data_global()->y -= end_y;
     }
-    else if (key == 65364 && (*y != 40 || data_global()->map.map[data_global()->j  + 1][data_global()->i] != '1'))
+}
+
+void moveRight()
+{
+    int end_x;
+    int end_y;
+
+    end_x = roundf(FRM * cos(data_global()->angle + (3 * PI) / 2) * SPEED);
+    end_y = roundf(FRM * sin(data_global()->angle + (3 * PI) / 2) * SPEED);
+    if(isValidMove(end_x, end_y))
     {
-        data_global()->y += 20;
-        *y += 20;
-    }
+        data_global()->x += end_x;
+        data_global()->y -= end_y;
+    }   
 }
 
 int move(int key, void *parm)
 {
-    static int x = 20;
-    static int y = 20;
+    t_img *img = parm;
 
-    (void)parm;
-    if (key == 65363 && x == 40 && data_global()->map.map[data_global()->j][data_global()->i + 1] != '1')
+    if (key == RIGHT)
+        moveRight();
+    if (key == LEFT)
+        moveLeft();
+    if (key == UP)
+        moveUp();
+    if (key == DOWN)
+        moveDown();
+    if (key == RIGHT_V)
     {
-        data_global()->map.map[data_global()->j][data_global()->i + 1] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->i++;
-        x = -20;
+        data_global()->angle -= ROT_SPEED;
+        if (data_global()->angle < 0)
+            data_global()->angle += 2 * PI;
     }
-    else if (key == 65361 && x == 0 && data_global()->map.map[data_global()->j][data_global()->i - 1] != '1')
+    if (key == LEFT_V) 
     {
-        data_global()->map.map[data_global()->j][data_global()->i - 1] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->i--;
-        x = 60;
+        data_global()->angle += ROT_SPEED;
+        if (data_global()->angle >= 2 * PI)
+            data_global()->angle -= 2 * PI;
     }
-    else if (key == 65362 && y == 0 && data_global()->map.map[data_global()->j - 1][data_global()->i] != '1')
-    {
-        data_global()->map.map[data_global()->j  - 1][data_global()->i] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->j--;
-        y = 60;
-    }
-    else if (key == 65364 && y == 40 && data_global()->map.map[data_global()->j + 1][data_global()->i] != '1')
-    {
-        data_global()->map.map[data_global()->j  + 1][data_global()->i] = data_global()->map.map[data_global()->j][data_global()->i];
-        data_global()->map.map[data_global()->j][data_global()->i] = '0';
-        data_global()->j++;
-        y = -20;
-    }
-    move2(key, &x, &y);
+    mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
+    drawing(img);
     return 0;
 }
+

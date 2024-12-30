@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/01 02:28:03 by olaaroub          #+#    #+#              #
-#    Updated: 2024/12/10 23:19:20 by olaaroub         ###   ########.fr        #
+#    Updated: 2024/12/25 14:36:16 by ohammou-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -fsanitize=address -g3
+CFLAGS += #-fsanitize=address -g3
 MAKEFLAGS := --no-print-directory
 
 # ITALICBOLD
@@ -34,7 +34,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIB) $(MINILIBX)
 	@stty -echoctl
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -o $(NAME)
 	make clean
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
 

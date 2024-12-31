@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
+#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/01 02:28:03 by olaaroub          #+#    #+#              #
-#    Updated: 2024/12/25 14:36:16 by ohammou-         ###   ########.fr        #
+#    Updated: 2024/12/30 19:07:10 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,18 +44,17 @@ $(MINILIBX):
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 
 $(LIB):
-	@$(MAKE) -C libft
+	@make -j -C libft
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)libft$(RESET)"
 
 clean:
 	@rm -rf $(OBJ)
-	@make clean -C minilibx-linux
 	@make clean -C libft
 
 fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(LIB)
-	@rm -rf $(MINILIBX)
+	@make clean -C minilibx-linux
 
 re:
 	@make fclean

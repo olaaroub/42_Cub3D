@@ -15,8 +15,8 @@
 void	open_the_window()
 {
 	data_global()->mlx = mlx_init();
-	data_global()->mlx_win = mlx_new_window(data_global()->mlx, data_global()->x_max * 60,
-			data_global()->y_max * 60, "window");
+	data_global()->mlx_win = mlx_new_window(data_global()->mlx, SCREEN_W,
+			SCREEN_H, "window");
 }
 
 void	ft_pixelput(t_img *img, int x, int y, int color)
@@ -62,6 +62,7 @@ int	drawing(t_img *img)
 	int	y;
 
 	y = 0;
+	render_3d(img);
 	while (data_global()->map.map[y])
 	{
 		x = 0;

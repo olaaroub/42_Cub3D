@@ -12,28 +12,45 @@
 
 #include "../inc/cub3d.h"
 
-int mouse(int botton,int key, int y, void *par)
+int key_press(int key, void *parm)
 {
-    (void)key;
-    (void)y;
-    (void)par;
-    // t_data *data = (t_data *)par;
-    printf("%d\n", botton);
-    // drawing_square(data, key, y, 10);
-    return 0;
-}
-
-int esc(int key, void *param)
-{
-    (void)param;
-
-    // t_data *data = param;
-	if (key == 65307)
+    if (key == ESC)
     {
         mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
 		exit(0);
     }
-	return (0);
+    if (key == RIGHT)
+        data_global()->fg_E = 1;
+    if (key == LEFT)
+        data_global()->fg_W = 1;
+    if (key == UP)
+        data_global()->fg_N = 1;
+    if (key == DOWN)
+        data_global()->fg_S = 1;
+    if (key == LEFT_V)
+        data_global()->fg_left = 1;
+    if (key == RIGHT_V)
+        data_global()->fg_right = 1;
+    move(parm);
+    return 0;
+}
+
+int key_release(int key, void *parm)
+{
+    (void)parm;
+    if (key == RIGHT)
+        data_global()->fg_E = 0;
+    if (key == LEFT)
+        data_global()->fg_W = 0;
+    if (key == UP)
+        data_global()->fg_N = 0;
+    if (key == DOWN)
+        data_global()->fg_S = 0;
+    if (key == LEFT_V)
+        data_global()->fg_left = 0;
+    if (key == RIGHT_V)
+        data_global()->fg_right = 0;
+    return 0;
 }
 
 int	krwa()

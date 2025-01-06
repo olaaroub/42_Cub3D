@@ -19,25 +19,32 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <limits.h>
+
 // ---------define the macros for moves-----------
 
 #define UP 119
 #define DOWN 115
 #define LEFT 97
 #define RIGHT 100
+#define ESC 65307
 
 #define RIGHT_V 65363
 #define LEFT_V 65361
 
-#define FRM 5 // this macro to haw match  moves the player do in single clik !
-#define SOP 20 // this is size of player (x and y)!
-#define SOF 60 // this is size of foolr
+#define FRM 4 // this macro to haw match  moves the player do in single clik !
+#define SOP 5 // this is size of player (x and y)!
+#define SOF 30 // this is size of foolr
 #define SPEED 2
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
 #define ROT_SPEED ( PI / 30)
+#define FOV_ANGLE PI / 3
 
+#define EPSILON 1e-6
+#define SCREEN_W 1920
+#define SCREEN_H 1080
 
 typedef struct s_map
 {
@@ -62,8 +69,8 @@ typedef struct s_data
 {
 	void			*mlx;
 	void			*mlx_win;
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 	int				len_x;
 	int				len_y;
 	int				x_max;
@@ -79,6 +86,16 @@ typedef struct s_data
 	t_img			*img;
 	int				offset;
 	double			angle;
+	int				fg_left;
+	int				fg_right;
+	int				fg_W;
+	int				fg_E;
+	int				fg_N;
+	int				fg_S;
+	double			dh; // destance for horizontal
+	double			dv; // destance for vertical;
+	bool			is_vertical;
+	// bool			is_hor
 }	t_data;
 
 
@@ -106,16 +123,18 @@ void	check_floodfile(char **map);
 // -----------------------------------
 
 void	main_of_drawing();
-int 	mouse(int botton,int key, int y, void *par);
+// int 	mouse(int botton,int key, int y, void *par);
 int		esc(int key, void *param);
 int		krwa();
 void	open_the_window();
 int		drawing(t_img *img);
-int		move(int key, void *parm);
+int		move(void *parm);
 void	get_data_addr(t_img *img);
 void 	put_img(t_img *img);
 int 	drawing_ray(t_img *img, double angle, int ray_length);
 void	ft_pixelput(t_img *img, int x, int y, int color);
-
+int key_release(int key, void *parm);
 void drawing_rays(t_img *img);
+int key_press(int key, void *parm);
+void    render_3d(t_img *img);
 #endif

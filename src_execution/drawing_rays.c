@@ -27,52 +27,10 @@
         
 */
 
-int get_length(double ray_angle)
-{
-    int x_start = data_global()->x + SOP / 2;
-    int y_start = data_global()->y + SOP / 2;
-
-    char **map = data_global()->map.map;
-
-    int screen_width = data_global()->x_max * 60;  // Assuming this is defined
-    int screen_height = data_global()->y_max * 60; // Assuming this is defined
-
-    double x = x_start;
-    double y = y_start;
-
-    double step_size = 1.0; // Step size to move along the ray
-    int max_length = 1000; // Maximum ray length (arbitrary large value)
-    int steps = 0;
-
-    while (steps < max_length) 
-    {
-        // Increment along the ray
-        x += step_size * cos(ray_angle);
-        y -= step_size * sin(ray_angle);
-
-        // Convert to grid coordinates
-        int grid_x = (int)(x / SOF);
-        int grid_y = (int)(y / SOF);
-
-        // Check if we're outside the screen boundaries
-        if (x < 0 || y < 0 || x >= screen_width || y >= screen_height)
-            break;
-
-        // Check if the ray hit a wall
-        if (map[grid_y][grid_x] == '1')
-            break;
-
-        steps++;
-    }
-
-    return steps * step_size; // Return the length of the ray
-}
-
-
 int drawing_ray(t_img *img, double angle, int ray_length)
 {
-    int x_start = data_global()->x + SOP / 2;
-    int y_start = data_global()->y + SOP / 2;
+    int x_start = data_global()->x;
+    int y_start = data_global()->y;
 
     int x_end = x_start + ray_length * cos(angle);
     int y_end = y_start - ray_length * sin(angle);
@@ -92,7 +50,7 @@ int drawing_ray(t_img *img, double angle, int ray_length)
     int i = 0;
     while (i <= steps) 
     {
-        ft_pixelput(img, (int)x, (int)y, 0x00FF00);
+        ft_pixelput(img, round(x), round(y), 0x00FF00);
         x += x_inc;
         y += y_inc;
         i++;
@@ -100,9 +58,185 @@ int drawing_ray(t_img *img, double angle, int ray_length)
     return 0;
 }
 
+void VerticalIntersection(double *Ay, double *Ax, double angle)
+{
+    double rayDirx;
+    double rayDiry;
+    double x, y;
+
+    x = data_global()->x;
+    y = data_global()->y;
+
+    rayDirx = cos(angle);
+    rayDiry = -sin(angle);
+
+    if (fabs(rayDirx) < EPSILON)
+        return;
+    if (rayDirx < 0)
+        *Ax = floor(x / SOF) * SOF - EPSILON;
+    else
+        *Ax = floor(x / SOF) * SOF + SOF;
+    *Ay = y + ((*Ax - x) / rayDirx) * rayDiry;
+
+}
+
+double draw_rayWithVertical(double angle, int map_x, int map_y)
+{
+    double Ay;
+    double Ax;
+    double xstep;
+    double ystep;
+
+    VerticalIntersection(&Ay, &Ax, angle);
+    if (fabs(cos(angle)) < EPSILON)
+        return INT_MAX;
+    if (cos(angle) > 0)
+        xstep = SOF;
+    else
+        xstep = -SOF;
+    ystep = xstep * tan(angle);
+    while (Ax >= 0 && Ax < data_global()->x_max * SOF &&
+           Ay >= 0 && Ay < data_global()->y_max * SOF)
+    {
+        map_x = (int)Ax / SOF;
+        map_y = (int)Ay / SOF;
+        if (map_x >= 0 && map_x < data_global()->x_max &&
+            map_y >= 0 && map_y < data_global()->y_max)
+        {
+            if (data_global()->map.map[map_y][map_x] == '1')
+                break;
+        }
+        else
+            break;
+        Ax += xstep;
+        Ay -= ystep;
+    }
+    return (sqrt(pow(Ax - data_global()->x, 2) + pow(Ay - data_global()->y, 2)));
+}
+
+void HorizontalIntersection(double *Ay, double *Ax, double angle)
+{
+    double rayDirx;
+    double rayDiry;
+    double x;
+    double y;
+
+    x = data_global()->x;
+    y = data_global()->y;
+    rayDirx = cos(angle);
+    rayDiry = -sin(angle);
+
+    if (fabs(rayDiry) < EPSILON)
+        return ;
+    if (rayDiry < 0)
+        *Ay = floor(y / SOF) * SOF - EPSILON;
+    else
+        *Ay = floor(y / SOF) * SOF + SOF;
+
+    *Ax = x + ((*Ay - y) / rayDiry) * rayDirx;
+}
+
+double draw_rayWithHorizontal(double angle, int map_x, int map_y)
+{
+    double Ay;
+    double Ax;
+    double xstep;
+    double ystep;
+
+    HorizontalIntersection(&Ay, &Ax, angle);
+    if (fabs(sin(angle)) < EPSILON)
+        return INT_MAX;
+    if (sin(angle) > 0)
+        ystep = SOF;
+    else
+        ystep = -SOF;
+    xstep = ystep / tan(angle);
+    while (Ax >= 0 && Ax < data_global()->x_max * SOF &&
+           Ay >= 0 && Ay < data_global()->y_max * SOF)
+    {
+        map_x = (int)(Ax / SOF);
+        map_y = (int)(Ay / SOF);
+        if (map_x >= 0 && map_x < data_global()->x_max &&
+            map_y >= 0 && map_y < data_global()->y_max &&
+            data_global()->map.map[map_y][map_x] == '1')
+            break;
+
+        Ax += xstep;
+        Ay -= ystep;
+    }
+    return (sqrt(pow(Ax - data_global()->x, 2) + pow(Ay - data_global()->y, 2)));
+}
+
+double get_ray_lenght(double angle)
+{
+    double hlen;
+    double vlen;
+    int map_x;
+    int map_y;
+
+    hlen = draw_rayWithHorizontal(angle, map_x, map_y);
+    vlen = draw_rayWithVertical(angle, map_x, map_y);
+    if (hlen < vlen)
+        return hlen;
+    else
+        return vlen;
+    return 0;
+}
+
+void    render_3d(t_img *img)
+{
+    double    fov_angle = PI / 3; // 60-degree field of view
+    int        num_rays = SCREEN_W; // One ray per screen column
+    double    angle_step = fov_angle / num_rays;
+    double    start_angle = data_global()->angle - (fov_angle / 2);
+    double    ray_angle;
+
+    for (int x = 0; x < SCREEN_W; x++)
+    {
+        // Calculate the current ray angle
+        ray_angle = start_angle + x * angle_step;
+
+        // Cast the ray to find the distance to the wall
+        double    distance_to_wall = get_ray_lenght(ray_angle);
+
+        // Correct for fish-eye distortion
+        distance_to_wall *= cos(ray_angle - data_global()->angle);
+
+        // Calculate the height of the wall slice
+        double    projection_plane_dist = (SCREEN_W / 2) / tan(fov_angle / 2);
+        int        wall_height = (int)((SOF / distance_to_wall) * projection_plane_dist);
+
+        // Determine the starting and ending points for the wall slice
+        int        wall_top = (SCREEN_H / 2) - (wall_height / 2);
+        int        wall_bottom = (SCREEN_H / 2) + (wall_height / 2);
+
+        // Clamp values to screen dimensions
+        if (wall_top < 0)
+            wall_top = 0;
+        if (wall_bottom >= SCREEN_H)
+            wall_bottom = SCREEN_H - 1;
+
+        // Draw the wall slice
+        for (int y = 0; y < SCREEN_H; y++)
+        {
+            if (y < wall_top)
+                ft_pixelput(img, x, y, 0x0000FF); // Sky color
+            else if (y > wall_bottom)
+                ft_pixelput(img, x, y, 0x000000); // Floor color
+            else
+            {
+                ft_pixelput(img, x, y, 0xFF0000); // Wall color
+                if (y % 2 == 0)
+                    ft_pixelput(img, x, y, 0x00FF00); // Wall color
+            }
+        }
+
+    }
+}
+
 void drawing_rays(t_img *img)
 {
-    int screen_width = data_global()->x_max * 60;
+    int screen_width = data_global()->x_max * SOF;
     double fov = PI / 3;
     double angle_step = fov / screen_width;
     double ray_angle;
@@ -113,22 +247,10 @@ void drawing_rays(t_img *img)
     while (i < screen_width)
     {
         ray_angle = start_angle + i * angle_step;
-        ray = get_length(ray_angle);
+        ray = get_ray_lenght(ray_angle);
+        // rander3D(ray_angle, ray, img);
         drawing_ray(img, ray_angle, ray);
         i++;
     }
-    // put_img(img);
+    put_img(img);
 }
-
-// void drawing_rays(t_img *img)
-// {
-//     double start = data_global()->angle - PI / 6;
-//     double end = data_global()->angle + PI  / 6;
-
-//     while (start < end)
-//     {
-//         drawing_ray(img, start);
-//         start += ROT_SPEED / 4;
-//     }
-    
-// }

@@ -64,8 +64,8 @@ void moveLeft()
     int end_x;
     int end_y;
 
-    end_x = roundf(FRM * cos(data_global()->angle + PI / 2) * SPEED);
-    end_y = roundf(FRM * sin(data_global()->angle + PI / 2) * SPEED);
+    end_x = roundf(FRM * cos(data_global()->angle - PI / 2) * SPEED);
+    end_y = roundf(FRM * sin(data_global()->angle - PI / 2) * SPEED);
     if (isValidMove(end_x, end_y))
     {
         data_global()->x += end_x;
@@ -78,8 +78,8 @@ void moveRight()
     int end_x;
     int end_y;
 
-    end_x = roundf(FRM * cos(data_global()->angle + (3 * PI) / 2) * SPEED);
-    end_y = roundf(FRM * sin(data_global()->angle + (3 * PI) / 2) * SPEED);
+    end_x = roundf(FRM * cos(data_global()->angle  + PI / 2) * SPEED);
+    end_y = roundf(FRM * sin(data_global()->angle + PI / 2) * SPEED);
     if(isValidMove(end_x, end_y))
     {
         data_global()->x += end_x;
@@ -87,25 +87,26 @@ void moveRight()
     }   
 }
 
-int move(int key, void *parm)
+int move(void *parm)
 {
     t_img *img = parm;
 
-    if (key == RIGHT)
+    // printf("%d\n", key);
+    if (data_global()->fg_E)
         moveRight();
-    if (key == LEFT)
+    if (data_global()->fg_W)
         moveLeft();
-    if (key == UP)
+    if (data_global()->fg_N)
         moveUp();
-    if (key == DOWN)
+    if (data_global()->fg_S)
         moveDown();
-    if (key == RIGHT_V)
+    if (data_global()->fg_left)
     {
         data_global()->angle -= ROT_SPEED;
         if (data_global()->angle < 0)
             data_global()->angle += 2 * PI;
     }
-    if (key == LEFT_V) 
+    if (data_global()->fg_right) 
     {
         data_global()->angle += ROT_SPEED;
         if (data_global()->angle >= 2 * PI)
@@ -113,6 +114,8 @@ int move(int key, void *parm)
     }
     mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
     drawing(img);
+    // drawing_rays(img);
     return 0;
 }
+
 

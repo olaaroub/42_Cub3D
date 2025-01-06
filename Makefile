@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 CFLAGS += #-fsanitize=address -g3
 MAKEFLAGS := --no-print-directory
 

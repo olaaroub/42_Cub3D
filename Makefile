@@ -29,10 +29,11 @@ OBJ = $(SRC:.c=.o)
 NAME = cub3D
 LIB = libft/libft.a
 MINILIBX = minilibx-linux/libmlx_Linux.a
+HEADER = inc/cub3d.h
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIB) $(MINILIBX)
+$(NAME): $(OBJ) $(LIB) $(MINILIBX) $(HEADER)
 	@stty -echoctl
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -o $(NAME)
 	make clean

@@ -21,13 +21,14 @@ bool isValidMove(int end_x, int end_y)
     x = data_global()->x;
     y = data_global()->y;
     map = data_global()->map.map;
-    if (map[(y - end_y) / SOF][(x + end_x) / SOF] != '1'
-            && map[(y - end_y) / SOF][(x + SOP - 1 + end_x) / SOF] != '1'
-            && map[(y - end_y + SOP - 1) / SOF][(x + end_x) / SOF] != '1'
-            && map[(y - end_y + SOP - 1) / SOF][(x + end_x + SOP - 1) / SOF] != '1')
-        return true;
-    
-    return false;
+
+    if (data_global()->map.map[y / SOF][(x + end_x + 2) / SOF] != '1'
+        && data_global()->map.map[y / SOF][(x + end_x  - 2) / SOF] != '1')
+        data_global()->x += end_x;
+    if (data_global()->map.map[(y + end_y + 2) / SOF][x / SOF] != '1'
+        && data_global()->map.map[(y + end_y - 2) / SOF][x / SOF] != '1')
+        data_global()->y += end_y;
+    return true;
 }
 
 void moveUp()
@@ -37,11 +38,7 @@ void moveUp()
 
     end_x = roundf(FRM * cos(data_global()->angle) * SPEED);
     end_y = roundf(FRM * sin(data_global()->angle) * SPEED);
-    if (isValidMove(end_x, end_y))
-    {
-        data_global()->x += end_x;
-        data_global()->y -= end_y;
-    }
+    isValidMove(end_x, end_y);
 }
 
 void moveDown()
@@ -51,12 +48,7 @@ void moveDown()
 
     end_x = roundf(FRM * cos(data_global()->angle + PI) * SPEED);
     end_y = roundf(FRM * sin(data_global()->angle + PI) * SPEED);
-
-    if (isValidMove(end_x, end_y))
-    {
-        data_global()->x += end_x;
-        data_global()->y -= end_y;
-    }
+    isValidMove(end_x, end_y);
 }
 
 void moveLeft()
@@ -66,11 +58,7 @@ void moveLeft()
 
     end_x = roundf(FRM * cos(data_global()->angle - PI / 2) * SPEED);
     end_y = roundf(FRM * sin(data_global()->angle - PI / 2) * SPEED);
-    if (isValidMove(end_x, end_y))
-    {
-        data_global()->x += end_x;
-        data_global()->y -= end_y;
-    }
+    isValidMove(end_x, end_y);
 }
 
 void moveRight()
@@ -78,13 +66,9 @@ void moveRight()
     int end_x;
     int end_y;
 
-    end_x = roundf(FRM * cos(data_global()->angle  + PI / 2) * SPEED);
+    end_x = roundf(FRM * cos(data_global()->angle + PI / 2) * SPEED);
     end_y = roundf(FRM * sin(data_global()->angle + PI / 2) * SPEED);
-    if(isValidMove(end_x, end_y))
-    {
-        data_global()->x += end_x;
-        data_global()->y -= end_y;
-    }   
+    isValidMove(end_x, end_y);
 }
 
 int move(void *parm)

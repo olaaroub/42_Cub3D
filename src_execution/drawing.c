@@ -57,6 +57,9 @@ void	main_of_drawing()
 	drawing(img);
 	// drawing_rays(img);
 	mlx_hook(data_global()->mlx_win, 17, 0,krwa, NULL);
-	mlx_hook(data_global()->mlx_win, 2, 1L << 0, key_press, img);
 	mlx_hook(data_global()->mlx_win, 3, 1L << 1, key_release, img);
+	mlx_hook(data_global()->mlx_win, 2, 1L << 0, key_press, img);
+	mlx_loop_hook(data_global()->mlx, move, img);
 }
+
+

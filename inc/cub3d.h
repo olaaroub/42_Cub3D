@@ -33,14 +33,14 @@
 #define LEFT_V 65361
 
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
-#define SOP 5 // this is size of player (x and y)!
+#define SOP 2 // this is size of player (x and y)!
 #define SOF 30 // this is size of foolr
-#define SPEED 2
+#define SPEED 1
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
-#define ROT_SPEED ( PI / 30)
-#define FOV_ANGLE PI / 3
+#define ROT_SPEED 0.04
+#define FOV_ANGLE M_PI / 3
 
 #define EPSILON 1e-6
 #define SCREEN_W 1920
@@ -95,6 +95,7 @@ typedef struct s_data
 	double			dh; // destance for horizontal
 	double			dv; // destance for vertical;
 	bool			is_vertical;
+
 	// bool			is_hor
 }	t_data;
 

@@ -19,19 +19,19 @@ int key_press(int key, void *parm)
         mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
 		exit(0);
     }
-    if (key == RIGHT)
+    else  if (key == RIGHT)
         data_global()->fg_E = 1;
-    if (key == LEFT)
+    else if (key == LEFT)
         data_global()->fg_W = 1;
-    if (key == UP)
+    else if (key == UP)
         data_global()->fg_N = 1;
-    if (key == DOWN)
+    else if (key == DOWN)
         data_global()->fg_S = 1;
-    if (key == LEFT_V)
+    else if (key == LEFT_V)
         data_global()->fg_left = 1;
-    if (key == RIGHT_V)
+    else if (key == RIGHT_V)
         data_global()->fg_right = 1;
-    move(parm);
+    // move(parm);
     return 0;
 }
 
@@ -40,15 +40,15 @@ int key_release(int key, void *parm)
     (void)parm;
     if (key == RIGHT)
         data_global()->fg_E = 0;
-    if (key == LEFT)
+    else if (key == LEFT)
         data_global()->fg_W = 0;
-    if (key == UP)
+    else if (key == UP)
         data_global()->fg_N = 0;
-    if (key == DOWN)
+    else if (key == DOWN)
         data_global()->fg_S = 0;
-    if (key == LEFT_V)
+    else if (key == LEFT_V)
         data_global()->fg_left = 0;
-    if (key == RIGHT_V)
+    else if (key == RIGHT_V)
         data_global()->fg_right = 0;
     return 0;
 }

@@ -33,7 +33,7 @@ int drawing_ray(t_img *img, double angle, int ray_length)
     int y_start = data_global()->y;
 
     int x_end = x_start + ray_length * cos(angle);
-    int y_end = y_start - ray_length * sin(angle);
+    int y_end = y_start + ray_length * sin(angle);
 
     int dx = x_end - x_start;
     int dy = y_end - y_start;
@@ -58,6 +58,28 @@ int drawing_ray(t_img *img, double angle, int ray_length)
     return 0;
 }
 
+/*
+
+    the prove to how I fined the first Intersection :
+    ok, I have a  ray that  going in point P to A;
+
+    y
+    |___ A
+    |  /|
+    | / |
+    |/__|________> x
+     P
+    
+    - we have a equation is : cos(O) = Ax / |PA|  and sin(O) =  Ay /  |PA|;
+    so: Ax  = |PA|.cos(O) and Ay = |PA|.sin(O);
+    ok,  using this equation we try to  find  a equation that  find first point;
+    we have a: Ax = x + ray.distance.cos(O) and Ay = y + ray.distance.sin(O);
+    Ax: ray.distance = (Ax - x) /  cos(O);
+    Ay:  Ay = Ay +  (Ax - x)  /  cos(O); // becose he has  a same ray len (same |PA| in above example);
+
+    and if  we  want to calculat Ax we use the same method  
+
+*/
 void VerticalIntersection(double *Ay, double *Ax, double angle)
 {
     double rayDirx;
@@ -68,7 +90,7 @@ void VerticalIntersection(double *Ay, double *Ax, double angle)
     y = data_global()->y;
 
     rayDirx = cos(angle);
-    rayDiry = -sin(angle);
+    rayDiry = sin(angle);
 
     if (fabs(rayDirx) < EPSILON)
         return;
@@ -109,11 +131,10 @@ double draw_rayWithVertical(double angle, int map_x, int map_y)
         else
             break;
         Ax += xstep;
-        Ay -= ystep;
+        Ay += ystep;
     }
     return (sqrt(pow(Ax - data_global()->x, 2) + pow(Ay - data_global()->y, 2)));
 }
-
 void HorizontalIntersection(double *Ay, double *Ax, double angle)
 {
     double rayDirx;
@@ -124,7 +145,7 @@ void HorizontalIntersection(double *Ay, double *Ax, double angle)
     x = data_global()->x;
     y = data_global()->y;
     rayDirx = cos(angle);
-    rayDiry = -sin(angle);
+    rayDiry = sin(angle);
 
     if (fabs(rayDiry) < EPSILON)
         return ;
@@ -162,7 +183,7 @@ double draw_rayWithHorizontal(double angle, int map_x, int map_y)
             break;
 
         Ax += xstep;
-        Ay -= ystep;
+        Ay += ystep;
     }
     return (sqrt(pow(Ax - data_global()->x, 2) + pow(Ay - data_global()->y, 2)));
 }
@@ -177,57 +198,66 @@ double get_ray_lenght(double angle)
     hlen = draw_rayWithHorizontal(angle, map_x, map_y);
     vlen = draw_rayWithVertical(angle, map_x, map_y);
     if (hlen < vlen)
+    {
+        data_global()->is_vertical = false;
         return hlen;
+    }
     else
+    {
+        data_global()->is_vertical = true;
         return vlen;
+    }
     return 0;
 }
 
 void    render_3d(t_img *img)
 {
-    double    fov_angle = PI / 3; // 60-degree field of view
-    int        num_rays = SCREEN_W; // One ray per screen column
+    double    fov_angle = PI / 3;
+    int        num_rays = SCREEN_W;
     double    angle_step = fov_angle / num_rays;
     double    start_angle = data_global()->angle - (fov_angle / 2);
     double    ray_angle;
 
     for (int x = 0; x < SCREEN_W; x++)
     {
-        // Calculate the current ray angle
         ray_angle = start_angle + x * angle_step;
 
-        // Cast the ray to find the distance to the wall
         double    distance_to_wall = get_ray_lenght(ray_angle);
 
-        // Correct for fish-eye distortion
         distance_to_wall *= cos(ray_angle - data_global()->angle);
 
-        // Calculate the height of the wall slice
         double    projection_plane_dist = (SCREEN_W / 2) / tan(fov_angle / 2);
         int        wall_height = (int)((SOF / distance_to_wall) * projection_plane_dist);
 
-        // Determine the starting and ending points for the wall slice
+
         int        wall_top = (SCREEN_H / 2) - (wall_height / 2);
         int        wall_bottom = (SCREEN_H / 2) + (wall_height / 2);
 
-        // Clamp values to screen dimensions
+
         if (wall_top < 0)
             wall_top = 0;
         if (wall_bottom >= SCREEN_H)
             wall_bottom = SCREEN_H - 1;
 
-        // Draw the wall slice
         for (int y = 0; y < SCREEN_H; y++)
         {
             if (y < wall_top)
-                ft_pixelput(img, x, y, 0x0000FF); // Sky color
+                ft_pixelput(img, x, y, 0xF4EDD3);
             else if (y > wall_bottom)
-                ft_pixelput(img, x, y, 0x000000); // Floor color
+                ft_pixelput(img, x, y, 0xA5BFCC);
             else
             {
-                ft_pixelput(img, x, y, 0xFF0000); // Wall color
+                int color;
+                if (data_global()->is_vertical)
+                    color = 0x4C585B;
+                else
+                    color = 0x7E99A3;
+                ft_pixelput(img, x, y, color);
                 if (y % 2 == 0)
-                    ft_pixelput(img, x, y, 0x00FF00); // Wall color
+                {
+                    // printf("heheh\n");
+                    ft_pixelput(img, x, y, color);
+                }
             }
         }
 
@@ -248,7 +278,6 @@ void drawing_rays(t_img *img)
     {
         ray_angle = start_angle + i * angle_step;
         ray = get_ray_lenght(ray_angle);
-        // rander3D(ray_angle, ray, img);
         drawing_ray(img, ray_angle, ray);
         i++;
     }

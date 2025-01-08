@@ -210,57 +210,54 @@ double get_ray_lenght(double angle)
     return 0;
 }
 
-void    render_3d(t_img *img)
+void draw_3d(t_img *img ,t_data data, int x)
 {
-    double    fov_angle = PI / 3;
-    int        num_rays = SCREEN_W;
-    double    angle_step = fov_angle / num_rays;
-    double    start_angle = data_global()->angle - (fov_angle / 2);
-    double    ray_angle;
+    int y;
+    int color;
 
-    for (int x = 0; x < SCREEN_W; x++)
+    y = 0;
+    while (y < SCREEN_H)
     {
-        ray_angle = start_angle + x * angle_step;
-
-        double    distance_to_wall = get_ray_lenght(ray_angle);
-
-        distance_to_wall *= cos(ray_angle - data_global()->angle);
-
-        double    projection_plane_dist = (SCREEN_W / 2) / tan(fov_angle / 2);
-        int        wall_height = (int)((SOF / distance_to_wall) * projection_plane_dist);
-
-
-        int        wall_top = (SCREEN_H / 2) - (wall_height / 2);
-        int        wall_bottom = (SCREEN_H / 2) + (wall_height / 2);
-
-
-        if (wall_top < 0)
-            wall_top = 0;
-        if (wall_bottom >= SCREEN_H)
-            wall_bottom = SCREEN_H - 1;
-
-        for (int y = 0; y < SCREEN_H; y++)
+        if (y < data.start_draw)
+              ft_pixelput(img, x, y, 0xF4EDD3);
+        else if (y >= data.start_draw && y <= data.end_draw)
         {
-            if (y < wall_top)
-                ft_pixelput(img, x, y, 0xF4EDD3);
-            else if (y > wall_bottom)
-                ft_pixelput(img, x, y, 0xA5BFCC);
+            if (data_global()->is_vertical)
+                color = 0x4C585B;
             else
-            {
-                int color;
-                if (data_global()->is_vertical)
-                    color = 0x4C585B;
-                else
-                    color = 0x7E99A3;
-                ft_pixelput(img, x, y, color);
-                if (y % 2 == 0)
-                {
-                    // printf("heheh\n");
-                    ft_pixelput(img, x, y, color);
-                }
-            }
+                color = 0x7E99A3;
+            ft_pixelput(img, x, y, color);
         }
+        else
+            ft_pixelput(img, x, y, 0xA5BFCC);
+        y++;
+    }
 
+}
+
+void render_3d(t_img *img)
+{
+    t_data data;
+    int x;
+
+    data.angle_step = FOV_ANGLE / SCREEN_W;
+    data.start_angle = data_global()->angle - FOV_ANGLE / 2;
+    x = 0;
+    while (x < SCREEN_W)
+    {
+        data.ray_dis = get_ray_lenght(data.start_angle);
+        data.ray_dis *= cos(data.start_angle - data_global()->angle);
+        data.dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
+        data.wallhight = (SOF / data.ray_dis) * data.dis;
+        data.start_draw = (SCREEN_H / 2) - (data.wallhight / 2);
+        data.end_draw = (SCREEN_H / 2) + (data.wallhight / 2);
+        if (data.start_draw < 0)
+            data.start_draw = 0;
+        if (data.end_draw >= SCREEN_H)
+            data.end_draw = SCREEN_H - 1;
+        draw_3d(img, data, x);
+        data.start_angle += data.angle_step;
+        x++;
     }
 }
 

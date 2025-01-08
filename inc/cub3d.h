@@ -40,7 +40,7 @@
 #define PI 3.14159265
 #define TOW_PI 6.28318530
 #define ROT_SPEED 0.04
-#define FOV_ANGLE M_PI / 3
+#define FOV_ANGLE PI / 3
 
 #define EPSILON 1e-6
 #define SCREEN_W 1920
@@ -95,7 +95,15 @@ typedef struct s_data
 	double			dh; // destance for horizontal
 	double			dv; // destance for vertical;
 	bool			is_vertical;
-
+	// ---------------
+    double angle_step;
+    double ray_angle;
+    double start_angle;
+	double ray_dis;
+	double dis; // distence to projection plan
+	double wallhight;
+	double start_draw;
+	double end_draw;
 	// bool			is_hor
 }	t_data;
 

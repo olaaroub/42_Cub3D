@@ -63,21 +63,21 @@ int	drawing(t_img *img)
 
 	y = 0;
 	render_3d(img);
-	while (data_global()->map.map[y])
-	{
-		x = 0;
-		while(data_global()->map.map[y][x])
-		{
-			data_global()->offset = SOF;
-			if (data_global()->map.map[y][x] == '1')
-				drawing1(img, x * SOF, y * SOF, 0xFFFFFF);
-			else if (data_global()->map.map[y][x] != ' ')
-				drawing1(img, x * SOF, y * SOF, 0xFF0000);
-			x++;
-		}
-		y++;
-	}
-	drawing_player(img);
+	// while (data_global()->map.map[y])
+	// {
+	// 	x = 0;
+	// 	while(data_global()->map.map[y][x])
+	// 	{
+	// 		data_global()->offset = SOF;
+	// 		if (data_global()->map.map[y][x] == '1')
+	// 			drawing1(img, x * SOF, y * SOF, 0xFFFFFF);
+	// 		else if (data_global()->map.map[y][x] != ' ')
+	// 			drawing1(img, x * SOF, y * SOF, 0xFF0000);
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+	// drawing_player(img);
 	put_img(img);
 	return 0;
 }

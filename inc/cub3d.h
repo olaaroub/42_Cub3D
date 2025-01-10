@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/30 20:21:16 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:14:54 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_map
 	char *color;
 	char *textur_as_lien;
 	char *map_as_lien;
+	int  ceiling_hex;
+	int  floor_hex;
 	int  flag;
 }	t_map;
 
@@ -96,14 +98,14 @@ typedef struct s_data
 	double			dv; // destance for vertical;
 	bool			is_vertical;
 	// ---------------
-    double angle_step;
-    double ray_angle;
-    double start_angle;
-	double ray_dis;
-	double dis; // distence to projection plan
-	double wallhight;
-	double start_draw;
-	double end_draw;
+    double 			angle_step;
+    double 			ray_angle;
+    double 			start_angle;
+	double 			ray_dis;
+	double 			dis; // distence to projection plan
+	double 			wallhight;
+	double 			start_draw;
+	double 			end_draw;
 	// bool			is_hor
 }	t_data;
 
@@ -128,7 +130,9 @@ void	get_postion(t_data *data, char **map);
 void	flodfile(char **map, int i, int j);
 void	check_floodfile(char **map);
 
-
+bool	is_valid_number(char *str);
+void	pars_the_color();
+int		cont_character(char *str, int c);
 // -----------------------------------
 
 void	main_of_drawing();

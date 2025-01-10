@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/10 23:10:30 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:09:28 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int main(int ac, char **av)
         return 1;
     check_option(av[1]);
     data_global()->map = read_map(av[1]);
+    pars_the_color();
     data_global()->y_max = ft_strlen_blm9lob(data_global()->map.map);
     data_global()->x_max = get_x(data_global()->map.map);
     main_of_drawing();

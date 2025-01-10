@@ -97,8 +97,7 @@ int move(void *parm)
             data_global()->angle -= 2 * PI;
     }
     mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
-    drawing(img);
-    // drawing_rays(img);
+    render_3d(img);
     return 0;
 }
 

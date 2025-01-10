@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/30 20:22:22 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:48:16 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ double draw_rayWithVertical(double angle, int map_x, int map_y)
     }
     return (sqrt(pow(Ax - data_global()->x, 2) + pow(Ay - data_global()->y, 2)));
 }
+
 void HorizontalIntersection(double *Ay, double *Ax, double angle)
 {
     double rayDirx;
@@ -197,11 +198,9 @@ double get_ray_lenght(double angle)
 
     hlen = draw_rayWithHorizontal(angle, map_x, map_y);
     vlen = draw_rayWithVertical(angle, map_x, map_y);
+    data_global()->is_vertical = false;
     if (hlen < vlen)
-    {
-        data_global()->is_vertical = false;
         return hlen;
-    }
     else
     {
         data_global()->is_vertical = true;
@@ -219,7 +218,7 @@ void draw_3d(t_img *img ,t_data data, int x)
     while (y < SCREEN_H)
     {
         if (y < data.start_draw)
-              ft_pixelput(img, x, y, 0xF4EDD3);
+              ft_pixelput(img, x, y, data_global()->map.ceiling_hex);
         else if (y >= data.start_draw && y <= data.end_draw)
         {
             if (data_global()->is_vertical)
@@ -229,10 +228,9 @@ void draw_3d(t_img *img ,t_data data, int x)
             ft_pixelput(img, x, y, color);
         }
         else
-            ft_pixelput(img, x, y, 0xA5BFCC);
+            ft_pixelput(img, x, y, data_global()->map.floor_hex);
         y++;
     }
-
 }
 
 void render_3d(t_img *img)
@@ -259,6 +257,7 @@ void render_3d(t_img *img)
         data.start_angle += data.angle_step;
         x++;
     }
+    put_img(img);
 }
 
 void drawing_rays(t_img *img)

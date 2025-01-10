@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/28 15:27:53 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:48:56 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	main_of_drawing()
 	get_postion(data_global(), data_global()->map.map);
 	initialization_data_global();
 	get_data_addr(img);
-	drawing(img);
-	// drawing_rays(img);
+	// drawing(img);
+	render_3d(img);
 	mlx_hook(data_global()->mlx_win, 17, 0,krwa, NULL);
 	mlx_hook(data_global()->mlx_win, 3, 1L << 1, key_release, img);
 	mlx_hook(data_global()->mlx_win, 2, 1L << 0, key_press, img);

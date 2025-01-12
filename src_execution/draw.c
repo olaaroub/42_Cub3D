@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/28 16:24:07 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:38:38 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,43 @@ void	drawing1(t_img *img, int x, int y, int color)
 	}
 }
 
-void	drawing_player(t_img *img)
+void	drawing_player(t_img *img, int x, int y)
 {
-	data_global()->offset = SOP;
-	drawing1(img, data_global()->x, data_global()->y, 0xfcba03);
-	drawing_rays(img);
+	data_global()->offset = 30;
+	drawing1(img, x, y, 0xfcba03);
 
 }
 
-int	drawing(t_img *img)
+void	minimap(t_img *img)
 {
 	int	x;
 	int	y;
+	int x_draw;
+	int y_draw;
 
-	y = 0;
-	// render_3d(img);
-	while (data_global()->map.map[y])
+	y_draw = 0;
+	y = (data_global()->y / SOF) - 5;
+	if (y < 0)
+		y = 0;
+	while (y <= (data_global()->y / SOF) + 5 && data_global()->map.map[y])
 	{
-		x = 0;
-		while(data_global()->map.map[y][x])
+		x = (data_global()->x / SOF) - 5;
+		x_draw = 0;
+		if (x < 0)
+			x = 0;
+		while(x <= (data_global()->x / SOF) + 5 && data_global()->map.map[y][x])
 		{
-			data_global()->offset = SOF;
+			data_global()->offset = MI_SIZE;
 			if (data_global()->map.map[y][x] == '1')
-				drawing1(img, x * SOF, y * SOF, 0xFFFFFF);
+				drawing1(img, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFFFFFF);
 			else if (data_global()->map.map[y][x] != ' ')
-				drawing1(img, x * SOF, y * SOF, 0xFF0000);
+				drawing1(img, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFF0000);
+			if (x == (int)data_global()->x / SOF && y == (int)data_global()->y / SOF)
+				drawing_player(img, x_draw * MI_SIZE, y_draw * MI_SIZE);	
 			x++;
+			x_draw++;
 		}
+		y_draw++;
 		y++;
 	}
-	drawing_player(img);
-	put_img(img);
-	return 0;
 }
-

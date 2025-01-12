@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/09 17:48:16 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/12 15:50:19 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,36 @@
         
 */
 
-int drawing_ray(t_img *img, double angle, int ray_length)
-{
-    int x_start = data_global()->x;
-    int y_start = data_global()->y;
+// int drawing_ray(t_img *img, double angle, int ray_length)
+// {
+//     int x_start = data_global()->x;
+//     int y_start = data_global()->y;
 
-    int x_end = x_start + ray_length * cos(angle);
-    int y_end = y_start + ray_length * sin(angle);
+//     int x_end = x_start + ray_length * cos(angle);
+//     int y_end = y_start + ray_length * sin(angle);
 
-    int dx = x_end - x_start;
-    int dy = y_end - y_start;
-    int steps = 0;
-    if (abs(dx) > abs(dy))
-        steps = abs(dx);
-    else
-        steps = abs(dy);
-    double x_inc = dx / (double)steps;
-    double y_inc = dy / (double)steps;
+//     int dx = x_end - x_start;
+//     int dy = y_end - y_start;
+//     int steps = 0;
+//     if (abs(dx) > abs(dy))
+//         steps = abs(dx);
+//     else
+//         steps = abs(dy);
+//     double x_inc = dx / (double)steps;
+//     double y_inc = dy / (double)steps;
 
-    double x = x_start;
-    double y = y_start;
-    int i = 0;
-    while (i <= steps) 
-    {
-        ft_pixelput(img, round(x), round(y), 0x00FF00);
-        x += x_inc;
-        y += y_inc;
-        i++;
-    }
-    return 0;
-}
+//     double x = x_start;
+//     double y = y_start;
+//     int i = 0;
+//     while (i <= steps) 
+//     {
+//         ft_pixelput(img, round(x), round(y), 0x00FF00);
+//         x += x_inc;
+//         y += y_inc;
+//         i++;
+//     }
+//     return 0;
+// }
 
 /*
 
@@ -222,15 +222,16 @@ void draw_3d(t_img *img ,t_data data, int x)
         else if (y >= data.start_draw && y <= data.end_draw)
         {
             if (data_global()->is_vertical)
-                color = 0x4C585B;
+                color = rgb_to_hex(76,88,91);
             else
-                color = 0x7E99A3;
+                color = rgb_to_hex(126, 153, 163);
             ft_pixelput(img, x, y, color);
         }
         else
             ft_pixelput(img, x, y, data_global()->map.floor_hex);
         y++;
     }
+    // 0x4C585B   0x7E99A3
 }
 
 void render_3d(t_img *img)
@@ -257,25 +258,26 @@ void render_3d(t_img *img)
         data.start_angle += data.angle_step;
         x++;
     }
+    minimap(img);
     put_img(img);
 }
 
-void drawing_rays(t_img *img)
-{
-    int screen_width = data_global()->x_max * SOF;
-    double fov = PI / 3;
-    double angle_step = fov / screen_width;
-    double ray_angle;
-    double start_angle = data_global()->angle - fov / 2;
-    int i = 0;
-    int ray;
+// void drawing_rays(t_img *img)
+// {
+//     int screen_width = data_global()->x_max * SOF;
+//     double fov = PI / 3;
+//     double angle_step = fov / screen_width;
+//     double ray_angle;
+//     double start_angle = data_global()->angle - fov / 2;
+//     int i = 0;
+//     int ray;
 
-    while (i < screen_width)
-    {
-        ray_angle = start_angle + i * angle_step;
-        ray = get_ray_lenght(ray_angle);
-        drawing_ray(img, ray_angle, ray);
-        i++;
-    }
-    put_img(img);
-}
+//     while (i < screen_width)
+//     {
+//         ray_angle = start_angle + i * angle_step;
+//         ray = get_ray_lenght(ray_angle);
+//         drawing_ray(img, ray_angle, ray);
+//         i++;
+//     }
+//     put_img(img);
+// }

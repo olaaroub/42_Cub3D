@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/27 16:47:02 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:59:40 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int move(void *parm)
 {
     t_img *img = parm;
 
-    // printf("%d\n", key);
     if (data_global()->fg_E)
         moveRight();
     if (data_global()->fg_W)

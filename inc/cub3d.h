@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/09 17:14:54 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/12 16:13:55 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 #define SOP 2 // this is size of player (x and y)!
 #define SOF 30 // this is size of foolr
 #define SPEED 1
+#define MI_SIZE 30
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
@@ -137,7 +138,7 @@ int		cont_character(char *str, int c);
 
 void	main_of_drawing();
 // int 	mouse(int botton,int key, int y, void *par);
-int		esc(int key, void *param);
+int    rgb_to_hex(int r, int g, int b);
 int		krwa();
 void	open_the_window();
 int		drawing(t_img *img);
@@ -150,4 +151,6 @@ int key_release(int key, void *parm);
 void drawing_rays(t_img *img);
 int key_press(int key, void *parm);
 void    render_3d(t_img *img);
+
+void	minimap(t_img *img);
 #endif

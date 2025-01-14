@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/12 16:13:55 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:06:56 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ typedef struct s_data
 	int				fg_S;
 	double			dh; // destance for horizontal
 	double			dv; // destance for vertical;
-	bool			is_vertical;
-	// ---------------
+	// -------rander 3d--------
     double 			angle_step;
+	bool			is_vertical;
     double 			ray_angle;
     double 			start_angle;
 	double 			ray_dis;
@@ -107,7 +107,17 @@ typedef struct s_data
 	double 			wallhight;
 	double 			start_draw;
 	double 			end_draw;
-	// bool			is_hor
+	// ------ mini map------
+	int				len;
+	double			x_end;
+	double			y_end;
+	int				dx;
+	int				dy;
+	int				steps;
+	double			x_inc;
+	double 			y_inc;
+	double			x_start;
+	double			y_start;
 }	t_data;
 
 

@@ -6,5 +6,5 @@
 .DS_Store
 *.swp
 *.txt
-cub3D
-# minilibx-linux/
+Cub3D
+.vscode/

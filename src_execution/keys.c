@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/26 20:29:05 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:30:44 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int key_press(int key, void *parm)
 {
+    (void)parm;
     if (key == ESC)
     {
         mlx_clear_window(data_global()->mlx, data_global()->mlx_win);

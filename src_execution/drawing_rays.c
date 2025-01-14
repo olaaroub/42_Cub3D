@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/12 15:50:19 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/14 20:30:03 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ double draw_rayWithVertical(double angle, int map_x, int map_y)
     {
         map_x = (int)Ax / SOF;
         map_y = (int)Ay / SOF;
-        if (map_x >= 0 && map_x < data_global()->x_max &&
-            map_y >= 0 && map_y < data_global()->y_max)
+        if (map_y >= 0 && map_y < data_global()->y_max &&
+            map_x >= 0 && map_x < (int)ft_strlen(data_global()->map.map[map_y]))
         {
             if (data_global()->map.map[map_y][map_x] == '1')
                 break;
@@ -178,11 +178,10 @@ double draw_rayWithHorizontal(double angle, int map_x, int map_y)
     {
         map_x = (int)(Ax / SOF);
         map_y = (int)(Ay / SOF);
-        if (map_x >= 0 && map_x < data_global()->x_max &&
-            map_y >= 0 && map_y < data_global()->y_max &&
+        if (map_y >= 0 && map_y < data_global()->y_max &&
+            map_x >= 0 && map_x < (int)ft_strlen(data_global()->map.map[map_y]) &&
             data_global()->map.map[map_y][map_x] == '1')
             break;
-
         Ax += xstep;
         Ay += ystep;
     }
@@ -196,6 +195,8 @@ double get_ray_lenght(double angle)
     int map_x;
     int map_y;
 
+    map_x = 0;
+    map_y = 0;
     hlen = draw_rayWithHorizontal(angle, map_x, map_y);
     vlen = draw_rayWithVertical(angle, map_x, map_y);
     data_global()->is_vertical = false;

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/01 02:28:03 by olaaroub          #+#    #+#              #
-#    Updated: 2024/12/30 19:07:10 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/01/14 20:32:16 by ohammou-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = #-Wall -Wextra -Werror
-CFLAGS += #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS += -fsanitize=address -g3
 MAKEFLAGS := --no-print-directory
 
 # ITALICBOLD
@@ -26,7 +26,7 @@ SRC += $(wildcard tools/*.c)
 
 OBJ = $(SRC:.c=.o)
 
-NAME = cub3D
+NAME = Cub3D
 LIB = libft/libft.a
 MINILIBX = minilibx-linux/libmlx_Linux.a
 HEADER = inc/cub3d.h
@@ -41,7 +41,7 @@ $(NAME): $(OBJ) $(LIB) $(MINILIBX) $(HEADER)
 
 
 $(MINILIBX):
-	@$(MAKE) -C minilibx-linux
+	@make -C minilibx-linux
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 
 $(LIB):

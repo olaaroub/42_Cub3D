@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_player.c                                     :+:      :+:    :+:   */
+/*   utils-v3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 18:39:45 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/12 11:18:03 by ohammou-         ###   ########.fr       */
+/*   Created: 2025/01/09 16:14:33 by ohammou-          #+#    #+#             */
+/*   Updated: 2025/01/09 17:16:18 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	check_player(char **map)
+int cont_character(char *str, int c)
 {
-	int	i;
-	int	flag;
-	int j;
+    int cont;
+    int i;
 
-	flag = 0;
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if ((map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
-				|| map[i][j] == 'S') && flag == 1)
-				ft_error("multiple player\n");
-			else if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
-				|| map[i][j] == 'S')
-				flag = 1;
-			j++;
-		}
-		i++;
-	}
-	if (!flag)
-		ft_error("no player !\n");
+    cont = 0;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == c)
+            cont++;
+        i++;
+    }
+    return (cont);
+}
+
+bool is_valid_number(char *str)
+{
+    int i;
+
+    i = 0;
+    while(str[i])
+    {
+        if (!ft_isdigit(str[i]))
+            return false;
+        i++;
+    }
+    return true;
 }

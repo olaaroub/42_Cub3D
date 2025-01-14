@@ -6,13 +6,13 @@
 #    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/01 02:28:03 by olaaroub          #+#    #+#              #
-#    Updated: 2024/12/25 14:36:16 by ohammou-         ###   ########.fr        #
+#    Updated: 2025/01/14 20:32:16 by ohammou-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += #-fsanitize=address -g3
+# CFLAGS += -fsanitize=address -g3
 MAKEFLAGS := --no-print-directory
 
 # ITALICBOLD
@@ -26,13 +26,14 @@ SRC += $(wildcard tools/*.c)
 
 OBJ = $(SRC:.c=.o)
 
-NAME = cub3D
+NAME = Cub3D
 LIB = libft/libft.a
 MINILIBX = minilibx-linux/libmlx_Linux.a
+HEADER = inc/cub3d.h
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIB) $(MINILIBX)
+$(NAME): $(OBJ) $(LIB) $(MINILIBX) $(HEADER)
 	@stty -echoctl
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -o $(NAME)
 	make clean
@@ -40,22 +41,21 @@ $(NAME): $(OBJ) $(LIB) $(MINILIBX)
 
 
 $(MINILIBX):
-	@$(MAKE) -C minilibx-linux
+	@make -C minilibx-linux
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 
 $(LIB):
-	@$(MAKE) -C libft
+	@make -j -C libft
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)libft$(RESET)"
 
 clean:
 	@rm -rf $(OBJ)
-	@make clean -C minilibx-linux
 	@make clean -C libft
 
 fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(LIB)
-	@rm -rf $(MINILIBX)
+	@make clean -C minilibx-linux
 
 re:
 	@make fclean

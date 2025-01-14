@@ -14,7 +14,7 @@
 
 void get_data_addr(t_img *img)
 {
-	img->img = mlx_new_image(data_global()->mlx,  data_global()->x_max * 60,  data_global()->y_max * 60);
+	img->img = mlx_new_image(data_global()->mlx,  SCREEN_W,  SCREEN_H);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
 }
 

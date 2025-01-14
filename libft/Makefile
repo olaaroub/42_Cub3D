@@ -6,7 +6,7 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 11:35:23 by olaaroub          #+#    #+#              #
-#    Updated: 2024/12/10 23:19:02 by olaaroub         ###   ########.fr        #
+#    Updated: 2024/12/30 19:09:00 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,24 +42,21 @@ NAME = libft.a
 
 all : $(NAME)
 
-$(NAME): $(OBJ)
-	# @$(CC) $(CFLAGS) -c $(B_SRCS)
+$(NAME): $(OBJ) $(B_OBJ)
+	@$(CC) $(CFLAGS) -c $(B_SRCS)
 	@$(AR) $(NAME) $(OBJ) $(B_OBJ)
-	# @$(AR) $(NAME) $(B_OBJ)
-
-
-
-bonus : $(B_OBJ)
+	@$(AR) $(NAME) $(B_OBJ)
+	@make clean
 
 $(B_OBJ):$(B_SRCS)
 	@$(CC) $(CFLAGS) -c $(B_SRCS)
 	@$(AR) $(NAME) $(B_OBJ)
 
 clean:
-	@$(RM) $(OBJ)
+	@$(RM) $(OBJ) $(B_OBJ)
 
 fclean:
-	@$(RM) $(NAME) $(OBJ)
+	@$(RM) $(NAME)
 re: fclean all
 
 .PHONY : clean fclean all re bonus

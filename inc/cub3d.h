@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/28 16:32:47 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:06:56 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,33 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <limits.h>
+
 // ---------define the macros for moves-----------
 
 #define UP 119
 #define DOWN 115
 #define LEFT 97
 #define RIGHT 100
+#define ESC 65307
 
 #define RIGHT_V 65363
 #define LEFT_V 65361
 
-#define FRM 5 // this macro to haw match  moves the player do in single clik !
-#define SOP 20 // this is size of player (x and y)!
-#define SOF 60 // this is size of foolr
-#define SPEED 2
+#define FRM 4 // this macro to haw match  moves the player do in single clik !
+#define SOP 2 // this is size of player (x and y)!
+#define SOF 30 // this is size of foolr
+#define SPEED 1
+#define MI_SIZE 30
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
-#define ROT_SPEED ( PI / 30)
+#define ROT_SPEED 0.04
+#define FOV_ANGLE PI / 3
 
+#define EPSILON 1e-6
+#define SCREEN_W 1920
+#define SCREEN_H 1080
 
 typedef struct s_map
 {
@@ -47,6 +55,8 @@ typedef struct s_map
 	char *color;
 	char *textur_as_lien;
 	char *map_as_lien;
+	int  ceiling_hex;
+	int  floor_hex;
 	int  flag;
 }	t_map;
 
@@ -62,8 +72,8 @@ typedef struct s_data
 {
 	void			*mlx;
 	void			*mlx_win;
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 	int				len_x;
 	int				len_y;
 	int				x_max;
@@ -79,6 +89,35 @@ typedef struct s_data
 	t_img			*img;
 	int				offset;
 	double			angle;
+	int				fg_left;
+	int				fg_right;
+	int				fg_W;
+	int				fg_E;
+	int				fg_N;
+	int				fg_S;
+	double			dh; // destance for horizontal
+	double			dv; // destance for vertical;
+	// -------rander 3d--------
+    double 			angle_step;
+	bool			is_vertical;
+    double 			ray_angle;
+    double 			start_angle;
+	double 			ray_dis;
+	double 			dis; // distence to projection plan
+	double 			wallhight;
+	double 			start_draw;
+	double 			end_draw;
+	// ------ mini map------
+	int				len;
+	double			x_end;
+	double			y_end;
+	int				dx;
+	int				dy;
+	int				steps;
+	double			x_inc;
+	double 			y_inc;
+	double			x_start;
+	double			y_start;
 }	t_data;
 
 
@@ -102,20 +141,26 @@ void	get_postion(t_data *data, char **map);
 void	flodfile(char **map, int i, int j);
 void	check_floodfile(char **map);
 
-
+bool	is_valid_number(char *str);
+void	pars_the_color();
+int		cont_character(char *str, int c);
 // -----------------------------------
 
 void	main_of_drawing();
-int 	mouse(int botton,int key, int y, void *par);
-int		esc(int key, void *param);
+// int 	mouse(int botton,int key, int y, void *par);
+int    rgb_to_hex(int r, int g, int b);
 int		krwa();
 void	open_the_window();
 int		drawing(t_img *img);
-int		move(int key, void *parm);
+int		move(void *parm);
 void	get_data_addr(t_img *img);
 void 	put_img(t_img *img);
-int		drawing_ray(t_img *img, double angle);
+int 	drawing_ray(t_img *img, double angle, int ray_length);
 void	ft_pixelput(t_img *img, int x, int y, int color);
-
+int key_release(int key, void *parm);
 void drawing_rays(t_img *img);
+int key_press(int key, void *parm);
+void    render_3d(t_img *img);
+
+void	minimap(t_img *img);
 #endif

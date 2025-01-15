@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/15 21:39:30 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:45:57 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void minimap_draw(t_img *img, t_data data, char **map)
 
 	if (map[data.j][data.i] && map[data.j][data.i] == '1')
 		ft_pixelput(img, rotx , roty, 0xFFFFFF);
-	else if (data.i == (int)(data_global()->x / SOF) && data.j == (int)(data_global()->y / SOF))
+	else if (data.i == (int)((data_global()->x) / SOF) && data.j == (int)(data_global()->y / SOF))
 		ft_pixelput(img, rotx, roty, 0xfcba03);
 	else if (map[data.j][data.i] && map[data.j][data.i] == '0')
 		ft_pixelput(img, rotx, roty, 0xFF0000);

@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/15 19:50:48 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:39:30 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	drawing1(t_img *img, int x, int y, int color)
 
 void	drawing_player(t_img *img, int x, int y)
 {
-	data_global()->offset = 30;
+	data_global()->offset = 10;
 	drawing1(img, x, y, 0xfcba03);
 
 }
@@ -105,12 +105,14 @@ void minimap_draw(t_img *img, t_data data, char **map)
 	if (data.i > (int)ft_strlen(map[data.j]))
 		data.i = (int)ft_strlen(map[data.j]) - 1;
 	int offset = data.len + 20;
-	double angle = data_global()->angle;
+	double angle = data_global()->angle - (PI / 2);
 	int rotx = round(data.x * cos(angle) + data.y * sin(angle)) + offset;
 	int roty = round(data.x * sin(angle) - data.y * cos(angle)) + SCREEN_H - offset;
 
 	if (map[data.j][data.i] && map[data.j][data.i] == '1')
 		ft_pixelput(img, rotx , roty, 0xFFFFFF);
+	else if (data.i == (int)(data_global()->x / SOF) && data.j == (int)(data_global()->y / SOF))
+		ft_pixelput(img, rotx, roty, 0xfcba03);
 	else if (map[data.j][data.i] && map[data.j][data.i] == '0')
 		ft_pixelput(img, rotx, roty, 0xFF0000);
 	else
@@ -125,7 +127,7 @@ void minimap(t_img *img)
 	data.y_start = data_global()->y - data.len;
 	data.x_end = data_global()->x + data.len;
 	data.y_end = data_global()->y + data.len;
-	data.y = -data.len;//SCREEN_H - (data.y_end - data.y_start) - 20;
+	data.y = -data.len;
 	char **map = data_global()->map.map;
 	while (data.y_start < data.y_end)
 	{

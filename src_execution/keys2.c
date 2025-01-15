@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/10 16:59:40 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:00:06 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int move(void *parm)
         if (data_global()->angle >= 2 * PI)
             data_global()->angle -= 2 * PI;
     }
-    mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
     render_3d(img);
     return 0;
 }

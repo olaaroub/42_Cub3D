@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:03:02 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/01 02:38:43 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:35:47 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void check_wall2(t_map *map)
 
     mapp = duplicate_map(map->map);
     get_postion(&data, mapp);
-    flodfile(mapp, data.x, data.y);
+    // flodfile(mapp, data.x, data.y);
     check_floodfile(mapp);
     free_map(mapp);
 }

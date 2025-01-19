@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/15 19:25:35 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:03:19 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void VerticalIntersection(double *Ay, double *Ax, double angle)
 
 }
 
-double draw_rayWithVertical(double angle, int map_x, int map_y)
+double draw_rayWithVertical(double angle, int map_x, int map_y, t_data *vdata)
 {
     double Ay;
     double Ax;
@@ -133,6 +133,8 @@ double draw_rayWithVertical(double angle, int map_x, int map_y)
         Ax += xstep;
         Ay += ystep;
     }
+    vdata->hit_x = Ax;
+    vdata->hit_y = Ay;
     return (sqrt(pow(Ax - data_global()->x, 2) + pow(Ay - data_global()->y, 2)));
 }
 
@@ -158,7 +160,7 @@ void HorizontalIntersection(double *Ay, double *Ax, double angle)
     *Ax = x + ((*Ay - y) / rayDiry) * rayDirx;
 }
 
-double draw_rayWithHorizontal(double angle, int map_x, int map_y)
+double draw_rayWithHorizontal(double angle, int map_x, int map_y, t_data *hdata)
 {
     double Ay;
     double Ax;
@@ -185,6 +187,8 @@ double draw_rayWithHorizontal(double angle, int map_x, int map_y)
         Ax += xstep;
         Ay += ystep;
     }
+    hdata->hit_x = Ax;
+    hdata->hit_y = Ay;
     return (sqrt(pow(Ax - data_global()->x, 2) + pow(Ay - data_global()->y, 2)));
 }
 
@@ -192,18 +196,24 @@ double get_ray_lenght(double angle)
 {
     double hlen;
     double vlen;
-    int map_x;
-    int map_y;
+    t_data vdata;
+    t_data hdata;
 
-    map_x = 0;
-    map_y = 0;
-    hlen = draw_rayWithHorizontal(angle, map_x, map_y);
-    vlen = draw_rayWithVertical(angle, map_x, map_y);
+    vdata.map_x = 0;
+    vdata.map_y = 0;
+    hlen = draw_rayWithHorizontal(angle, vdata.map_x, vdata.map_y, &hdata);
+    vlen = draw_rayWithVertical(angle, vdata.map_x, vdata.map_y, &vdata);
     data_global()->is_vertical = false;
     if (hlen < vlen)
+    {
+        data_global()->hit_x = hdata.hit_x;
+        data_global()->hit_y = hdata.hit_y;
         return hlen;
+    }
     else
     {
+        data_global()->hit_x = vdata.hit_x;
+        data_global()->hit_y = vdata.hit_y;
         data_global()->is_vertical = true;
         return vlen;
     }

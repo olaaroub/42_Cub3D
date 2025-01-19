@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flodfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:33:24 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/10 23:09:25 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:03:52 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,36 @@ void    flodfile(char **map, int i, int j)
     flodfile(map, i - 1,j);
     flodfile(map, i,j - 1);
 }
+
+// bool chack_ifIsValid(char **map, int i, int j)
+// {
+//     if (i > 0 && map[j][i - 1] == ' ')
+//         return false;
+//     else if (map[j][i] && (map[j][i + 1] == ' ' || !map[j][i + 1]))
+//         return false;
+//     else if (j > 0 && map[j - 1][i] == ' ')
+//         return false;
+//     else if (map[j] && (map[j + 1] == ' ' || !map[j][i])) 
+// }
+
+// bool check_mapifitSurrounded(char **map)
+// {
+//     int i;
+//     int j;
+
+//     j = 0;
+//     while (map[j])
+//     {
+//         i = 0;
+//         while (map[j][i])
+//         {
+//             if (map[i] == '0')
+//             {
+                
+//             }
+//             i++;
+//         }
+        
+//         j++;
+//     }
+// }

@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/15 21:45:57 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:32:06 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void minimap_draw(t_img *img, t_data data, char **map)
 		data.i = (int)ft_strlen(map[data.j]) - 1;
 	int offset = data.len + 20;
 	double angle = data_global()->angle - (PI / 2);
-	int rotx = round(data.x * cos(angle) + data.y * sin(angle)) + offset;
-	int roty = round(data.x * sin(angle) - data.y * cos(angle)) + SCREEN_H - offset;
+	int rotx = round(data.x * cos(angle) - data.y * sin(angle)) + offset;
+	int roty = round(data.x * sin(angle) + data.y * cos(angle)) + SCREEN_H - offset;
 
 	if (map[data.j][data.i] && map[data.j][data.i] == '1')
 		ft_pixelput(img, rotx , roty, 0xFFFFFF);

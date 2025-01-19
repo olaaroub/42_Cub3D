@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/14 22:21:25 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:54:47 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ typedef struct s_data
 	double 			wallhight;
 	double 			start_draw;
 	double 			end_draw;
+	int				map_y;
+	int				map_x;
 	// ------ mini map------
 	int				len;
 	double			x_end;
@@ -118,6 +120,9 @@ typedef struct s_data
 	double 			y_inc;
 	double			x_start;
 	double			y_start;
+	//-------------------------
+	double			hit_x;
+	double			hit_y;
 }	t_data;
 
 

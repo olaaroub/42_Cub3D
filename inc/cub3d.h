@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/19 15:54:47 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:13:05 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,4 +168,5 @@ int key_press(int key, void *parm);
 void    render_3d(t_img *img);
 
 void	minimap(t_img *img);
+bool	check_mapifitSurrounded(char **map);
 #endif

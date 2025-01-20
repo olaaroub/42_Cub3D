@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 17:13:41 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:07:25 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ void init_texture(t_data *data)
 
 void    init_game(t_data *data, char **av)
 {
+    data->map = read_map(av[1]);
+    pars_the_color(data); // this lines I added it her becose you will check parsing befor open the window
+    pars_texture(data);
     data->mlx = mlx_init();
     data->mlx_win = mlx_new_window(data->mlx, SCREEN_W, SCREEN_H, "Cub3D");
     data->img = malloc(sizeof(t_img));
     data->img->img = mlx_new_image(data->mlx, SCREEN_W, SCREEN_H);
     data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bits_per_pixel,
                 &data->img->line_length, &data->img->endian);
-    data->map = read_map(av[1]);
     data->y_max = ft_strlen_blm9lob(data->map.map);
     data->x_max = get_x(data->map.map);
     get_postion(data, data->map.map);
@@ -85,10 +87,6 @@ int main(int ac, char **av)
     t_data data;
     check_argument(av, ac);
     init_game(&data, av);
-    // data_global()->map = read_map(av[1]);
-    pars_the_color(&data);
-    // data_global()->y_max = ft_strlen_blm9lob(data_global()->map.map);
-    // data_global()->x_max = get_x(data_global()->map.map);
     main_of_drawing(&data);
     mlx_loop(data.mlx);
     return 0;

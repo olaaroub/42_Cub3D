@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
 /*   Updated: 2025/01/20 16:14:36 by olaaroub         ###   ########.fr       */
@@ -120,6 +120,7 @@ void	check_player(char **map)
 }
 
 
+
 t_map   read_map(char *file)
 {
 	int fd;
@@ -134,5 +135,6 @@ t_map   read_map(char *file)
 	check_player(map.map);
 	check_wall(&map);
 	check_wall2(&map);
+	
 	return (map);
 }

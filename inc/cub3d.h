@@ -58,6 +58,11 @@ typedef struct s_map
 	int  ceiling_hex;
 	int  floor_hex;
 	int  flag;
+
+	char *texturOfWe;
+	char *texturOfSo;
+	char *texturOfNo;
+	char *texturOfEa;	
 }	t_map;
 
 typedef struct	s_img {
@@ -186,7 +191,6 @@ int key_press(int key, void *parm);
 void    render_3d(t_data *data);
 void	minimap(t_img *img);
 
-//
-
 void initialize_variables(t_data *data);
+bool	check_mapifitSurrounded(char **map);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:10:19 by olaaroub          #+#    #+#             */
-/*   Updated: 2024/12/01 17:38:31 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:09:24 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,26 @@ int	words_len(char **words)
 		i++;
 	return (i);
 }
+
 int	is_texture(char *line)
 {
-	return (ft_strnstr(line, "NO ", 3) || ft_strnstr(line, "SO ", 3)
-		|| ft_strnstr(line, "WE ", 3) || ft_strnstr(line, "EA ", 3));
+	int i;
+
+	i = 0;
+	while (is_whitespace(line[i]))
+		i++;	
+	return (ft_strnstr(&line[i], "NO ", 3) || ft_strnstr(&line[i], "SO ", 3)
+		|| ft_strnstr(&line[i], "WE ", 3) || ft_strnstr(&line[i], "EA ", 3));
 }
 
 int	is_color(char *line)
 {
-	return (ft_strnstr(line, "F ", 2) || ft_strnstr(line, "C ", 2));
+	int i;
+
+	i = 0;
+	while (is_whitespace(line[i]))
+		i++;	
+	return (ft_strnstr(&line[i], "F ", 2) || ft_strnstr(&line[i], "C ", 2));
 }
 int is_emty(char *line)
 {

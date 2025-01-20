@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/19 18:40:04 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:50:16 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
 #define SOP 2 // this is size of player (x and y)!
-#define SOF 30 // this is size of foolr
+#define SOF 64 // this is square size
 #define SPEED 1
 #define MI_SIZE 30
 
@@ -73,8 +73,30 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
+
+typedef struct s_texture
+{
+	void *texture;
+	char *addr;
+	char *path;
+	int bits_per_pixel;
+	int line_length;
+	int endian;
+	int width;
+	int height;
+
+} t_texture;
+
 typedef struct s_data
 {
+	t_texture		*north_tex;
+	t_texture		*south_tex;
+	t_texture		*west_tex;
+	t_texture		*east_tex;
+	int *texture;
+	int *south;
+	int *east;
+	int *west;
 	void			*mlx;
 	void			*mlx_win;
 	double			x;
@@ -131,10 +153,9 @@ typedef struct s_data
 }	t_data;
 
 
-void	check_option(char *str);
+void	check_argument(char **av, int ac);
 int		is_texture(char *line);
 int		is_color(char *line);
-// int		is_white_space(char c);
 int 	is_emty(char *line);
 t_map   read_map(char *file);
 void    free_trash(t_list **trash);
@@ -150,18 +171,15 @@ t_data	*data_global();
 void	get_postion(t_data *data, char **map);
 void	flodfile(char **map, int i, int j);
 void	check_floodfile(char **map);
-
 bool	is_valid_number(char *str);
-void	pars_the_color();
+void	pars_the_color(t_data *data);
 int		cont_character(char *str, int c);
 // -----------------------------------
-
-void	main_of_drawing();
-// int 	mouse(int botton,int key, int y, void *par);
+void	main_of_drawing(t_data *data);
 int    rgb_to_hex(int r, int g, int b);
 int		krwa();
 void	open_the_window();
-int		drawing(t_img *img);
+int		drawing(t_data *data);
 int		move(void *parm);
 void	get_data_addr(t_img *img);
 void 	put_img(t_img *img);
@@ -170,8 +188,9 @@ void	ft_pixelput(t_img *img, int x, int y, int color);
 int key_release(int key, void *parm);
 void drawing_rays(t_img *img);
 int key_press(int key, void *parm);
-void    render_3d(t_img *img);
-
+void    render_3d(t_data *data);
 void	minimap(t_img *img);
+
+void initialize_variables(t_data *data);
 bool	check_mapifitSurrounded(char **map);
 #endif

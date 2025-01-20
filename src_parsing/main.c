@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/09 17:09:28 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:10:20 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(int ac, char **av)
 {
     if (ac < 2)
         return 1;
+    
     check_option(av[1]);
     data_global()->map = read_map(av[1]);
     pars_the_color();

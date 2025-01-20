@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/01 02:39:01 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:10:13 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,15 @@ void	get_element_of_file(int fd, t_map *map)
 	free_trash(&trash);
 }
 
+
+
+// void separet_theTextur(t_map *map)
+// {
+// 	int i;
+// 	int j;
+	
+// }
+
 t_map   read_map(char *file)
 {
 	t_data	data;
@@ -105,5 +114,6 @@ t_map   read_map(char *file)
 	check_player(map.map);
 	check_wall(&map);
 	check_wall2(&map);
+	
 	return (map);
 }

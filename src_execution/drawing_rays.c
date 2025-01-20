@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/19 16:03:19 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:51:08 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ double get_ray_lenght(double angle)
     return 0;
 }
 
-void draw_3d(t_img *img ,t_data data, int x)
+void draw_3d(t_img *img ,t_data *data, int x)
 {
     int y;
     int color;
@@ -228,9 +228,9 @@ void draw_3d(t_img *img ,t_data data, int x)
     y = 0;
     while (y < SCREEN_H)
     {
-        if (y < data.start_draw)
+        if (y < data->start_draw)
               ft_pixelput(img, x, y, data_global()->map.ceiling_hex);
-        else if (y >= data.start_draw && y <= data.end_draw)
+        else if (y >= data->start_draw && y <= data->end_draw)
         {
             if (data_global()->is_vertical)
                 color = rgb_to_hex(76,88,91);
@@ -265,11 +265,11 @@ void render_3d(t_img *img)
             data.start_draw = 0;
         if (data.end_draw >= SCREEN_H)
             data.end_draw = SCREEN_H - 1;
-        draw_3d(img, data, x);
+        draw_3d(img, &data, x);
         data.start_angle += data.angle_step;
         x++;
     }
-    minimap(img);
+    // minimap(img);
     put_img(img);
 }
 

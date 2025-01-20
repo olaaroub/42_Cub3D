@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/19 18:13:05 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:40:04 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ typedef struct s_map
 	int  ceiling_hex;
 	int  floor_hex;
 	int  flag;
+
+	char *texturOfWe;
+	char *texturOfSo;
+	char *texturOfNo;
+	char *texturOfEa;	
 }	t_map;
 
 typedef struct	s_img {

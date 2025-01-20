@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2024/12/01 02:39:01 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:14:36 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,45 @@ void	get_element_of_file(int fd, t_map *map)
 	free_trash(&trash);
 }
 
+void	check_player(char **map)
+{
+	int	i;
+	int	flag;
+	int j;
+
+	flag = 0;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if ((map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
+				|| map[i][j] == 'S') && flag == 1)
+				ft_error("multiple player\n");
+			else if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
+				|| map[i][j] == 'S')
+				flag = 1;
+			j++;
+		}
+		i++;
+	}
+	if (!flag)
+		ft_error("no player !\n");
+}
+
+
 t_map   read_map(char *file)
 {
-	t_data	data;
+	int fd;
+	
 	t_map	map;
-	data.fd = open(file, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	map.flag = 1;
 	map.color = "";
 	map.textur_as_lien = "";
 	map.map_as_lien = "";
-	get_element_of_file(data.fd, &map);
+	get_element_of_file(fd, &map);
 	check_player(map.map);
 	check_wall(&map);
 	check_wall2(&map);

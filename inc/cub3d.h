@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/19 15:54:47 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 00:56:36 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
 #define SOP 2 // this is size of player (x and y)!
-#define SOF 30 // this is size of foolr
+#define SOF 64 // this is square size
 #define SPEED 1
 #define MI_SIZE 30
 
@@ -68,8 +68,30 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
+
+typedef struct s_texture
+{
+	void *texture;
+	char *addr;
+	char *path;
+	int bits_per_pixel;
+	int line_length;
+	int endian;
+	int width;
+	int height;
+
+} t_texture;
+
 typedef struct s_data
 {
+	// t_texture		*north;
+	// t_texture		*south;
+	// t_texture		*west;
+	// t_texture		*east;
+	int *texture;
+	int *south;
+	int *east;
+	int *west;
 	void			*mlx;
 	void			*mlx_win;
 	double			x;

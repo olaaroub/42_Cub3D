@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/19 16:03:19 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 01:28:01 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
         y: b = a.sin(O);
 
     in the drawing_ray function the a is the len of ray;
-        
+
 */
 
 // int drawing_ray(t_img *img, double angle, int ray_length)
@@ -48,7 +48,7 @@
 //     double x = x_start;
 //     double y = y_start;
 //     int i = 0;
-//     while (i <= steps) 
+//     while (i <= steps)
 //     {
 //         ft_pixelput(img, round(x), round(y), 0x00FF00);
 //         x += x_inc;
@@ -69,7 +69,7 @@
     | / |
     |/__|________> x
      P
-    
+
     - we have a equation is : cos(O) = Ax / |PA|  and sin(O) =  Ay /  |PA|;
     so: Ax  = |PA|.cos(O) and Ay = |PA|.sin(O);
     ok,  using this equation we try to  find  a equation that  find first point;
@@ -77,7 +77,7 @@
     Ax: ray.distance = (Ax - x) /  cos(O);
     Ay:  Ay = Ay +  (Ax - x)  /  cos(O); // becose he has  a same ray len (same |PA| in above example);
 
-    and if  we  want to calculat Ax we use the same method  
+    and if  we  want to calculat Ax we use the same method
 
 */
 void VerticalIntersection(double *Ay, double *Ax, double angle)
@@ -220,6 +220,45 @@ double get_ray_lenght(double angle)
     return 0;
 }
 
+// int get_vertical_color(t_data data, double y)
+// {
+//   int x;
+//   int offset;
+//   int index;
+
+//     if((data_global()->ray_angle >= (PI / 2) )&& (data_global()->ray_angle < ((3 * PI) / 2)))
+//     {
+//         x = ((64 * data.hit_y) / 64);
+//         offset = y + (data.wallhight / 2) - (SCREEN_H / 2);
+//         index = offset * (64 / data.wallhight);
+//         return(*(int*)(data_global()->east + ((64 * (index * 4) + (x * 4)))));
+//     }
+//     x = (int)(64 * data.hit_y / 64);
+//     offset = y + (data.wallhight / 2) - (SCREEN_H / 2);
+//     index = offset * (64 / data.wallhight);
+//     return (*(int*)(data_global()->west + ((64 * (index * 4) + (x * 4)))));
+// }
+
+// int get_horizontal_color(t_data data, double y)
+// {
+//     int x;
+//     int offset;
+//     int index;
+
+//     if (data_global()->ray_angle >= PI && data_global()->ray_angle < 2 * PI)
+//     {
+//         x = (int)(64 * data.hit_x / 64);
+//         offset = y + (data.wallhight / 2) - (SCREEN_H / 2);
+//         index = offset * (64 / data.wallhight);
+//         return (*(int*)(data_global()->south + ((64 * (index * 4) + (x * 4)))));
+//     }
+
+//     x = (int)(64 * data.hit_x / 64);
+//     offset = y + (data.wallhight / 2) - (SCREEN_H / 2);
+//     index = offset * (64 / data.wallhight);
+//     return (*(int*)(data_global()->texture + ((64 * (index * 4) + (x * 4)))));
+// }
+
 void draw_3d(t_img *img ,t_data data, int x)
 {
     int y;
@@ -228,19 +267,33 @@ void draw_3d(t_img *img ,t_data data, int x)
     y = 0;
     while (y < SCREEN_H)
     {
-        if (y < data.start_draw)
-              ft_pixelput(img, x, y, data_global()->map.ceiling_hex);
-        else if (y >= data.start_draw && y <= data.end_draw)
+        while(y < data.start_draw)
         {
-            if (data_global()->is_vertical)
-                color = rgb_to_hex(76,88,91);
-            else
-                color = rgb_to_hex(126, 153, 163);
-            ft_pixelput(img, x, y, color);
+            ft_pixelput(img, x, y, 0xFF333333);
+            y++;
         }
+        int texture_offset_x ;
+        if (data_global()->is_vertical)
+            texture_offset_x = (int)data_global()->hit_y % SOF;
         else
-            ft_pixelput(img, x, y, data_global()->map.floor_hex);
-        y++;
+            texture_offset_x = (int)data_global()->hit_x % SOF;
+        while(y >= data.start_draw && y < data.end_draw)
+        {
+            // if(data.is_vertical)
+            //     color = get_vertical_color(data, y);
+            // else
+            //     color = get_horizontal_color(data, y);
+            int distance_from_top = y - (SCREEN_H / 2) + (data.wallhight / 2);
+            int texture_offset_y = distance_from_top * (float)(64.0 / data.wallhight);
+            color = ((int *)data_global()->texture)[64 * texture_offset_y + texture_offset_x];
+            ft_pixelput(img, x, y, color);
+            y++;
+        }
+        while(y < SCREEN_H)
+        {
+            ft_pixelput(img, x, y, 0xFF777777);
+            y++;
+        }
     }
     // 0x4C585B   0x7E99A3
 }

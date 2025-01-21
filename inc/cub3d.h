@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:19:58 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:31:08 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct s_data
 
 
 void    free_trash(t_list **trash);
-void	check_argument(char **av, int ac);
+void	check_argument(char **av, int ac, t_data *data);
 int		is_texture(char *line);
 int		is_color(char *line);
 int 	is_empty(char *line);

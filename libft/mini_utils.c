@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:10:19 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/01/21 17:09:58 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:49:30 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,35 @@ int	words_len(char **words)
 int	is_texture(char *line)
 {
 	int i;
+	int j;
 
 	i = 0;
-	while (is_whitespace(line[i]))
+	while (line[i] && is_whitespace(line[i]))
 		i++;
-	return (ft_strnstr(&line[i], "NO ", 3) || ft_strnstr(&line[i], "SO ", 3)
-		|| ft_strnstr(&line[i], "WE ", 3) || ft_strnstr(&line[i], "EA ", 3));
+	j = i;
+	while (line[j] && !is_whitespace(line[j]))
+		j++;
+	char *str = ft_substr(line, i, j - i);
+	if (!ft_strcmp(str, "NO") || !ft_strcmp(str, "SO")
+		|| !ft_strcmp(str, "WE") || !ft_strcmp(str, "EA"))
+		return (free(str), 1);
+	return (free(str), 0);
 }
-
 int	is_color(char *line)
 {
 	int i;
+	int j;
 
 	i = 0;
-	while (is_whitespace(line[i]))
+	while (line[i] && is_whitespace(line[i]))
 		i++;
-	return (ft_strnstr(&line[i], "F ", 2) || ft_strnstr(&line[i], "C ", 2));
+	j = i;
+	while (line[j] && !is_whitespace(line[j]))
+		j++;
+	char *str = ft_substr(line, i, j - i);
+	if (!ft_strcmp(str, "F") || !ft_strcmp(str, "C"))
+		return (free(str), 1);
+	return (free(str), 0);
 }
 int is_empty(char *line)
 {

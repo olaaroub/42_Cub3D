@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:26:29 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:50:57 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	get_game_elements(int fd, t_map *map)
 	map->floor_color = ft_split(map->color, '\n');
 	map->map = ft_split(map->map_line, '\n');
 	map->texture = ft_split(map->texture_line, '\n');
+	for (int i = 0; map->floor_color[i]; i++)
+		printf("%s\n", map->floor_color[i]);
 	free_trash(&trash);
 }
 

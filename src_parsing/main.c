@@ -6,13 +6,13 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:53:43 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:47:03 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void check_argument(char **av, int ac)
+void check_argument(char **av, int ac, t_data *data)
 {
     int i;
 
@@ -21,6 +21,9 @@ void check_argument(char **av, int ac)
     i = ft_strlen(av[1]);
     if (ft_strncmp(av[1] + i - 4, ".cub", 5) != 0)
         exit(1);
+    data->map = read_map(av[1]);
+    pars_the_color(data); // this lines I added it her becose you will check parsing befor open the window
+    pars_texture(data);
 }
 
 int    get_x_max(char **map)
@@ -67,11 +70,8 @@ void init_texture(t_data *data)
             &data->east_tex->line_length, &data->east_tex->endian);
 }
 
-void    init_game(t_data *data, char **av)
+void    init_game(t_data *data)
 {
-    data->map = read_map(av[1]);
-    pars_the_color(data); // this lines I added it her becose you will check parsing befor open the window
-    pars_texture(data);
     data->mlx = mlx_init();
     data->mlx_win = mlx_new_window(data->mlx, SCREEN_W, SCREEN_H, "Cub3D");
     data->img = malloc(sizeof(t_img));
@@ -88,9 +88,10 @@ void    init_game(t_data *data, char **av)
 int main(int ac, char **av)
 {
     t_data data;
-    check_argument(av, ac);
-    init_game(&data, av);
-    main_of_drawing(&data);
-    mlx_loop(data.mlx);
+    check_argument(av, ac, &data);
+    printf("all DONE\n");
+    // init_game(&data);
+    // main_of_drawing(&data);
+    // mlx_loop(data.mlx);
     return 0;
 }

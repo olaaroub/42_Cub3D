@@ -1,8 +1,6 @@
-NO      ./imgs/north.xpm
-SO      ./imgs/south.xpm
-WE      ./imgs/west.xpm
-EA      ./imgs/east.xpm
-
+WE        ./path_to_the_west_texture
+NO                   ./path_to_the_north_texture
+EA              ./path_to_the_east_texture
 
 
          F     165,191,204

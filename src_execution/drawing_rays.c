@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 01:56:36 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:00:43 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int get_vertical_color(t_data *data, double y)
   int x;
   int offset;
   int index;
-//   printf("data->ray_angle = %f\n", data->ray_angle);
+//   printf("data->ray_angle = %f\n", data->start_angle);
     if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
         x = (int)(data->east_tex->width * data->hit_y / 64) % data->east_tex->width;
@@ -304,8 +304,9 @@ void render_3d(t_data *data)
     int x;
 
     data->angle_step = FOV_ANGLE / SCREEN_W;
-    // printf("data->angle = %f\n", data->angle);
     data->start_angle = data->angle - (FOV_ANGLE / 2);
+    if (data->start_angle < 0)
+        data->start_angle += 2 * PI;
     x = 0;
     while (x < SCREEN_W)
     {

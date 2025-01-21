@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 17:14:05 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:00:43 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,38 +225,43 @@ int get_vertical_color(t_data *data, double y)
   int x;
   int offset;
   int index;
-    if((data->ray_angle >= (PI / 2) )&& (data->ray_angle < ((3 * PI) / 2)))
+//   printf("data->ray_angle = %f\n", data->start_angle);
+    if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
-        x = ((64 * data->hit_y) / 64);
+        x = (int)(data->east_tex->width * data->hit_y / 64) % data->east_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        index = offset * (64 / data->wallhight);
-        return(*(int*)(data->north_tex->addr + ((64 * (index * 4) + (x * 4)))));
+        index = offset * ((double)data->east_tex->height / data->wallhight);
+        return(*(int*)(data->east_tex->addr + ((data->east_tex->width * (index * 4) + (x * 4)))));
     }
-    x = (int)(64 * data->hit_y / 64);
-    offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-    index = offset * (64 / data->wallhight);
-    return (*(int*)(data->north_tex->addr + ((64 * (index * 4) + (x * 4)))));
+    else {
+        x = (int)(data->west_tex->width * data->hit_y / 64) % data->west_tex->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        index = offset * ((double)data->west_tex->height / data->wallhight);
+        return (*(int*)(data->west_tex->addr + ((data->west_tex->width * (index * 4) + (x * 4)))));
+    }
 }
 
-// int get_horizontal_color(t_data *data, double y)
-// {
-//     int x;
-//     int offset;
-//     int index;
+int get_horizontal_color(t_data *data, double y)
+{
+    int x;
+    int offset;
+    int index;
+    // printf("data->start_angle = %f\n", data->start_angle);
+    if (data->start_angle >= PI && data->start_angle < 2 * PI)
+    {
+        x = (int)(data->south_tex->width * data->hit_x / 64) % data->south_tex->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        index = offset * ((double)data->south_tex->height / data->wallhight);
+        return (*(int*)(data->south_tex->addr + ((data->south_tex->width * (index * 4) + (x * 4)))));
+    }
+    else{
+        x = (int)(data->north_tex->width * data->hit_x / 64) % data->north_tex->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        index = offset * ((double)data->north_tex->height / data->wallhight);
+        return (*(int*)(data->north_tex->addr + ((data->north_tex->width * (index * 4) + (x * 4)))));
 
-//     if (data->ray_angle >= PI && data->ray_angle < 2 * PI)
-//     {
-//         x = (int)(64 * data->hit_x / 64);
-//         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-//         index = offset * (64 / data->wallhight);
-//         return (*(int*)(data->south + ((64 * (index * 4) + (x * 4)))));
-//     }
-
-//     x = (int)(64 * data->hit_x / 64);
-//     offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-//     index = offset * (64 / data->wallhight);
-//     return (*(int*)(data->texture + ((64 * (index * 4) + (x * 4)))));
-// }
+    }
+}
 
 void draw_3d(t_data *data, int x)
 {
@@ -271,28 +276,25 @@ void draw_3d(t_data *data, int x)
             ft_pixelput(data->img, x, y, 0xFF333333);
             y++;
         }
-        int texture_offset_x ;
-        if (data->is_vertical)
-            texture_offset_x = (int)data->hit_y % SOF;
-        else
-            texture_offset_x = (int)data->hit_x % SOF;
+        // int texture_offset_x ;
+        // if (data->is_vertical)
+        //     texture_offset_x = (int)data->hit_y % SOF;
+        // else
+        //     texture_offset_x = (int)data->hit_x % SOF;
         while(y >= data->start_draw && y < data->end_draw)
         {
-            // if(data->is_vertical)
-                // color = get_vertical_color(data, y);
-            // else
-            //     color = get_horizontal_color(data, y);
-            int distance_from_top = y - (SCREEN_H / 2) + (data->wallhight / 2);
-            int texture_offset_y = distance_from_top * (float)(64.0 / data->wallhight);
-            color = ((int *)data->north_tex->addr)[64 * texture_offset_y + texture_offset_x];
+            if(data->is_vertical)
+                color = get_vertical_color(data, y);
+            else
+                color = get_horizontal_color(data, y);
+            // int distance_from_top = y - (SCREEN_H / 2) + (data->wallhight / 2);
+            // int texture_offset_y = distance_from_top * (float)(64.0 / data->wallhight);
+            // color = ((int *)data->north_tex->addr)[64 * texture_offset_y + texture_offset_x];
             ft_pixelput(data->img, x, y, color);
             y++;
         }
-        while(y < SCREEN_H)
-        {
-            ft_pixelput(data->img, x, y, 0xFF777777);
-            y++;
-        }
+        ft_pixelput(data->img, x, y, 0xFF777777);
+        y++;
     }
     // 0x4C585B   0x7E99A3
 }
@@ -302,10 +304,13 @@ void render_3d(t_data *data)
     int x;
 
     data->angle_step = FOV_ANGLE / SCREEN_W;
-    data->start_angle = data->angle - FOV_ANGLE / 2;
+    data->start_angle = data->angle - (FOV_ANGLE / 2);
+    if (data->start_angle < 0)
+        data->start_angle += 2 * PI;
     x = 0;
     while (x < SCREEN_W)
     {
+
         data->ray_dis = get_ray_lenght(data);
         data->ray_dis *= cos(data->start_angle - data->angle);
         data->dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);

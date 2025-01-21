@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flodfile.c                                         :+:      :+:    :+:   */
+/*   is_surrounded.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:33:24 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/19 18:34:32 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:30:43 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool chack_ifIsValid(char **map, int i, int j)
         return false;
     else if (j >= 0 && (j == 0 || map[j - 1][i] == ' '))
         return false;
-    else if (map[j] && (map[j + 1][i] == ' ' || !map[j]))
+    else if (map[j + 1] && (map[j + 1][i] == ' ' || !map[j]))
         return false;
     return true; 
 }

@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 16:14:36 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:22:28 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_map   read_map(char *file)
 	map.map_as_lien = "";
 	get_element_of_file(fd, &map);
 	check_player(map.map);
-	check_wall(&map);
+	// check_wall(&map);
 	check_wall2(&map);
 	
 	return (map);

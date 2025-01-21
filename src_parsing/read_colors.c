@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_colors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 16:31:04 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:06:14 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,47 +29,53 @@ int    rgb_to_hex(int r, int g, int b)
     return ((r << 16) | (g << 8) | b);
 }
 
-void set_color(t_data *data, char *floor, char *ceiling)
+void set_color(t_data *data, char *name, char *color)
 {
-    char **spfloor;
-    char **spceiling;
+    char **sp;
 
-    spfloor = ft_split(floor, ',');
-    spceiling = ft_split(ceiling, ',');
-    if (ft_strlen_blm9lob(spfloor) != 3 || ft_strlen_blm9lob(spceiling) != 3)
-        ft_error("error in rgb color\n");
-    if (is_valid_number(spfloor[0]) && is_valid_number(spfloor[1])
-        && is_valid_number(spfloor[2]))
-        data->map.floor_hex = rgb_to_hex(atoi(spfloor[0]),atoi(spfloor[1]), atoi(spfloor[2]));
-    else
-        ft_error("error : floor color is invalid !\n");
-    if (is_valid_number(spceiling[0]) && is_valid_number(spceiling[1])
-        && is_valid_number(spceiling[2]))
-        data->map.ceiling_hex = rgb_to_hex(atoi(spceiling[0]),atoi(spceiling[1]), atoi(spceiling[2]));
-    else
-        ft_error("error : ceiling color is invalid !\n");
+    sp = ft_split(color, ',');
+    if (ft_strlen_blm9lob(sp) != 3 || !is_valid_number(sp[0])
+        || !is_valid_number(sp[1]) || !is_valid_number(sp[2])
+        || cont_character(color, ',') != 2)
+    {
+        free_map(sp);
+        ft_error("ERROR: you have a error in rgb color\n");
+    }
+    if (!ft_strcmp(name, "F"))
+        data->map.floor_hex = rgb_to_hex(ft_atoi(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
+    else if (!ft_strcmp(name, "C"))
+        data->map.ceiling_hex = rgb_to_hex(ft_atoi(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
+}
+
+void skep_whitespace_to_color(t_data *data, int *j, int *cont, int i)
+{
+	while (data->map.floor_color[i][*j] && is_whitespace(data->map.floor_color[i][*j]))
+		(*j)++;
+	(*cont) = *j;
+	while (data->map.floor_color[i][*cont] && !is_whitespace(data->map.floor_color[i][*cont]))
+		(*cont)++;	
 }
 
 void pars_the_color(t_data *data)
 {
-    char **first_color;
-    char **secend_color;
-    char *floor;
-    char *ceiling;
+    int i;
+    int j;
+    int cont;
+    char *name;
 
-    first_color  = ft_split(data->map.floor_color[0], ' ');
-    secend_color = ft_split(data->map.floor_color[1], ' ');
-    if (!ft_strcmp(first_color[0], "F"))
+    j = 0;
+    while (data->map.floor_color[j])
     {
-        floor = first_color[1];
-        ceiling = secend_color[1];
+        i = 0;
+        skep_whitespace_to_color(data, &i, &cont, j);
+        name = ft_substr(data->map.floor_color[j], i, cont - i);
+        i = cont;
+        skep_whitespace_to_color(data, &i, &cont, j);
+        set_color(data, name, ft_substr(data->map.floor_color[j], i, cont - i));
+        i = cont;
+    	skep_whitespace_to_color(data, &i, &cont, j);
+		if (data->map.floor_color[j][i])
+			ft_error("miltupl args in color\n");    
+        j++;
     }
-    else
-    {
-        ceiling = first_color[1];
-        floor = secend_color[1];
-    }
-    if (cont_character(floor, ',') != 2 || cont_character(ceiling, ',') != 2)
-        ft_error("rgb error\n");
-    set_color(data, floor, ceiling);
 }

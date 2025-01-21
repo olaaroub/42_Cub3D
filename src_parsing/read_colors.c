@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:25:28 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:34:07 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void set_color(t_data *data, char *name, char *color)
     char **sp;
 
     sp = ft_split(color, ',');
-    if (ft_strlen_blm9lob(sp) != 3 || !is_valid_number(sp[0])
+    if (count_coloumns(sp) != 3 || !is_valid_number(sp[0])
         || !is_valid_number(sp[1]) || !is_valid_number(sp[2])
         || cont_character(color, ',') != 2)
     {

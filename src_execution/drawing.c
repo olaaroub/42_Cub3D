@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 17:13:33 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:46:55 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,26 @@ void initialize_variables(t_data *data)
     data->fg_left = 0;
     data->fg_right = 0;
 	data->is_vertical = false;
-	data->texture = (int*)malloc(64 * 64 * 4);
-	// data->south = (int*)malloc(64 * 64 * 4);
-	// data->east = (int*)malloc(64 * 64 * 4);
-	// data->west = (int*)malloc(64 * 64 * 4);
-	int i = 0;
-	int j = 0;
+	// data->texture = (int*)malloc(64 * 64 * 4);
+	// // data->south = (int*)malloc(64 * 64 * 4);
+	// // data->east = (int*)malloc(64 * 64 * 4);
+	// // data->west = (int*)malloc(64 * 64 * 4);
+	// int i = 0;
+	// int j = 0;
 
-	while(i < 64)
-	{
-		j = 0;
-		while(j < 64)
-		{
-			(data->texture)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFF0000FF : 0xFF000000;
-			// (data->texture)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFFFFFF00 : 0xFF000000;
-			// (data->east)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFFFF0000 : 0xFF000000;
-			// (data->west)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFF00FF00 : 0xFF000000;
-			j++;
-		}
-		i++;
-	}
+	// while(i < 64)
+	// {
+	// 	j = 0;
+	// 	while(j < 64)
+	// 	{
+	// 		(data->texture)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFF0000FF : 0xFF000000;
+	// 		// (data->texture)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFFFFFF00 : 0xFF000000;
+	// 		// (data->east)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFFFF0000 : 0xFF000000;
+	// 		// (data->west)[(j * 64) + i] = (i % 8 && j % 8) ? 0xFF00FF00 : 0xFF000000;
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 	initialize_the_angle(data);
 }
 

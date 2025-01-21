@@ -6,13 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:40:20 by olaaroub          #+#    #+#             */
-/*   Updated: 2024/12/01 17:43:23 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 00:41:56 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-
 
 void    free_map(char **map)
 {

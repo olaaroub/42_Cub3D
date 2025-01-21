@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:07:25 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 01:58:11 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,32 @@ int    get_x(char **map)
 
 void init_texture(t_data *data)
 {
-	data->north_tex = (t_texture*)malloc(sizeof(t_texture));
-	// data->north_tex->path = ft_strdup("../imgs/text.xpm");
-	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/text.xpm",
+
+	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, data->north_tex->path,
 			 &data->north_tex->width, &data->north_tex->height);
-	if(!data->north_tex->texture)
-	{
-		printf("error\n");
-		exit(1);
-	}
+    data->south_tex->texture = mlx_xpm_file_to_image(data->mlx, data->south_tex->path,
+                &data->south_tex->width, &data->south_tex->height);
+
+    data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, data->west_tex->path,
+             &data->west_tex->width, &data->west_tex->height);
+
+    data->east_tex->texture = mlx_xpm_file_to_image(data->mlx, data->east_tex->path,
+                &data->east_tex->width, &data->east_tex->height);
+
+	if(!data->north_tex->texture || !data->south_tex->texture || !data->west_tex->texture || !data->east_tex->texture)
+    {
+        //free_data(data); // this function is not implemented yet
+        ft_error("Error\n: texture not found");
+    }
 
 	data->north_tex->addr = mlx_get_data_addr(data->north_tex->texture, &data->north_tex->bits_per_pixel,
 			&data->north_tex->line_length, &data->north_tex->endian);
-	// data->west->texture = mlx_xpm_file_to_image(data->mlx, "../imgs/text.xpm",
-	// 		 &data->west->width, &data->west->height);
-	// data->west->addr = mlx_get_data_addr(data->west->texture, &data->west->bits_per_pixel,
-	// 		&data->west->line_length, &data->west->endian);
-	// data->east->texture = mlx_xpm_file_to_image(data->mlx, "../imgs/text.xpm",
-	// 		 &data->east->width, &data->east->height);
-
+    data->south_tex->addr = mlx_get_data_addr(data->south_tex->texture, &data->south_tex->bits_per_pixel,
+            &data->south_tex->line_length, &data->south_tex->endian);
+    data->west_tex->addr = mlx_get_data_addr(data->west_tex->texture, &data->west_tex->bits_per_pixel,
+            &data->west_tex->line_length, &data->west_tex->endian);
+    data->east_tex->addr = mlx_get_data_addr(data->east_tex->texture, &data->east_tex->bits_per_pixel,
+            &data->east_tex->line_length, &data->east_tex->endian);
 }
 
 void    init_game(t_data *data, char **av)
@@ -77,9 +84,7 @@ void    init_game(t_data *data, char **av)
     data->x_max = get_x(data->map.map);
     get_postion(data, data->map.map);
 	initialize_variables(data);
-
     init_texture(data);
-
 }
 
 int main(int ac, char **av)

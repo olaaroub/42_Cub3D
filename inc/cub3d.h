@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/14 16:06:56 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:26:37 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@
 
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
 #define SOP 2 // this is size of player (x and y)!
-#define SOF 30 // this is size of foolr
-#define SPEED 1
+#define SOF 64 // this is square size
+#define SPEED 2
 #define MI_SIZE 30
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
-#define ROT_SPEED 0.04
+#define ROT_SPEED 0.09
 #define FOV_ANGLE PI / 3
 
 #define EPSILON 1e-6
@@ -58,6 +58,11 @@ typedef struct s_map
 	int  ceiling_hex;
 	int  floor_hex;
 	int  flag;
+
+	char *texturOfWe;
+	char *texturOfSo;
+	char *texturOfNo;
+	char *texturOfEa;	
 }	t_map;
 
 typedef struct	s_img {
@@ -68,8 +73,30 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
+
+typedef struct s_texture
+{
+	void *texture;
+	char *addr;
+	char *path;
+	int bits_per_pixel;
+	int line_length;
+	int endian;
+	int width;
+	int height;
+
+} t_texture;
+
 typedef struct s_data
 {
+	t_texture		*north_tex;
+	t_texture		*south_tex;
+	t_texture		*west_tex;
+	t_texture		*east_tex;
+	int *texture;
+	int *south;
+	int *east;
+	int *west;
 	void			*mlx;
 	void			*mlx_win;
 	double			x;
@@ -107,6 +134,8 @@ typedef struct s_data
 	double 			wallhight;
 	double 			start_draw;
 	double 			end_draw;
+	int				map_y;
+	int				map_x;
 	// ------ mini map------
 	int				len;
 	double			x_end;
@@ -118,13 +147,15 @@ typedef struct s_data
 	double 			y_inc;
 	double			x_start;
 	double			y_start;
+	//-------------------------
+	double			hit_x;
+	double			hit_y;
 }	t_data;
 
 
-void	check_option(char *str);
+void	check_argument(char **av, int ac);
 int		is_texture(char *line);
 int		is_color(char *line);
-// int		is_white_space(char c);
 int 	is_emty(char *line);
 t_map   read_map(char *file);
 void    free_trash(t_list **trash);
@@ -140,18 +171,15 @@ t_data	*data_global();
 void	get_postion(t_data *data, char **map);
 void	flodfile(char **map, int i, int j);
 void	check_floodfile(char **map);
-
 bool	is_valid_number(char *str);
-void	pars_the_color();
+void	pars_the_color(t_data *data);
 int		cont_character(char *str, int c);
 // -----------------------------------
-
-void	main_of_drawing();
-// int 	mouse(int botton,int key, int y, void *par);
+void	main_of_drawing(t_data *data);
 int    rgb_to_hex(int r, int g, int b);
 int		krwa();
 void	open_the_window();
-int		drawing(t_img *img);
+int		drawing(t_data *data);
 int		move(void *parm);
 void	get_data_addr(t_img *img);
 void 	put_img(t_img *img);
@@ -160,7 +188,10 @@ void	ft_pixelput(t_img *img, int x, int y, int color);
 int key_release(int key, void *parm);
 void drawing_rays(t_img *img);
 int key_press(int key, void *parm);
-void    render_3d(t_img *img);
-
+void    render_3d(t_data *data);
 void	minimap(t_img *img);
+
+void initialize_variables(t_data *data);
+bool	check_mapifitSurrounded(char **map);
+void pars_texture(t_data *data);
 #endif

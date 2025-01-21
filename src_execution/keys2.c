@@ -3,100 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   keys2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/10 16:59:40 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:18:49 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-bool isValidMove(int end_x, int end_y)
+void isValidMove(t_data *data, int end_x, int end_y)
 {
     int x;
     int y;
     char **map;
 
-    x = data_global()->x;
-    y = data_global()->y;
-    map = data_global()->map.map;
+    x = data->x;
+    y = data->y;
+    map = data->map.map;
 
-    if (data_global()->map.map[y / SOF][(x + end_x + 2) / SOF] != '1'
-        && data_global()->map.map[y / SOF][(x + end_x  - 2) / SOF] != '1')
-        data_global()->x += end_x;
-    if (data_global()->map.map[(y + end_y + 2) / SOF][x / SOF] != '1'
-        && data_global()->map.map[(y + end_y - 2) / SOF][x / SOF] != '1')
-        data_global()->y += end_y;
-    return true;
+    if (data->map.map[y / SOF][(x + end_x + 2) / SOF] != '1'
+        && data->map.map[y / SOF][(x + end_x  - 2) / SOF] != '1')
+        data->x += end_x;
+    if (data->map.map[(y + end_y + 2) / SOF][x / SOF] != '1'
+        && data->map.map[(y + end_y - 2) / SOF][x / SOF] != '1')
+        data->y += end_y;
 }
 
-void moveUp()
+void moveUp(t_data* data)
 {
     int end_x;
     int end_y;
 
-    end_x = roundf(FRM * cos(data_global()->angle) * SPEED);
-    end_y = roundf(FRM * sin(data_global()->angle) * SPEED);
-    isValidMove(end_x, end_y);
+    end_x = roundf(FRM * cos(data->angle) * SPEED);
+    end_y = roundf(FRM * sin(data->angle) * SPEED);
+    isValidMove(data, end_x, end_y);
 }
 
-void moveDown()
+void moveDown(t_data* data)
 {
     int end_x;
     int end_y;
 
-    end_x = roundf(FRM * cos(data_global()->angle + PI) * SPEED);
-    end_y = roundf(FRM * sin(data_global()->angle + PI) * SPEED);
-    isValidMove(end_x, end_y);
+    end_x = roundf(FRM * cos(data->angle + PI) * SPEED);
+    end_y = roundf(FRM * sin(data->angle + PI) * SPEED);
+    isValidMove(data, end_x, end_y);
 }
 
-void moveLeft()
+void moveLeft(t_data* data)
 {
     int end_x;
     int end_y;
 
-    end_x = roundf(FRM * cos(data_global()->angle - PI / 2) * SPEED);
-    end_y = roundf(FRM * sin(data_global()->angle - PI / 2) * SPEED);
-    isValidMove(end_x, end_y);
+    end_x = roundf(FRM * cos(data->angle - PI / 2) * SPEED);
+    end_y = roundf(FRM * sin(data->angle - PI / 2) * SPEED);
+    isValidMove(data, end_x, end_y);
 }
 
-void moveRight()
+void moveRight(t_data* data)
 {
     int end_x;
     int end_y;
 
-    end_x = roundf(FRM * cos(data_global()->angle + PI / 2) * SPEED);
-    end_y = roundf(FRM * sin(data_global()->angle + PI / 2) * SPEED);
-    isValidMove(end_x, end_y);
+    end_x = roundf(FRM * cos(data->angle + PI / 2) * SPEED);
+    end_y = roundf(FRM * sin(data->angle + PI / 2) * SPEED);
+    isValidMove(data, end_x, end_y);
 }
 
 int move(void *parm)
 {
-    t_img *img = parm;
+    t_data *data = (t_data *)parm;
 
-    if (data_global()->fg_E)
-        moveRight();
-    if (data_global()->fg_W)
-        moveLeft();
-    if (data_global()->fg_N)
-        moveUp();
-    if (data_global()->fg_S)
-        moveDown();
-    if (data_global()->fg_left)
+    if (data->fg_E)
+        moveRight(data);
+    if (data->fg_W)
+        moveLeft(data);
+    if (data->fg_N)
+        moveUp(data);
+    if (data->fg_S)
+        moveDown(data);
+    if (data->fg_left)
     {
-        data_global()->angle -= ROT_SPEED;
-        if (data_global()->angle < 0)
-            data_global()->angle += 2 * PI;
+        data->angle -= ROT_SPEED;
+        if (data->angle < 0)
+            data->angle += 2 * PI;
     }
-    if (data_global()->fg_right) 
+    if (data->fg_right)
     {
-        data_global()->angle += ROT_SPEED;
-        if (data_global()->angle >= 2 * PI)
-            data_global()->angle -= 2 * PI;
+        data->angle += ROT_SPEED;
+        if (data->angle >= 2 * PI)
+            data->angle -= 2 * PI;
     }
-    mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
-    render_3d(img);
+    render_3d(data);
     return 0;
 }
 

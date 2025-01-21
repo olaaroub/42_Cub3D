@@ -3,54 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/14 20:30:44 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:08:39 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int key_press(int key, void *parm)
+int key_press(int key, void *param)
 {
-    (void)parm;
+    t_data  *data;
+    data = (t_data *)param;
     if (key == ESC)
     {
-        mlx_clear_window(data_global()->mlx, data_global()->mlx_win);
+        mlx_clear_window(data->mlx, data->mlx_win);
 		exit(0);
     }
     else  if (key == RIGHT)
-        data_global()->fg_E = 1;
+        data->fg_E = 1;
     else if (key == LEFT)
-        data_global()->fg_W = 1;
+        data->fg_W = 1;
     else if (key == UP)
-        data_global()->fg_N = 1;
+        data->fg_N = 1;
     else if (key == DOWN)
-        data_global()->fg_S = 1;
+        data->fg_S = 1;
     else if (key == LEFT_V)
-        data_global()->fg_left = 1;
+        data->fg_left = 1;
     else if (key == RIGHT_V)
-        data_global()->fg_right = 1;
+        data->fg_right = 1;
     // move(parm);
     return 0;
 }
 
-int key_release(int key, void *parm)
+int key_release(int key, void *param)
 {
-    (void)parm;
+    t_data *data;
+    data = (t_data*)param;
     if (key == RIGHT)
-        data_global()->fg_E = 0;
+        data->fg_E = 0;
     else if (key == LEFT)
-        data_global()->fg_W = 0;
+        data->fg_W = 0;
     else if (key == UP)
-        data_global()->fg_N = 0;
+        data->fg_N = 0;
     else if (key == DOWN)
-        data_global()->fg_S = 0;
+        data->fg_S = 0;
     else if (key == LEFT_V)
-        data_global()->fg_left = 0;
+        data->fg_left = 0;
     else if (key == RIGHT_V)
-        data_global()->fg_right = 0;
+        data->fg_right = 0;
     return 0;
 }
 

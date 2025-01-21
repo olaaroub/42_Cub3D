@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:36:09 by olaaroub          #+#    #+#             */
-/*   Updated: 2024/12/01 17:39:59 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:23:47 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	get_postion(t_data *data, char **map)
 		   if (map[j][i] == 'N' || map[j][i] == 'S'
 			|| map[j][i] == 'E' || map[j][i] == 'W')
 			{
-				data->x = i;
-				data->y = j;
+				data->player_x = i;
+				data->player_y = j;
 				return ;
 			}
 			i++;
@@ -42,7 +42,7 @@ char    **duplicate_map(char **map)
     int i;
     char **map_v2;
 
-    len = ft_strlen_blm9lob(map);
+    len = count_coloumns(map);
     map_v2 = malloc((len + 1) * sizeof(char *));
     i = 0;
     map_v2[len] = NULL;

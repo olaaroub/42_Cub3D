@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 14:12:28 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:18:38 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void check_argument(char **av, int ac)
         exit(1);
 }
 
-int    get_x(char **map)
+int    get_x_max(char **map)
 {
     int j;
     size_t nb;
@@ -80,8 +80,8 @@ void    init_game(t_data *data, char **av)
     data->img->img = mlx_new_image(data->mlx, SCREEN_W, SCREEN_H);
     data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bits_per_pixel,
                 &data->img->line_length, &data->img->endian);
-    data->y_max = ft_strlen_blm9lob(data->map.map);
-    data->x_max = get_x(data->map.map);
+    data->y_max = count_coloumns(data->map.map);
+    data->x_max = get_x_max(data->map.map);
     get_postion(data, data->map.map);
 	initialize_variables(data);
     init_texture(data);

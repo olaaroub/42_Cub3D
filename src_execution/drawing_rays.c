@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 14:00:43 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:16:13 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void VerticalIntersection(t_data *data, double *Ay, double *Ax)
     double rayDiry;
     double x, y;
 
-    x = data->x;
-    y = data->y;
+    x = data->player_x;
+    y = data->player_y;
 
     rayDirx = cos(data->start_angle);
     rayDiry = sin(data->start_angle);
@@ -135,7 +135,7 @@ double draw_rayWithVertical(t_data *data , int map_x, int map_y, t_data *vdata)
     }
     vdata->hit_x = Ax;
     vdata->hit_y = Ay;
-    return (sqrt(pow(Ax - data->x, 2) + pow(Ay - data->y, 2)));
+    return (sqrt(pow(Ax - data->player_x, 2) + pow(Ay - data->player_y, 2)));
 }
 
 void HorizontalIntersection(t_data *data, double *Ay, double *Ax)
@@ -145,8 +145,8 @@ void HorizontalIntersection(t_data *data, double *Ay, double *Ax)
     double x;
     double y;
 
-    x = data->x;
-    y = data->y;
+    x = data->player_x;
+    y = data->player_y;
     rayDirx = cos(data->start_angle);
     rayDiry = sin(data->start_angle);
 
@@ -189,7 +189,7 @@ double draw_rayWithHorizontal(t_data *data, int map_x, int map_y, t_data *hdata)
     }
     hdata->hit_x = Ax;
     hdata->hit_y = Ay;
-    return (sqrt(pow(Ax - data->x, 2) + pow(Ay - data->y, 2)));
+    return (sqrt(pow(Ax - data->player_x, 2) + pow(Ay - data->player_y, 2)));
 }
 
 double get_ray_lenght(t_data *data)
@@ -301,16 +301,16 @@ void draw_3d(t_data *data, int x)
 
 void render_3d(t_data *data)
 {
-    int x;
+    int     x;
+    double  angle_step;
 
-    data->angle_step = FOV_ANGLE / SCREEN_W;
+    angle_step = FOV_ANGLE / SCREEN_W;
     data->start_angle = data->angle - (FOV_ANGLE / 2);
     if (data->start_angle < 0)
         data->start_angle += 2 * PI;
-    x = 0;
-    while (x < SCREEN_W)
+    x = -1;
+    while (++x < SCREEN_W)
     {
-
         data->ray_dis = get_ray_lenght(data);
         data->ray_dis *= cos(data->start_angle - data->angle);
         data->dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
@@ -322,13 +322,10 @@ void render_3d(t_data *data)
         if (data->end_draw >= SCREEN_H)
             data->end_draw = SCREEN_H - 1;
         draw_3d(data, x);
-        data->start_angle += data->angle_step;
-        x++;
+        data->start_angle += angle_step;
     }
     // minimap(data->img);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
-
-    // put_img(data->img);
 }
 
 // void drawing_rays(t_img *img)

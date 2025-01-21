@@ -6,9 +6,10 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:06:14 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:25:28 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/cub3d.h"
 
@@ -54,6 +55,7 @@ void skep_whitespace_to_color(t_data *data, int *j, int *cont, int i)
 	(*cont) = *j;
 	while (data->map.floor_color[i][*cont] && !is_whitespace(data->map.floor_color[i][*cont]))
 		(*cont)++;	
+
 }
 
 void pars_the_color(t_data *data)

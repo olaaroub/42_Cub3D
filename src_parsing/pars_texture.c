@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:39:45 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 10:16:08 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:23:47 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void pars_texture(t_data *data)
 		//     printf("%s\n", sp[i]);
 		// }
 
-		if (ft_strlen_blm9lob(sp) != 2)
+		if (count_coloumns(sp) != 2)
 		{
 			free_map(sp);
 			ft_error("error: you dont have texture\n");

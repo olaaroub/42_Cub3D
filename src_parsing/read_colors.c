@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 16:31:04 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:23:47 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void set_color(t_data *data, char *floor, char *ceiling)
 
     spfloor = ft_split(floor, ',');
     spceiling = ft_split(ceiling, ',');
-    if (ft_strlen_blm9lob(spfloor) != 3 || ft_strlen_blm9lob(spceiling) != 3)
+    if (count_coloumns(spfloor) != 3 || count_coloumns(spceiling) != 3)
         ft_error("error in rgb color\n");
     if (is_valid_number(spfloor[0]) && is_valid_number(spfloor[1])
         && is_valid_number(spfloor[2]))

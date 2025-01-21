@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:00:23 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:01:49 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	ft_pixelput(t_img *img, int x, int y, int color)
-{
-	char	*tmp;
-
-	if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
-		return ;
-	tmp = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)tmp = color;
-}
 
 // void	drawing1(t_img *img, int x, int y, int color)
 // {
@@ -75,7 +65,7 @@ void	ft_pixelput(t_img *img, int x, int y, int color)
 // 			else if (data_global()->map.map[y][x] != ' ')
 // 				drawing1(img, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFF0000);
 // 			if (x == (int)data_global()->x / SOF && y == (int)data_global()->y / SOF)
-// 				drawing_player(img, x_draw * MI_SIZE, y_draw * MI_SIZE);	
+// 				drawing_player(img, x_draw * MI_SIZE, y_draw * MI_SIZE);
 // 			x++;
 // 			x_draw++;
 // 		}
@@ -93,8 +83,8 @@ void	ft_pixelput(t_img *img, int x, int y, int color)
 // 	if (data.j < 0)
 // 		data.j = 0;
 
-// 	if (data.j > ft_strlen_blm9lob(map))
-// 		data.j = ft_strlen_blm9lob(map) - 1;
+// 	if (data.j > count_coloumns(map))
+// 		data.j = count_coloumns(map) - 1;
 // 	if (data.i > (int)ft_strlen(map[data.j]))
 // 		data.i = (int)ft_strlen(map[data.j]) - 1;
 // 	int offset = data.len + 20;

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 16:08:39 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:13:11 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,19 @@ int key_press(int key, void *param)
     t_data  *data;
     data = (t_data *)param;
     if (key == ESC)
-    {
-        mlx_clear_window(data->mlx, data->mlx_win);
-		exit(0);
-    }
+        exit_key(data);
     else  if (key == RIGHT)
-        data->fg_E = 1;
+        data->d_pressed = 1;
     else if (key == LEFT)
-        data->fg_W = 1;
+        data->a_pressed = 1;
     else if (key == UP)
-        data->fg_N = 1;
+        data->w_pressed = 1;
     else if (key == DOWN)
-        data->fg_S = 1;
+        data->s_pressed = 1;
     else if (key == LEFT_V)
-        data->fg_left = 1;
+        data->turn_left = 1;
     else if (key == RIGHT_V)
-        data->fg_right = 1;
-    // move(parm);
+        data->turn_right = 1;
     return 0;
 }
 
@@ -42,22 +38,16 @@ int key_release(int key, void *param)
     t_data *data;
     data = (t_data*)param;
     if (key == RIGHT)
-        data->fg_E = 0;
+        data->d_pressed = 0;
     else if (key == LEFT)
-        data->fg_W = 0;
+        data->a_pressed = 0;
     else if (key == UP)
-        data->fg_N = 0;
+        data->w_pressed = 0;
     else if (key == DOWN)
-        data->fg_S = 0;
+        data->s_pressed = 0;
     else if (key == LEFT_V)
-        data->fg_left = 0;
+        data->turn_left = 0;
     else if (key == RIGHT_V)
-        data->fg_right = 0;
+        data->turn_right = 0;
     return 0;
-}
-
-int	krwa()
-{
-	exit(0);
-	return (0);
 }

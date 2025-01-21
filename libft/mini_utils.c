@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 00:10:19 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/01/20 16:09:24 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:09:58 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_texture(char *line)
 
 	i = 0;
 	while (is_whitespace(line[i]))
-		i++;	
+		i++;
 	return (ft_strnstr(&line[i], "NO ", 3) || ft_strnstr(&line[i], "SO ", 3)
 		|| ft_strnstr(&line[i], "WE ", 3) || ft_strnstr(&line[i], "EA ", 3));
 }
@@ -60,10 +60,10 @@ int	is_color(char *line)
 
 	i = 0;
 	while (is_whitespace(line[i]))
-		i++;	
+		i++;
 	return (ft_strnstr(&line[i], "F ", 2) || ft_strnstr(&line[i], "C ", 2));
 }
-int is_emty(char *line)
+int is_empty(char *line)
 {
 	int i;
 

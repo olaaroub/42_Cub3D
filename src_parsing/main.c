@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:07:25 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:05:12 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void    init_game(t_data *data, char **av)
     data->x_max = get_x(data->map.map);
     get_postion(data, data->map.map);
 	initialize_variables(data);
-
     init_texture(data);
 
 }

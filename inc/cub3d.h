@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:00:47 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:26:37 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
 #define SOP 2 // this is size of player (x and y)!
 #define SOF 64 // this is square size
-#define SPEED 1
+#define SPEED 2
 #define MI_SIZE 30
 
 #define PI 3.14159265

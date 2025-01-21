@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:18:38 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:53:43 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,15 @@ int    get_x_max(char **map)
 
 void init_texture(t_data *data)
 {
-
-	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/north.xpm",
+	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, data->north_tex->path,
 			 &data->north_tex->width, &data->north_tex->height);
-    data->south_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/south.xpm",
+    data->south_tex->texture = mlx_xpm_file_to_image(data->mlx, data->south_tex->path,
                 &data->south_tex->width, &data->south_tex->height);
-
-    data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/west.xpm",
-             &data->west_tex->width, &data->west_tex->height);
-
-    data->east_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/east.xpm",
+    data->east_tex->texture = mlx_xpm_file_to_image(data->mlx, data->east_tex->path,
                 &data->east_tex->width, &data->east_tex->height);
+                
+    data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, data->west_tex->path,
+             &data->west_tex->width, &data->west_tex->height);
 
 	if(!data->north_tex->texture || !data->south_tex->texture || !data->west_tex->texture || !data->east_tex->texture)
     {

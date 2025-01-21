@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:39:45 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:26:13 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:04:08 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void pars_texture(t_data *data)
 		skep_whitespace_to_texture(data, &j, &cont, i);
 		sp = ft_substr(data->map.texture[i], j, cont - j);
 		j = cont;
-		skep_whitespace_to_texture(data, &j, &cont, i);
+		while (data->map.texture[i][j] && is_whitespace(data->map.texture[i][j]))
+		j++;
+		cont = j;
+		while (data->map.texture[i][cont])
+			cont++;
 		check_ops(data, sp, ft_substr(data->map.texture[i], j, cont - j));
 		j = cont;
-		skep_whitespace_to_texture(data, &j, &cont, i);
-		if (data->map.texture[i][j])
-			ft_error("miltupl args in texture\n");
 		i++;
 	}
-	// printf("%s\n", data->east_tex->path);
 }

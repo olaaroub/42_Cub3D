@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 10:13:49 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:35:53 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ void	get_game_elements(int fd, t_map *map)
 	}
 	skip_trailing_nl(map, &trash);
 	close(fd);
+	// printf("%s\n", map->texture_line);
+	// printf("%s\n", map->color);
+	// printf("%s\n", map->map_line);
 	if (!check_map(map))
 	{
 		free_trash(&trash);
@@ -89,8 +92,6 @@ void	get_game_elements(int fd, t_map *map)
 	map->floor_color = ft_split(map->color, '\n');
 	map->map = ft_split(map->map_line, '\n');
 	map->texture = ft_split(map->texture_line, '\n');
-	// for (int i = 0; map->floor_color[i]; i++)
-	// 	printf("%s\n", map->floor_color[i]);
 	free_trash(&trash);
 }
 
@@ -121,13 +122,38 @@ void	check_player(char **map)
 		ft_error("no player !\n");
 }
 
+void resize_map(t_map *map)
+{
+	int x_max;
+	int j;
+	int i;
+	char *space;
 
+	x_max = get_x_max(map->map);
+	j = 0;
+	while (map->map[j])
+	{
+		i = x_max - (int)ft_strlen(map->map[j]);
+		if (i)
+		{
+			space = (char *)malloc(i + 1);
+			space[i] = '\0';
+			ft_memset(space, ' ', i);
+			void *ptr = map->map[j];
+			map->map[j] = ft_strjoin(map->map[j], space);
+			free(ptr);
+			free(space);
+		}
+		j++;
+	}
+	
+}
 
 t_map   read_map(char *file)
 {
 	int fd;
-
 	t_map	map;
+
 	fd = open(file, O_RDONLY);
 	map.flag = 1;
 	map.color = "";
@@ -136,5 +162,8 @@ t_map   read_map(char *file)
 	get_game_elements(fd, &map);
 	check_player(map.map);
 	check_if_surrounded(map.map);
+	resize_map(&map);
+	for (int i = 0;map.floor_color[i]; i++)
+		printf("%s\n", map.floor_color[i]);
 	return (map);
 }

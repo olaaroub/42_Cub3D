@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 02:45:06 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/22 10:58:30 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,4 +148,5 @@ void    render_3d(t_data *data);
 void initialize_variables(t_data *data);
 bool	check_if_surrounded(char **map);
 void pars_texture(t_data *data);
+int    get_x_max(char **map);
 #endif

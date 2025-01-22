@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 02:29:32 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:32:33 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,7 @@ void render_3d(t_data *data)
         if (data->start_draw < 0)
             data->start_draw = 0;
         if (data->end_draw >= SCREEN_H)
-            data->end_draw = SCREEN_H - 1;
+            data->end_draw = SCREEN_H;
         draw_3d(data, x);
         data->start_angle += angle_step;
     }

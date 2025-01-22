@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:33:24 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:21:47 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:33:59 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool chack_if_valid(char **map, int i, int j)
         return false;
     else if (j >= 0 && (j == 0 || map[j - 1][i] == ' '))
         return false;
-    else if (map[j + 1] && (map[j + 1][i] == ' ' || !map[j]))
+    else if ((map[j + 1] && map[j + 1][i] == ' ') || !map[j + 1])
         return false;
     return true;
 }
@@ -36,7 +36,9 @@ bool check_if_surrounded(char **map)
         i = 0;
         while (map[j][i])
         {
-            if (map[j][i] == '0' && !chack_if_valid(map, i, j))
+            if ((map[j][i] == '0' || map[j][i] == 'N'
+                || map[j][i] == 'S' || map[j][i] == 'E'
+                || map[j][i] == 'W') && !chack_if_valid(map, i, j))
                 ft_error("error: map not surrounded by wall\n");
             i++;
         }

@@ -6,7 +6,7 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/01 02:28:03 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/21 16:54:41 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/01/22 02:19:17 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ $(NAME): $(OBJ) $(LIB) $(MINILIBX) $(HEADER)
 	@stty -echoctl
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -o $(NAME)
 	make clean
+	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
+
 
 
 $(MINILIBX):
@@ -55,12 +57,11 @@ clean:
 fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(LIB)
-	@make clean -C minilibx-linux
 
 re:
 	@make fclean
 	@make all
 
 .PHONY: all fclean clean re bonus
-.SECONDARY: $(OBJ)
-.SILENT: $(OBJ) $(NAME) $(MINILIBX) $(LIB)
+.SILENT: $(OBJ) $(NAME)
+.SECONDARY: $(OBJ) $(NAME)

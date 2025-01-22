@@ -3,8 +3,8 @@ EA   	./imgs/east.xpm
 SO 	./imgs/south.xpm
 WE  	./imgs/west.xpm
 
-        F	165,191,204
-C        244,237,211
+F        150,75,0
+        C	135,206,235
 
 
 

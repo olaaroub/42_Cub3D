@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 21:31:08 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/22 02:45:06 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
 #define SOP 2 // this is size of player (x and y)!
 #define SOF 64 // this is square size
-#define SPEED 2
+#define SPEED 3
 #define MI_SIZE 30
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
-#define ROT_SPEED 0.1
+#define ROT_SPEED 0.13
 #define FOV_ANGLE PI / 3
 
 #define EPSILON 1e-6

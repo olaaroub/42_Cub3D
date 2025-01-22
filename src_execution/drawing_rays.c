@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 18:16:13 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/22 02:29:32 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ void draw_3d(t_data *data, int x)
     {
         while(y < data->start_draw)
         {
-            ft_pixelput(data->img, x, y, 0xFF333333);
+            ft_pixelput(data->img, x, y, data->map.ceiling_hex);
             y++;
         }
         // int texture_offset_x ;
@@ -293,7 +293,7 @@ void draw_3d(t_data *data, int x)
             ft_pixelput(data->img, x, y, color);
             y++;
         }
-        ft_pixelput(data->img, x, y, 0xFF777777);
+        ft_pixelput(data->img, x, y, data->map.floor_hex);
         y++;
     }
     // 0x4C585B   0x7E99A3

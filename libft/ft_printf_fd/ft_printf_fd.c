@@ -6,12 +6,12 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 00:23:32 by olaaroub          #+#    #+#             */
-/*   Updated: 2024/12/01 00:28:22 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/22 02:16:49 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include <ft_printf_fd.h>
+#include "ft_printf_fd.h"
 
 int	ft_printf_fd(int fd, char const *str, ...)
 {

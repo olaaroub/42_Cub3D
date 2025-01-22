@@ -6,12 +6,13 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 11:35:23 by olaaroub          #+#    #+#              #
-#    Updated: 2024/12/30 19:09:00 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/01/22 02:21:48 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+MAKEFLAGS := --no-print-directory
 AR = ar -rc
 RM = rm -rf
 
@@ -35,6 +36,10 @@ SRCS += ft_printf.c ft_putchar.c ft_putstr.c ft_putptr.c ft_putnbr_base.c ft_pla
 
 SRCS += get_next_line_utils.c get_next_line.c mini_utils.c
 
+#=== ft_printf_fd ===#
+
+SRCS += $(wildcard ft_printf_fd/*.c)
+
 OBJ = $(SRCS:.c=.o)
 
 
@@ -42,22 +47,17 @@ NAME = libft.a
 
 all : $(NAME)
 
-$(NAME): $(OBJ) $(B_OBJ)
+$(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -c $(B_SRCS)
 	@$(AR) $(NAME) $(OBJ) $(B_OBJ)
-	@$(AR) $(NAME) $(B_OBJ)
-	@make clean
-
-$(B_OBJ):$(B_SRCS)
-	@$(CC) $(CFLAGS) -c $(B_SRCS)
-	@$(AR) $(NAME) $(B_OBJ)
 
 clean:
 	@$(RM) $(OBJ) $(B_OBJ)
 
-fclean:
+fclean:clean
 	@$(RM) $(NAME)
 re: fclean all
 
 .PHONY : clean fclean all re bonus
 .SILENT : $(NAME) $(OBJ) $(B_OBJ)
+.SECONDARY: $(OBJ) $(B_OBJ)

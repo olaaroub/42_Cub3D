@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_colors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 20:34:07 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/22 02:28:13 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void skep_whitespace_to_color(t_data *data, int *j, int *cont, int i)
 		(*j)++;
 	(*cont) = *j;
 	while (data->map.floor_color[i][*cont] && !is_whitespace(data->map.floor_color[i][*cont]))
-		(*cont)++;	
+		(*cont)++;
 
 }
 
@@ -77,7 +77,7 @@ void pars_the_color(t_data *data)
         i = cont;
     	skep_whitespace_to_color(data, &i, &cont, j);
 		if (data->map.floor_color[j][i])
-			ft_error("miltupl args in color\n");    
+			ft_error("miltupl args in color\n");
         j++;
     }
 }

@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 21:47:03 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/21 22:23:19 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int main(int ac, char **av)
     t_data data;
     check_argument(av, ac, &data);
     printf("all DONE\n");
-    // init_game(&data);
-    // main_of_drawing(&data);
-    // mlx_loop(data.mlx);
+    init_game(&data);
+    main_of_drawing(&data);
+    mlx_loop(data.mlx);
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 11:32:33 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:46:28 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,7 +324,7 @@ void render_3d(t_data *data)
         draw_3d(data, x);
         data->start_angle += angle_step;
     }
-    // minimap(data->img);
+    minimap(data->img, data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }
 

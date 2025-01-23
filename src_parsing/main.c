@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 16:30:30 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:56:41 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int    get_x_max(char **map)
 
 void init_texture(t_data *data)
 {
-    printf("north: %s\n", data->north_tex->path);
 	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, data->north_tex->path,
 			 &data->north_tex->width, &data->north_tex->height);
     data->south_tex->texture = mlx_xpm_file_to_image(data->mlx, data->south_tex->path,

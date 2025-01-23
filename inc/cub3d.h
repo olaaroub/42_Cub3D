@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 10:58:30 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:46:51 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,19 @@ typedef struct s_texture
 
 } t_texture;
 
+typedef struct s_minimap
+{
+	int len;
+	double y_start;
+	double x_start;
+	double x_end;
+	double y_end;
+	double x;
+	double y;
+	int i;
+	int j;
+} t_minimap;
+
 typedef struct s_data
 {
 	t_texture		*north_tex;
@@ -90,6 +103,7 @@ typedef struct s_data
 	t_texture		*east_tex;
 	t_map			map;
 	t_img			*img;
+	t_minimap		minimap;
 	void			*mlx;
 	void			*mlx_win;
 	double			player_x;
@@ -149,4 +163,5 @@ void initialize_variables(t_data *data);
 bool	check_if_surrounded(char **map);
 void pars_texture(t_data *data);
 int    get_x_max(char **map);
+void minimap(t_img *img, t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 18:12:05 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/23 01:08:02 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ void initialize_variables(t_data *data)
 	initialize_the_angle(data);
 	data->player_x = (data->player_x * SOF) + SOF / 3;
 	data->player_y = (data->player_y * SOF) + SOF / 3;
-
     data->d_pressed = 0;
 	data->a_pressed = 0;
     data->w_pressed = 0;
 	data->s_pressed = 0;
-
     data->turn_left = 0;
     data->turn_right = 0;
 	data->is_vertical = false;

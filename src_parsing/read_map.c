@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 11:35:53 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/23 01:20:04 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void resize_map(t_map *map)
 		}
 		j++;
 	}
-	
+
 }
 
 t_map   read_map(char *file)
@@ -163,7 +163,7 @@ t_map   read_map(char *file)
 	check_player(map.map);
 	check_if_surrounded(map.map);
 	resize_map(&map);
-	for (int i = 0;map.floor_color[i]; i++)
-		printf("%s\n", map.floor_color[i]);
+	// for (int i = 0;map.floor_color[i]; i++)
+	// 	printf("%s\n", map.floor_color[i]);
 	return (map);
 }

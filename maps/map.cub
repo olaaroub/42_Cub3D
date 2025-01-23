@@ -1,11 +1,10 @@
-NO      ./imgs/north.xpm
-                                           C 135,206,50
-EA   	./imgs/east.xpm
-SO 	./imgs/south.xpm
-WE  	./imgs/west.xpm
+NO      ./imgs/north2.xpm
+                                                                                   C 135,206,235
+EA   	./imgs/east2.xpm
+SO 	./imgs/south2.xpm
+WE  	./imgs/west2.xpm
 
-       F	                  150                                     ,      75     ,                      10
-
+F 200,100,50
 
         1111111111111111111111111
         10E0000000110000000000001

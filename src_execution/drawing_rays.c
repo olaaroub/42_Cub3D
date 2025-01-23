@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/23 14:46:28 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:06:58 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int get_vertical_color(t_data *data, double y)
   int x;
   int offset;
   int index;
-//   printf("data->ray_angle = %f\n", data->start_angle);
+
     if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
         x = (int)(data->east_tex->width * data->hit_y / 64) % data->east_tex->width;
@@ -246,7 +246,7 @@ int get_horizontal_color(t_data *data, double y)
     int x;
     int offset;
     int index;
-    // printf("data->start_angle = %f\n", data->start_angle);
+
     if (data->start_angle >= PI && data->start_angle < 2 * PI)
     {
         x = (int)(data->south_tex->width * data->hit_x / 64) % data->south_tex->width;
@@ -272,31 +272,19 @@ void draw_3d(t_data *data, int x)
     while (y < SCREEN_H)
     {
         while(y < data->start_draw)
-        {
-            ft_pixelput(data->img, x, y, data->map.ceiling_hex);
-            y++;
-        }
-        // int texture_offset_x ;
-        // if (data->is_vertical)
-        //     texture_offset_x = (int)data->hit_y % SOF;
-        // else
-        //     texture_offset_x = (int)data->hit_x % SOF;
+            ft_pixelput(data->img, x, y++, data->map.ceiling_hex);
         while(y >= data->start_draw && y < data->end_draw)
         {
             if(data->is_vertical)
                 color = get_vertical_color(data, y);
             else
                 color = get_horizontal_color(data, y);
-            // int distance_from_top = y - (SCREEN_H / 2) + (data->wallhight / 2);
-            // int texture_offset_y = distance_from_top * (float)(64.0 / data->wallhight);
-            // color = ((int *)data->north_tex->addr)[64 * texture_offset_y + texture_offset_x];
             ft_pixelput(data->img, x, y, color);
             y++;
         }
         ft_pixelput(data->img, x, y, data->map.floor_hex);
         y++;
     }
-    // 0x4C585B   0x7E99A3
 }
 
 void render_3d(t_data *data)

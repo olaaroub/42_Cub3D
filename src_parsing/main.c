@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/23 15:07:17 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/25 02:25:48 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void check_argument(char **av, int ac, t_data *data)
     if (ft_strncmp(av[1] + i - 4, ".cub", 5) != 0)
         exit(1);
     data->map = read_map(av[1]);
-    pars_the_color(data); // this lines I added it her becose you will check parsing befor open the window
+    pars_the_color(data);
     pars_texture(data);
 }
 
@@ -44,6 +44,8 @@ int    get_x_max(char **map)
 
 void init_texture(t_data *data)
 {
+    data->door_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/door.xpm",
+            &data->door_tex->width, &data->door_tex->height);
 	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, data->north_tex->path,
 			 &data->north_tex->width, &data->north_tex->height);
     data->south_tex->texture = mlx_xpm_file_to_image(data->mlx, data->south_tex->path,
@@ -54,7 +56,7 @@ void init_texture(t_data *data)
     data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, data->west_tex->path,
              &data->west_tex->width, &data->west_tex->height);
 
-	if(!data->north_tex->texture || !data->south_tex->texture || !data->west_tex->texture || !data->east_tex->texture)
+	if(!data->north_tex->texture || !data->south_tex->texture || !data->west_tex->texture || !data->east_tex->texture || !data->door_tex->texture)
     {
         //free_data(data); // this function is not implemented yet
         ft_error("Error\n: texture not found");
@@ -68,6 +70,8 @@ void init_texture(t_data *data)
             &data->west_tex->line_length, &data->west_tex->endian);
     data->east_tex->addr = mlx_get_data_addr(data->east_tex->texture, &data->east_tex->bits_per_pixel,
             &data->east_tex->line_length, &data->east_tex->endian);
+    data->door_tex->addr = mlx_get_data_addr(data->door_tex->texture, &data->door_tex->bits_per_pixel,
+            &data->door_tex->line_length, &data->door_tex->endian);
 }
 
 void    init_game(t_data *data)
@@ -88,6 +92,7 @@ void    init_game(t_data *data)
 int main(int ac, char **av)
 {
     t_data data;
+
     check_argument(av, ac, &data);
     init_game(&data);
     main_of_drawing(&data);

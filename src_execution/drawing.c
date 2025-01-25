@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/23 01:08:02 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/25 02:22:00 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void initialize_variables(t_data *data)
     data->turn_left = 0;
     data->turn_right = 0;
 	data->is_vertical = false;
+	data->hit_door = false;
 }
 
 

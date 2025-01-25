@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 10:58:30 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/25 23:58:07 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,20 @@ typedef struct s_texture
 
 } t_texture;
 
+typedef struct s_vect
+{
+	double x;
+	double y;
+
+} t_vect;
+
 typedef struct s_data
 {
 	t_texture		*north_tex;
 	t_texture		*south_tex;
 	t_texture		*west_tex;
 	t_texture		*east_tex;
+	t_texture		*door_tex;
 	t_map			map;
 	t_img			*img;
 	void			*mlx;
@@ -115,6 +123,7 @@ typedef struct s_data
 	int				map_x;
 	double			hit_x;
 	double			hit_y;
+	bool			hit_door;
 }	t_data;
 
 

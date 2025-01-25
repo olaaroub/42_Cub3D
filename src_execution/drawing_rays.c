@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
 /*   Updated: 2025/01/26 00:52:21 by olaaroub         ###   ########.fr       */
@@ -345,7 +345,7 @@ void render_3d(t_data *data)
         draw_3d(data, x);
         data->start_angle += angle_step;
     }
-    // minimap(data->img);
+    minimap(data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }
 

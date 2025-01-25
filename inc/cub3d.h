@@ -88,6 +88,21 @@ typedef struct s_vect
 	double y;
 
 } t_vect;
+typedef struct s_minimap
+{
+	int len;
+	double y_start;
+	double x_start;
+	double x_end;
+	double y_end;
+	double x;
+	double y;
+	int i;
+	int j;
+	int flag;
+	double tmp_x;
+	double tmp_y;
+} t_minimap;
 
 typedef struct s_data
 {
@@ -98,6 +113,7 @@ typedef struct s_data
 	t_texture		*door_tex;
 	t_map			map;
 	t_img			*img;
+	t_minimap		minimap;
 	void			*mlx;
 	void			*mlx_win;
 	double			player_x;
@@ -111,6 +127,9 @@ typedef struct s_data
 	int				d_pressed;
 	int				w_pressed;
 	int				s_pressed;
+	int				offset;
+	double				px;
+	double				py;
 	// -------rander 3d--------
 	bool			is_vertical;
     double 			start_angle;
@@ -124,6 +143,7 @@ typedef struct s_data
 	double			hit_x;
 	double			hit_y;
 	bool			hit_door;
+
 }	t_data;
 
 
@@ -158,4 +178,5 @@ void initialize_variables(t_data *data);
 bool	check_if_surrounded(char **map);
 void pars_texture(t_data *data);
 int    get_x_max(char **map);
+void minimap(t_data *data);
 #endif

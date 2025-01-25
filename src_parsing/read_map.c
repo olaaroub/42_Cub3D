@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
 /*   Updated: 2025/01/25 01:36:06 by olaaroub         ###   ########.fr       */
@@ -82,9 +82,6 @@ void	get_game_elements(int fd, t_map *map)
 	}
 	skip_trailing_nl(map, &trash);
 	close(fd);
-	// printf("%s\n", map->texture_line);
-	// printf("%s\n", map->color);
-	// printf("%s\n", map->map_line);
 	if (!check_map(map))
 	{
 		free_trash(&trash);
@@ -165,7 +162,5 @@ t_map   read_map(char *file)
 	check_if_surrounded(map.map);
 	
 	resize_map(&map);
-	// for (int i = 0;map.floor_color[i]; i++)
-	// 	printf("%s\n", map.floor_color[i]);
 	return (map);
 }

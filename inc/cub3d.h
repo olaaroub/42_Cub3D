@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/23 14:46:51 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/25 21:12:55 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ typedef struct s_minimap
 	double y;
 	int i;
 	int j;
+	int flag;
+	double tmp_x;
+	double tmp_y;
 } t_minimap;
 
 typedef struct s_data
@@ -117,6 +120,9 @@ typedef struct s_data
 	int				d_pressed;
 	int				w_pressed;
 	int				s_pressed;
+	int				offset;
+	double				px;
+	double				py;
 	// -------rander 3d--------
 	bool			is_vertical;
     double 			start_angle;
@@ -129,6 +135,7 @@ typedef struct s_data
 	int				map_x;
 	double			hit_x;
 	double			hit_y;
+	
 }	t_data;
 
 
@@ -163,5 +170,5 @@ void initialize_variables(t_data *data);
 bool	check_if_surrounded(char **map);
 void pars_texture(t_data *data);
 int    get_x_max(char **map);
-void minimap(t_img *img, t_data *data);
+void minimap(t_data *data);
 #endif

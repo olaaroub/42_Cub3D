@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 16:06:12 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:49:55 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,27 +142,27 @@ void minimap_draw(t_img *img, t_data *data, char **map)
 
 void minimap(t_data *data)
 {
-	data->minimap.len = MI_SIZE * 5;
-	data->minimap.y_start = data->player_y - data->minimap.len;
-	data->minimap.x_end = data->player_x + data->minimap.len;
-	data->minimap.y_end = data->player_y + data->minimap.len;
-	data->minimap.y = -data->minimap.len;
-	data->minimap.flag = 0;
-	char **map = data->map.map;
-	while (data->minimap.y_start < data->minimap.y_end)
-	{
-		data->minimap.x = -data->minimap.len;
-		data->minimap.x_start = data->player_x - data->minimap.len;
-		while (data->minimap.x_start < data->minimap.x_end)
-		{
-			if (pow(data->minimap.x_start - data->player_x, 2) + pow(data->minimap.y_start - data->player_y, 2) <= pow(data->minimap.len, 2))
-				minimap_draw(data->img, data, map);
-			data->minimap.x_start++;
-			data->minimap.x++;
-		}
-		data->minimap.y++;
-		data->minimap.y_start++;
-	}
+	// data->minimap.len = MI_SIZE * 5;
+	// data->minimap.y_start = data->player_y - data->minimap.len;
+	// data->minimap.x_end = data->player_x + data->minimap.len;
+	// data->minimap.y_end = data->player_y + data->minimap.len;
+	// data->minimap.y = -data->minimap.len;
+	// data->minimap.flag = 0;
+	// char **map = data->map.map;
+	// while (data->minimap.y_start < data->minimap.y_end)
+	// {
+	// 	data->minimap.x = -data->minimap.len;
+	// 	data->minimap.x_start = data->player_x - data->minimap.len;
+	// 	while (data->minimap.x_start < data->minimap.x_end)
+	// 	{
+	// 		if (pow(data->minimap.x_start - data->player_x, 2) + pow(data->minimap.y_start - data->player_y, 2) <= pow(data->minimap.len, 2))
+	// 			minimap_draw(data->img, data, map);
+	// 		data->minimap.x_start++;
+	// 		data->minimap.x++;
+	// 	}
+	// 	data->minimap.y++;
+	// 	data->minimap.y_start++;
+	// }
     minimap1(data);
 	// printf("%f %f\n", data->px, data->py);
     player_drawing(data);

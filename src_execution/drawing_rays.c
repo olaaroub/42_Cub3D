@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 00:52:21 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:55:54 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void vertical_intersection(t_data *data, t_vect *hit)
 
 }
 
-double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door)
+double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, t_vect *door_coor_v)
 {
     t_vect hit;
     t_vect step;
@@ -125,9 +125,18 @@ double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door)
             if (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D')
                 {
                     if(data->map.map[(int)map.y][(int)map.x] == 'D')
+                    {
+                        door_coor_v->x = map.x;
+                        door_coor_v->y = map.y;
                         *hit_door = true;
+                    }
                     break;
                 }
+            else if(data->map.map[(int)map.y][(int)map.x] == 'O')
+        {
+            door_coor_v->x = map.x;
+            door_coor_v->y = map.y;
+        }
         }
         else
             break;
@@ -161,7 +170,7 @@ void horizontal_intersection(t_data *data, t_vect *hit)
     hit->x = x + ((hit->y - y) / rayDiry) * rayDirx;
 }
 
-double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door)
+double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect *door_coor_h)
 {
     t_vect hit;
     t_vect step;
@@ -184,9 +193,19 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door)
             (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D'))
             {
                 if(data->map.map[(int)map.y][(int)map.x] == 'D')
+                {
+                    door_coor_h->x = map.x;
+                    door_coor_h->y = map.y;
                     *hit_door = true;
+                }
                 break;
             }
+        else if(map.y >= 0 && map.y < data->y_max &&
+            map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]) && data->map.map[(int)map.y][(int)map.x] == 'O')
+        {
+            door_coor_h->x = map.x;
+            door_coor_h->y = map.y;
+        }
         hit.x += step.x;
         hit.y += step.y;
     }
@@ -202,18 +221,22 @@ double get_ray_lenght(t_data *data)
     t_vect h_hit;
     t_vect v_hit;
     t_vect map;
+    t_vect door_coor_h;
+    t_vect door_coor_v;
     bool hit_door_h = false;
     bool hit_door_v = false;
 
     map.x = 0;
     map.y = 0;
-    hlen = draw_hray(data, map, &h_hit, &hit_door_h);
-    vlen = draw_vray(data, map, &v_hit, &hit_door_v);
+    hlen = draw_hray(data, map, &h_hit, &hit_door_h, &door_coor_h);
+    vlen = draw_vray(data, map, &v_hit, &hit_door_v, &door_coor_v);
     data->is_vertical = false;
     if (hlen < vlen)
     {
         data->hit_x = h_hit.x;
         data->hit_y = h_hit.y;
+        data->door_coor.x = door_coor_h.x;
+        data->door_coor.y = door_coor_h.y;
         data->hit_door = hit_door_h;
         return hlen;
     }
@@ -221,6 +244,8 @@ double get_ray_lenght(t_data *data)
     {
         data->hit_x = v_hit.x;
         data->hit_y = v_hit.y;
+        data->door_coor.x = door_coor_v.x;
+        data->door_coor.y = door_coor_v.y;
         data->is_vertical = true;
         data->hit_door = hit_door_v;
         return vlen;
@@ -234,7 +259,7 @@ int get_vertical_color(t_data *data, double y)
   int offset;
   int index;
 
-    if( data->hit_door)
+    if(data->hit_door)
     {
         x = (int)(data->door_tex->width * data->hit_y / 64) % data->door_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);

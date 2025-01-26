@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 14:00:43 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 00:52:21 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,141 +80,149 @@
     and if  we  want to calculat Ax we use the same method
 
 */
-void VerticalIntersection(t_data *data, double *Ay, double *Ax)
+void vertical_intersection(t_data *data, t_vect *hit)
 {
-    double rayDirx;
-    double rayDiry;
+    t_vect ray_dir;
     double x, y;
 
-    x = data->x;
-    y = data->y;
+    x = data->player_x;
+    y = data->player_y;
 
-    rayDirx = cos(data->start_angle);
-    rayDiry = sin(data->start_angle);
+    ray_dir.x = cos(data->start_angle);
+    ray_dir.y = sin(data->start_angle);
 
-    if (fabs(rayDirx) < EPSILON)
+    if (fabs(ray_dir.x) < EPSILON)
         return;
-    if (rayDirx < 0)
-        *Ax = floor(x / SOF) * SOF - EPSILON;
+    if (ray_dir.x < 0)
+        hit->x = floor(x / SOF) * SOF - EPSILON;
     else
-        *Ax = floor(x / SOF) * SOF + SOF;
-    *Ay = y + ((*Ax - x) / rayDirx) * rayDiry;
+        hit->x = floor(x / SOF) * SOF + SOF;
+    hit->y = y + ((hit->x - x) / ray_dir.x) * ray_dir.y;
 
 }
 
-double draw_rayWithVertical(t_data *data , int map_x, int map_y, t_data *vdata)
+double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door)
 {
-    double Ay;
-    double Ax;
-    double xstep;
-    double ystep;
+    t_vect hit;
+    t_vect step;
 
-    VerticalIntersection(data, &Ay, &Ax);
+    vertical_intersection(data, &hit);
     if (fabs(cos(data->start_angle)) < EPSILON)
         return INT_MAX;
     if (cos(data->start_angle) > 0)
-        xstep = SOF;
+        step.x = SOF;
     else
-        xstep = -SOF;
-    ystep = xstep * tan(data->start_angle);
-    while (Ax >= 0 && Ax < data->x_max * SOF &&
-           Ay >= 0 && Ay < data->y_max * SOF)
+        step.x = -SOF;
+    step.y = step.x * tan(data->start_angle);
+    while (hit.x >= 0 && hit.x < data->x_max * SOF &&
+           hit.y >= 0 && hit.y < data->y_max * SOF)
     {
-        map_x = (int)Ax / SOF;
-        map_y = (int)Ay / SOF;
-        if (map_y >= 0 && map_y < data->y_max &&
-            map_x >= 0 && map_x < (int)ft_strlen(data->map.map[map_y]))
+        map.x = (int)hit.x / SOF;
+        map.y = (int)hit.y / SOF;
+        if (map.y >= 0 && map.y < data->y_max &&
+            map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]))
         {
-            if (data->map.map[map_y][map_x] == '1')
-                break;
+            if (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D')
+                {
+                    if(data->map.map[(int)map.y][(int)map.x] == 'D')
+                        *hit_door = true;
+                    break;
+                }
         }
         else
             break;
-        Ax += xstep;
-        Ay += ystep;
+        hit.x += step.x;
+        hit.y += step.y;
     }
-    vdata->hit_x = Ax;
-    vdata->hit_y = Ay;
-    return (sqrt(pow(Ax - data->x, 2) + pow(Ay - data->y, 2)));
+    v_hit->x = hit.x;
+    v_hit->y = hit.y;
+    return (sqrt(pow(hit.x - data->player_x, 2) + pow(hit.y - data->player_y, 2)));
 }
 
-void HorizontalIntersection(t_data *data, double *Ay, double *Ax)
+void horizontal_intersection(t_data *data, t_vect *hit)
 {
     double rayDirx;
     double rayDiry;
     double x;
     double y;
 
-    x = data->x;
-    y = data->y;
+    x = data->player_x;
+    y = data->player_y;
     rayDirx = cos(data->start_angle);
     rayDiry = sin(data->start_angle);
 
     if (fabs(rayDiry) < EPSILON)
         return ;
     if (rayDiry < 0)
-        *Ay = floor(y / SOF) * SOF - EPSILON;
+        hit->y = floor(y / SOF) * SOF - EPSILON;
     else
-        *Ay = floor(y / SOF) * SOF + SOF;
+        hit->y = floor(y / SOF) * SOF + SOF;
 
-    *Ax = x + ((*Ay - y) / rayDiry) * rayDirx;
+    hit->x = x + ((hit->y - y) / rayDiry) * rayDirx;
 }
 
-double draw_rayWithHorizontal(t_data *data, int map_x, int map_y, t_data *hdata)
+double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door)
 {
-    double Ay;
-    double Ax;
-    double xstep;
-    double ystep;
+    t_vect hit;
+    t_vect step;
 
-    HorizontalIntersection(data, &Ay, &Ax);
+    horizontal_intersection(data, &hit);
     if (fabs(sin(data->start_angle)) < EPSILON)
         return INT_MAX;
     if (sin(data->start_angle) > 0)
-        ystep = SOF;
+        step.y = SOF;
     else
-        ystep = -SOF;
-    xstep = ystep / tan(data->start_angle);
-    while (Ax >= 0 && Ax < data->x_max * SOF &&
-           Ay >= 0 && Ay < data->y_max * SOF)
+        step.y = -SOF;
+    step.x = step.y / tan(data->start_angle);
+    while (hit.x >= 0 && hit.x < data->x_max * SOF &&
+           hit.y >= 0 && hit.y < data->y_max * SOF)
     {
-        map_x = (int)(Ax / SOF);
-        map_y = (int)(Ay / SOF);
-        if (map_y >= 0 && map_y < data->y_max &&
-            map_x >= 0 && map_x < (int)ft_strlen(data->map.map[map_y]) &&
-            data->map.map[map_y][map_x] == '1')
-            break;
-        Ax += xstep;
-        Ay += ystep;
+        map.x = (int)(hit.x / SOF);
+        map.y = (int)(hit.y / SOF);
+        if (map.y >= 0 && map.y < data->y_max &&
+            map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]) &&
+            (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D'))
+            {
+                if(data->map.map[(int)map.y][(int)map.x] == 'D')
+                    *hit_door = true;
+                break;
+            }
+        hit.x += step.x;
+        hit.y += step.y;
     }
-    hdata->hit_x = Ax;
-    hdata->hit_y = Ay;
-    return (sqrt(pow(Ax - data->x, 2) + pow(Ay - data->y, 2)));
+    h_hit->x = hit.x;
+    h_hit->y = hit.y;
+    return (sqrt(pow(hit.x - data->player_x, 2) + pow(hit.y - data->player_y, 2)));
 }
 
 double get_ray_lenght(t_data *data)
 {
     double hlen;
     double vlen;
-    t_data vdata;
-    t_data hdata;
+    t_vect h_hit;
+    t_vect v_hit;
+    t_vect map;
+    bool hit_door_h = false;
+    bool hit_door_v = false;
 
-    vdata.map_x = 0;
-    vdata.map_y = 0;
-    hlen = draw_rayWithHorizontal(data, vdata.map_x, vdata.map_y, &hdata);
-    vlen = draw_rayWithVertical(data, vdata.map_x, vdata.map_y, &vdata);
+    map.x = 0;
+    map.y = 0;
+    hlen = draw_hray(data, map, &h_hit, &hit_door_h);
+    vlen = draw_vray(data, map, &v_hit, &hit_door_v);
     data->is_vertical = false;
     if (hlen < vlen)
     {
-        data->hit_x = hdata.hit_x;
-        data->hit_y = hdata.hit_y;
+        data->hit_x = h_hit.x;
+        data->hit_y = h_hit.y;
+        data->hit_door = hit_door_h;
         return hlen;
     }
     else
     {
-        data->hit_x = vdata.hit_x;
-        data->hit_y = vdata.hit_y;
+        data->hit_x = v_hit.x;
+        data->hit_y = v_hit.y;
         data->is_vertical = true;
+        data->hit_door = hit_door_v;
         return vlen;
     }
     return 0;
@@ -225,7 +233,16 @@ int get_vertical_color(t_data *data, double y)
   int x;
   int offset;
   int index;
-//   printf("data->ray_angle = %f\n", data->start_angle);
+
+    if( data->hit_door)
+    {
+        x = (int)(data->door_tex->width * data->hit_y / 64) % data->door_tex->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        // offset = y- data->start_draw;
+
+        index = offset * ((double)data->door_tex->height / data->wallhight);
+        return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
+    }
     if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
         x = (int)(data->east_tex->width * data->hit_y / 64) % data->east_tex->width;
@@ -233,10 +250,13 @@ int get_vertical_color(t_data *data, double y)
         index = offset * ((double)data->east_tex->height / data->wallhight);
         return(*(int*)(data->east_tex->addr + ((data->east_tex->width * (index * 4) + (x * 4)))));
     }
-    else {
+    else
+    {
         x = (int)(data->west_tex->width * data->hit_y / 64) % data->west_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        index = offset * ((double)data->west_tex->height / data->wallhight);
+
+        // offset = y- data->start_draw;
+        index = (offset) * ((double)data->west_tex->height / data->wallhight);
         return (*(int*)(data->west_tex->addr + ((data->west_tex->width * (index * 4) + (x * 4)))));
     }
 }
@@ -246,17 +266,30 @@ int get_horizontal_color(t_data *data, double y)
     int x;
     int offset;
     int index;
-    // printf("data->start_angle = %f\n", data->start_angle);
+
+    if(data->hit_door)
+    {
+        x = (int)(data->door_tex->width * data->hit_x / 64) % data->door_tex->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        // offset = y- data->start_draw;
+
+        index = offset * ((double)data->door_tex->height / data->wallhight);
+        return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
+    }
     if (data->start_angle >= PI && data->start_angle < 2 * PI)
     {
         x = (int)(data->south_tex->width * data->hit_x / 64) % data->south_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        // offset = y- data->start_draw;
+
         index = offset * ((double)data->south_tex->height / data->wallhight);
         return (*(int*)(data->south_tex->addr + ((data->south_tex->width * (index * 4) + (x * 4)))));
     }
     else{
         x = (int)(data->north_tex->width * data->hit_x / 64) % data->north_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        // offset = y- data->start_draw;
+
         index = offset * ((double)data->north_tex->height / data->wallhight);
         return (*(int*)(data->north_tex->addr + ((data->north_tex->width * (index * 4) + (x * 4)))));
 
@@ -272,45 +305,33 @@ void draw_3d(t_data *data, int x)
     while (y < SCREEN_H)
     {
         while(y < data->start_draw)
-        {
-            ft_pixelput(data->img, x, y, 0xFF333333);
-            y++;
-        }
-        // int texture_offset_x ;
-        // if (data->is_vertical)
-        //     texture_offset_x = (int)data->hit_y % SOF;
-        // else
-        //     texture_offset_x = (int)data->hit_x % SOF;
+            ft_pixelput(data->img, x, y++, data->map.ceiling_hex);
         while(y >= data->start_draw && y < data->end_draw)
         {
             if(data->is_vertical)
                 color = get_vertical_color(data, y);
             else
                 color = get_horizontal_color(data, y);
-            // int distance_from_top = y - (SCREEN_H / 2) + (data->wallhight / 2);
-            // int texture_offset_y = distance_from_top * (float)(64.0 / data->wallhight);
-            // color = ((int *)data->north_tex->addr)[64 * texture_offset_y + texture_offset_x];
             ft_pixelput(data->img, x, y, color);
             y++;
         }
-        ft_pixelput(data->img, x, y, 0xFF777777);
+        ft_pixelput(data->img, x, y, data->map.floor_hex);
         y++;
     }
-    // 0x4C585B   0x7E99A3
 }
 
 void render_3d(t_data *data)
 {
-    int x;
+    int     x;
+    double  angle_step;
 
-    data->angle_step = FOV_ANGLE / SCREEN_W;
+    angle_step = FOV_ANGLE / SCREEN_W;
     data->start_angle = data->angle - (FOV_ANGLE / 2);
     if (data->start_angle < 0)
         data->start_angle += 2 * PI;
-    x = 0;
-    while (x < SCREEN_W)
+    x = -1;
+    while (++x < SCREEN_W)
     {
-
         data->ray_dis = get_ray_lenght(data);
         data->ray_dis *= cos(data->start_angle - data->angle);
         data->dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
@@ -320,15 +341,12 @@ void render_3d(t_data *data)
         if (data->start_draw < 0)
             data->start_draw = 0;
         if (data->end_draw >= SCREEN_H)
-            data->end_draw = SCREEN_H - 1;
+            data->end_draw = SCREEN_H;
         draw_3d(data, x);
-        data->start_angle += data->angle_step;
-        x++;
+        data->start_angle += angle_step;
     }
-    // minimap(data->img);
+    minimap(data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
-
-    // put_img(data->img);
 }
 
 // void drawing_rays(t_img *img)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 19:59:53 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:41:11 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define CUB3D_H
 
 #include "../minilibx-linux/mlx.h"
+#include  <X11/X.h>
+#include  <X11/keysym.h>
 #include "../libft/libft.h"
 
 #include <stdio.h>
@@ -40,7 +42,7 @@
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
-#define ROT_SPEED 0.1
+#define ROT_SPEED 0.09
 #define FOV_ANGLE PI / 3
 
 #define EPSILON 1e-6
@@ -53,16 +55,11 @@ typedef struct s_map
 	char **texture;
 	char **floor_color;
 	char *color;
-	char *textur_as_lien;
-	char *map_as_lien;
+	char *texture_line;
+	char *map_line;
 	int  ceiling_hex;
 	int  floor_hex;
 	int  flag;
-
-	char *texturOfWe;
-	char *texturOfSo;
-	char *texturOfNo;
-	char *texturOfEa;
 }	t_map;
 
 typedef struct	s_img {
@@ -87,45 +84,55 @@ typedef struct s_texture
 
 } t_texture;
 
+typedef struct s_vect
+{
+	double x;
+	double y;
+
+} t_vect;
+typedef struct s_minimap
+{
+	int len;
+	double y_start;
+	double x_start;
+	double x_end;
+	double y_end;
+	double x;
+	double y;
+	int i;
+	int j;
+	int flag;
+	double tmp_x;
+	double tmp_y;
+} t_minimap;
+
 typedef struct s_data
 {
 	t_texture		*north_tex;
 	t_texture		*south_tex;
 	t_texture		*west_tex;
 	t_texture		*east_tex;
-	int *texture;
-	int *south;
-	int *east;
-	int *west;
-	void			*mlx;
-	void			*mlx_win;
-	double			x;
-	double			y;
-	int				len_x;
-	int				len_y;
-	int				x_max;
-	int				y_max;
-	int				i;
-	int				j;
-	int				fd;
-	int				is_drawing;
-	unsigned int	color_wall;
-	unsigned int	color;
-	unsigned int	color_player;
+	t_texture		*door_tex;
 	t_map			map;
 	t_img			*img;
-	int				offset;
+	t_minimap		minimap;
+	void			*mlx;
+	void			*mlx_win;
+	double			player_x;
+	double			player_y;
+	int				x_max;
+	int				y_max;
 	double			angle;
-	int				fg_left;
-	int				fg_right;
-	int				fg_W;
-	int				fg_E;
-	int				fg_N;
-	int				fg_S;
-	double			dh; // destance for horizontal
-	double			dv; // destance for vertical;
+	int				turn_left;
+	int				turn_right;
+	int				a_pressed;
+	int				d_pressed;
+	int				w_pressed;
+	int				s_pressed;
+	int				offset;
+	double				px;
+	double				py;
 	// -------rander 3d--------
-    double 			angle_step;
 	bool			is_vertical;
     double 			start_angle;
 	double 			ray_dis;
@@ -135,62 +142,44 @@ typedef struct s_data
 	double 			end_draw;
 	int				map_y;
 	int				map_x;
-	// ------ mini map------
-	int				len;
-	double			x_end;
-	double			y_end;
-	int				dx;
-	int				dy;
-	int				steps;
-	double			x_inc;
-	double 			y_inc;
-	double			x_start;
-	double			y_start;
-	//-------------------------
 	double			hit_x;
 	double			hit_y;
+	bool			hit_door;
+	bool 			door_open;
+
 }	t_data;
 
 
-void	check_argument(char **av, int ac);
+void    free_trash(t_list **trash);
+void	check_argument(char **av, int ac, t_data *data);
 int		is_texture(char *line);
 int		is_color(char *line);
-int 	is_emty(char *line);
+int 	is_empty(char *line);
 t_map   read_map(char *file);
-void    free_trash(t_list **trash);
 void    add_to_trash(void *add, t_list **trash);
 void	ft_error(char *str);
-void 	check_wall(t_map *map);
-void 	check_wall2(t_map *map);
 char	**duplicate_map(char **map);
-int		ft_strlen_blm9lob(char **map);
+int		count_coloumns(char **map);
 void    free_map(char **map);
 void	check_player(char **map);
 t_data	*data_global();
 void	get_postion(t_data *data, char **map);
-void	flodfile(char **map, int i, int j);
-void	check_floodfile(char **map);
 bool	is_valid_number(char *str);
 void	pars_the_color(t_data *data);
 int		cont_character(char *str, int c);
 // -----------------------------------
 void	main_of_drawing(t_data *data);
-int    rgb_to_hex(int r, int g, int b);
-int		krwa();
-void	open_the_window();
-int		drawing(t_data *data);
+int		rgb_to_hex(int r, int g, int b);
+int		exit_key(void	*data);
 int		move(void *parm);
-void	get_data_addr(t_img *img);
-void 	put_img(t_img *img);
-int 	drawing_ray(t_img *img, double angle, int ray_length);
 void	ft_pixelput(t_img *img, int x, int y, int color);
 int key_release(int key, void *parm);
-void drawing_rays(t_img *img);
 int key_press(int key, void *parm);
 void    render_3d(t_data *data);
-void	minimap(t_img *img);
 
-void	initialize_variables(t_data *data);
-bool	check_mapifitSurrounded(char **map);
-void	pars_texture(t_data *data);
+void initialize_variables(t_data *data);
+bool	check_if_surrounded(char **map);
+void pars_texture(t_data *data);
+int    get_x_max(char **map);
+void minimap(t_data *data);
 #endif

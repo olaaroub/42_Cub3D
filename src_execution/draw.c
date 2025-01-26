@@ -3,137 +3,170 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/20 19:00:23 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:03:16 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	ft_pixelput(t_img *img, int x, int y, int color)
+void	drawing1(t_data *data, int x, int y, int color)
 {
-	char	*tmp;
+	int i;
+	int x_max;
+	int y_max;
 
-	if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
-		return ;
-	tmp = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)tmp = color;
+	x_max =  x + data->offset;
+	y_max = y + data->offset;
+	i = x;
+	while (y < y_max)
+	{
+		x = i;
+		while(x < x_max)
+		{
+			ft_pixelput(data->img, x, y, color);
+			x++;
+		}
+		y++;
+	}
 }
 
-// void	drawing1(t_img *img, int x, int y, int color)
-// {
-// 	int i;
-// 	int x_max;
-// 	int y_max;
+void	drawing_player(t_data*data, int x, int y)
+{
+	data->offset = 10;
+	drawing1(data, x, y, 0xfcba03);
 
-// 	x_max =  x + data_global()->offset;
-// 	y_max = y + data_global()->offset;
-// 	i = x;
-// 	while (y < y_max)
-// 	{
-// 		x = i;
-// 		while(x < x_max)
-// 		{
-// 			ft_pixelput(img, x, y, color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
+}
 
-// void	drawing_player(t_img *img, int x, int y)
-// {
-// 	data_global()->offset = 10;
-// 	drawing1(img, x, y, 0xfcba03);
+void	minimap1(t_data *data)
+{
+	int	x;
+	int	y;
+	int x_draw;
+	int y_draw;
+    double player_x;
+    double player_y;
 
-// }
+	y_draw = 0;
+	y = (data->player_y / SOF) - 5;
+	if (y < 0)
+		y = 0;
+	while (y <= (data->player_y / SOF) + 5 && data->map.map[y])
+	{
+		x = (data->player_x / SOF) - 5;
+		x_draw = 0;
+		if (x < 0)
+			x = 0;
+		while(x <= (data->player_x / SOF) + 5 && data->map.map[y][x])
+		{
+			data->offset = MI_SIZE;
+			if (data->map.map[y][x] == '1')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFFFFFF);
+			else if (data->map.map[y][x] != ' ')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFF0000);
+			if (x == (int)data->player_x / SOF && y == (int)data->player_y / SOF)
+            {
+                player_x = (x_draw + fabs(data->player_x / SOF - x)) * MI_SIZE;
+                player_y = (y_draw + fabs(data->player_y / SOF - y)) * MI_SIZE;
+            }
+			x++;
+			x_draw++;
+		}
+		y_draw++;
+		y++;
+	}
+	drawing_player(data, player_x, player_y);
+}
 
-// void	minimap(t_img *img)
-// {
-// 	int	x;
-// 	int	y;
-// 	int x_draw;
-// 	int y_draw;
+void player_drawing(t_data *data)
+{
+    int rotx;
+    int roty;
+    int offset;
+    int i;
+    int j;
 
-// 	y_draw = 0;
-// 	y = (data_global()->y / SOF) - 5;
-// 	if (y < 0)
-// 		y = 0;
-// 	while (y <= (data_global()->y / SOF) + 5 && data_global()->map.map[y])
-// 	{
-// 		x = (data_global()->x / SOF) - 5;
-// 		x_draw = 0;
-// 		if (x < 0)
-// 			x = 0;
-// 		while(x <= (data_global()->x / SOF) + 5 && data_global()->map.map[y][x])
-// 		{
-// 			data_global()->offset = MI_SIZE;
-// 			if (data_global()->map.map[y][x] == '1')
-// 				drawing1(img, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFFFFFF);
-// 			else if (data_global()->map.map[y][x] != ' ')
-// 				drawing1(img, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFF0000);
-// 			if (x == (int)data_global()->x / SOF && y == (int)data_global()->y / SOF)
-// 				drawing_player(img, x_draw * MI_SIZE, y_draw * MI_SIZE);	
-// 			x++;
-// 			x_draw++;
-// 		}
-// 		y_draw++;
-// 		y++;
-// 	}
-// }
+    j = 0;
+    offset = data->minimap.len + 20;
+    while (j < 10)
+    {
+        i = 0;
+        while (i < 10)
+        {
+            rotx = round((data->minimap.tmp_x + i) * cos(data->angle) - (data->minimap.tmp_y + j) * sin(data->angle)) + offset;
+            roty = round((data->minimap.tmp_x + i) * sin(data->angle) + (data->minimap.tmp_y +j) * cos(data->angle)  + data->py) + SCREEN_H - offset;
+			// printf("rotx: %d \n", rotx);
+            ft_pixelput(data->img, rotx, roty, 0xfcba03);
+            i++;
+        }
+        j++;
+    }
+}
 
-// void minimap_draw(t_img *img, t_data data, char **map)
-// {
-// 	data.i = (int)(data.x_start / SOF);
-// 	data.j = (int)(data.y_start / SOF);
-// 	if (data.i < 0)
-// 		data.i = 0;
-// 	if (data.j < 0)
-// 		data.j = 0;
+void minimap_draw(t_img *img, t_data *data, char **map)
+{
+	data->minimap.i = (int)(data->minimap.x_start / SOF);
+	data->minimap.j = (int)(data->minimap.y_start / SOF);
+	if (data->minimap.i < 0)
+		data->minimap.i = 0;
+	if (data->minimap.j < 0)
+		data->minimap.j = 0;
 
-// 	if (data.j > ft_strlen_blm9lob(map))
-// 		data.j = ft_strlen_blm9lob(map) - 1;
-// 	if (data.i > (int)ft_strlen(map[data.j]))
-// 		data.i = (int)ft_strlen(map[data.j]) - 1;
-// 	int offset = data.len + 20;
-// 	double angle = data_global()->angle - (PI / 2);
-// 	int rotx = round(data.x * cos(angle) - data.y * sin(angle)) + offset;
-// 	int roty = round(data.x * sin(angle) + data.y * cos(angle)) + SCREEN_H - offset;
+	if (data->minimap.j >= count_coloumns(map))
+		data->minimap.j = count_coloumns(map) - 1;
+	if (data->minimap.i > (int)ft_strlen(map[0]))
+		data->minimap.i = (int)ft_strlen(map[0]) - 1;
+	int offset = data->minimap.len + 20;
+	double angle = data->angle;
+	int rotx = round(data->minimap.x * cos(angle) - data->minimap.y * sin(angle)) + offset;
+	int roty = round(data->minimap.x * sin(angle) + data->minimap.y * cos(angle)) + SCREEN_H - offset;
 
-// 	if (map[data.j][data.i] && map[data.j][data.i] == '1')
-// 		ft_pixelput(img, rotx , roty, 0xFFFFFF);
-// 	else if (data.i == (int)((data_global()->x) / SOF) && data.j == (int)(data_global()->y / SOF))
-// 		ft_pixelput(img, rotx, roty, 0xfcba03);
-// 	else if (map[data.j][data.i] && map[data.j][data.i] == '0')
-// 		ft_pixelput(img, rotx, roty, 0xFF0000);
-// 	else
-// 		ft_pixelput(img, rotx, roty, 0xE8F9FF);
-// }
+	if (map[data->minimap.j][data->minimap.i] && map[data->minimap.j][data->minimap.i] == '1')
+		ft_pixelput(img, rotx , roty, 0xFFFFFF);
+	else if (data->minimap.i == (int)((data->player_x) / SOF) && data->minimap.j == (int)(data->player_y / SOF))
+	{
+		if (!data->minimap.flag)
+		{
+        	data->px = fabs((data->player_x / SOF) - data->minimap.i);
+        	data->py = fabs((data->player_y / SOF) - data->minimap.j);
+			data->minimap.tmp_x = data->minimap.x + data->px * SOF;
+			data->minimap.tmp_y = data->minimap.y + data->py * SOF;
+		}
+        ft_pixelput(img, rotx, roty, 0xFF0000);
+        data->minimap.flag = 1;
+    }
+	else if (map[data->minimap.j][data->minimap.i] && map[data->minimap.j][data->minimap.i] != ' ')
+		ft_pixelput(img, rotx, roty, 0xFF0000);
+	else
+		ft_pixelput(img, rotx, roty, 0xE8F9FF);
+}
 
-// void minimap(t_img *img)
-// {
-// 	t_data data;
-
-// 	data.len = MI_SIZE * 5;
-// 	data.y_start = data_global()->y - data.len;
-// 	data.x_end = data_global()->x + data.len;
-// 	data.y_end = data_global()->y + data.len;
-// 	data.y = -data.len;
-// 	char **map = data_global()->map.map;
-// 	while (data.y_start < data.y_end)
-// 	{
-// 		data.x = -data.len;
-// 		data.x_start = data_global()->x - data.len;
-// 		while (data.x_start < data.x_end)
-// 		{
-// 			if (pow(data.x_start - data_global()->x, 2) + pow(data.y_start - data_global()->y, 2) <= pow(data.len, 2))
-// 				minimap_draw(img, data, map);
-// 			data.x_start++;
-// 			data.x++;
-// 		}
-// 		data.y++;
-// 		data.y_start++;
-// 	}
-// }
+void minimap(t_data *data)
+{
+	// data->minimap.len = MI_SIZE * 5;
+	// data->minimap.y_start = data->player_y - data->minimap.len;
+	// data->minimap.x_end = data->player_x + data->minimap.len;
+	// data->minimap.y_end = data->player_y + data->minimap.len;
+	// data->minimap.y = -data->minimap.len;
+	// data->minimap.flag = 0;
+	// char **map = data->map.map;
+	// while (data->minimap.y_start < data->minimap.y_end)
+	// {
+	// 	data->minimap.x = -data->minimap.len;
+	// 	data->minimap.x_start = data->player_x - data->minimap.len;
+	// 	while (data->minimap.x_start < data->minimap.x_end)
+	// 	{
+	// 		if (pow(data->minimap.x_start - data->player_x, 2) + pow(data->minimap.y_start - data->player_y, 2) <= pow(data->minimap.len, 2))
+	// 			minimap_draw(data->img, data, map);
+	// 		data->minimap.x_start++;
+	// 		data->minimap.x++;
+	// 	}
+	// 	data->minimap.y++;
+	// 	data->minimap.y_start++;
+	// }
+    minimap1(data);
+	// printf("%f %f\n", data->px, data->py);
+    player_drawing(data);
+}

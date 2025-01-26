@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 20:05:41 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:37:43 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,9 @@ typedef struct s_data
 	double			hit_x;
 	double			hit_y;
 	bool			hit_door;
-	bool 			door_open;
+	bool			hit_door_open;
+	t_vect 			door_coor;
+	// t_vect 			door_coor_v;
 
 }	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 21:12:42 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:17:47 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void minimap_draw(t_img *img, t_data *data, char **map)
 		ft_pixelput(img, rotx, roty, 0xFF0000);
 	else
 		ft_pixelput(img, rotx, roty, 0xE8F9FF);
-	printf("%d %d\n", rotx,roty);
+	// printf("%d %d\n", rotx,roty);
 }
 
 void minimap(t_data *data)

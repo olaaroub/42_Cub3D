@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/23 15:08:05 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 02:38:20 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	check_map(t_map *map)
 		if (map->map_line[i] != '1' && map->map_line[i] != '0'
 			&& map->map_line[i] != ' ' && map->map_line[i] != '\n'
 				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
-					&& map->map_line[i] != 'W' && map->map_line[i] != 'S')
+					&& map->map_line[i] != 'W' && map->map_line[i] != 'S'
+						&& map->map_line[i] != 'D' && map->map_line[i] != 'O')
 			return (0);
 		i++;
 	}
@@ -152,6 +153,8 @@ t_map   read_map(char *file)
 	t_map	map;
 
 	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_error("file not found\n");
 	map.flag = 1;
 	map.color = "";
 	map.texture_line = "";
@@ -159,6 +162,7 @@ t_map   read_map(char *file)
 	get_game_elements(fd, &map);
 	check_player(map.map);
 	check_if_surrounded(map.map);
+
 	resize_map(&map);
 	return (map);
 }

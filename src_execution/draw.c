@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/25 22:35:03 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:06:12 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void player_drawing(t_data *data)
         {
             rotx = round((data->minimap.tmp_x + i) * cos(data->angle) - (data->minimap.tmp_y + j) * sin(data->angle)) + offset;
             roty = round((data->minimap.tmp_x + i) * sin(data->angle) + (data->minimap.tmp_y +j) * cos(data->angle)  + data->py) + SCREEN_H - offset;
-			// printf("rotx: %d \n", rotx);
             ft_pixelput(data->img, rotx, roty, 0xfcba03);
             i++;
         }
@@ -116,7 +115,7 @@ void minimap_draw(t_img *img, t_data *data, char **map)
 
 	if (data->minimap.j >= count_coloumns(map))
 		data->minimap.j = count_coloumns(map) - 1;
-	if (data->minimap.i > (int)ft_strlen(map[0]))
+	if (data->minimap.i >= (int)ft_strlen(map[0]))
 		data->minimap.i = (int)ft_strlen(map[0]) - 1;
 	int offset = data->minimap.len + 20;
 	double angle = data->angle;
@@ -129,10 +128,8 @@ void minimap_draw(t_img *img, t_data *data, char **map)
 	{
 		if (!data->minimap.flag)
 		{
-        	data->px = fabs((data->player_x / SOF) - data->minimap.i);
-        	data->py = fabs((data->player_y / SOF) - data->minimap.j);
-			data->minimap.tmp_x = data->minimap.x + data->px * SOF;
-			data->minimap.tmp_y = data->minimap.y + data->py * SOF;
+			data->minimap.tmp_x = data->minimap.x + fabs((data->player_x / SOF) - data->minimap.i) * SOF;
+			data->minimap.tmp_y = data->minimap.y + fabs((data->player_y / SOF) - data->minimap.j) * SOF;
 		}
         ft_pixelput(img, rotx, roty, 0xFF0000);
         data->minimap.flag = 1;
@@ -166,7 +163,7 @@ void minimap(t_data *data)
 		data->minimap.y++;
 		data->minimap.y_start++;
 	}
-    // minimap1(data);
+    minimap1(data);
 	// printf("%f %f\n", data->px, data->py);
     player_drawing(data);
 }

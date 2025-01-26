@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:39:45 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/22 12:05:33 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/25 02:24:14 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void skep_whitespace_to_texture(t_data *data, int *j, int *cont, int i)
 		(*j)++;
 	(*cont) = *j;
 	while (data->map.texture[i][*cont] && !is_whitespace(data->map.texture[i][*cont]))
-		(*cont)++;	
+		(*cont)++;
 }
 
 void initialize_textures(t_data *data)
@@ -42,11 +42,13 @@ void initialize_textures(t_data *data)
 	data->south_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->west_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->east_tex = (t_texture*)malloc(sizeof(t_texture));
+	data->door_tex = (t_texture*)malloc(sizeof(t_texture));
 
 	data->north_tex->path = NULL;
 	data->south_tex->path = NULL;
 	data->west_tex->path = NULL;
 	data->east_tex->path = NULL;
+	data->door_tex->path = NULL;
 }
 
 void pars_texture(t_data *data)

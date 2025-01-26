@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 01:32:37 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/26 02:38:20 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ t_map   read_map(char *file)
 	t_map	map;
 
 	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_error("file not found\n");
 	map.flag = 1;
 	map.color = "";
 	map.texture_line = "";

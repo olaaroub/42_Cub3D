@@ -6,52 +6,60 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 01:42:09 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:08:40 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void    open_door(t_data *data)
+void open_door2(t_data *data)
 {
     int x;
     int y;
+    // int player_x = (int)data->player_x / SOF;
+    // int player_y = (int)data->player_y / SOF;
 
-    x = 0;
+    // y = player_y - 3;
     y = 0;
-    while (data->map.map[y])
+    while (y < data->y_max)
     {
+        // x = player_x - 3;
         x = 0;
-        while (data->map.map[y][x])
+        while (x < data->x_max)
         {
-            if (data->map.map[y][x] == 'D')
-                data->map.map[y][x] = 'O';
+            // if (y < data->y_max &&  x < data->x_max)
+                if (data->map.map[y][x] == 'D')
+                    if((x == data->door_coor.x && y == data->door_coor.y))
+                            data->map.map[y][x] = 'O';
             x++;
         }
         y++;
     }
-    data->door_open = 1;
 }
 
-void    close_door(t_data *data)
+void close_door2(t_data *data)
 {
     int x;
     int y;
+    int player_x = (int)data->player_x / SOF;
+    int player_y = (int)data->player_y / SOF;
 
-    x = 0;
+    // y = player_y - 3;
     y = 0;
-    while (data->map.map[y])
+    while (y < data->y_max)
     {
+        // x = player_x - 3;
         x = 0;
-        while (data->map.map[y][x])
+        while (x < data->x_max)
         {
-            if (data->map.map[y][x] == 'O')
-                data->map.map[y][x] = 'D';
+            // if ( y < data->y_max && x < data->x_max)
+                if (data->map.map[y][x] == 'O' && (y != player_y || x != player_x))
+                    if((x == data->door_coor.x && y == data->door_coor.y))
+                            data->map.map[y][x] = 'D';
             x++;
         }
         y++;
     }
-    data->door_open = 0;
 }
 
 int key_press(int key, void *param)
@@ -60,10 +68,10 @@ int key_press(int key, void *param)
     data = (t_data *)param;
     if (key == XK_Escape)
         exit_key(data);
-    else if(key == XK_f && !data->door_open)
-        open_door(data);
-    else if(key == XK_f && data->door_open)
-        close_door(data);
+    else if(key == XK_f)
+        open_door2(data);
+    else if(key == XK_e)
+        close_door2(data);
     else  if (key == XK_d)
         data->d_pressed = 1;
     else if (key == XK_a)

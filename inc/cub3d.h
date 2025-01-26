@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/25 23:58:07 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:41:11 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define CUB3D_H
 
 #include "../minilibx-linux/mlx.h"
+#include  <X11/X.h>
+#include  <X11/keysym.h>
 #include "../libft/libft.h"
 
 #include <stdio.h>
@@ -35,12 +37,12 @@
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
 #define SOP 2 // this is size of player (x and y)!
 #define SOF 64 // this is square size
-#define SPEED 3
+#define SPEED 2
 #define MI_SIZE 30
 
 #define PI 3.14159265
 #define TOW_PI 6.28318530
-#define ROT_SPEED 0.13
+#define ROT_SPEED 0.09
 #define FOV_ANGLE PI / 3
 
 #define EPSILON 1e-6
@@ -143,6 +145,7 @@ typedef struct s_data
 	double			hit_x;
 	double			hit_y;
 	bool			hit_door;
+	bool 			door_open;
 
 }	t_data;
 

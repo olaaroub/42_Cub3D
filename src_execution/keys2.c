@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/21 17:52:03 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:09:59 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void is_valid_move(t_data *data, int end_x, int end_y)
     y = data->player_y;
     map = data->map.map;
 
-    if (data->map.map[y / SOF][(x + end_x + 2) / SOF] != '1'
-        && data->map.map[y / SOF][(x + end_x  - 2) / SOF] != '1')
+    if ((data->map.map[y / SOF][(x + end_x + 2) / SOF] != '1'
+        && data->map.map[y / SOF][(x + end_x  - 2) / SOF] != '1') && data->map.map[y / SOF][(x + end_x) / SOF] != 'D' )
         data->player_x += end_x;
-    if (data->map.map[(y + end_y + 2) / SOF][x / SOF] != '1'
-        && data->map.map[(y + end_y - 2) / SOF][x / SOF] != '1')
+    if ((data->map.map[(y + end_y + 2) / SOF][x / SOF] != '1'
+        && data->map.map[(y + end_y - 2) / SOF][x / SOF] != '1') && data->map.map[(y + end_y) / SOF][x / SOF] != 'D' )
         data->player_y += end_y;
 }
 

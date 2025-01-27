@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 01:03:16 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/28 00:44:16 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void player_drawing(t_data *data)
     int offset;
     int i;
     int j;
-
+	double angle = -data->angle - PI / 2;
+	if (angle < 0)
+        angle += 2 * PI;
     j = 0;
     offset = data->minimap.len + 20;
     while (j < 10)
@@ -95,9 +97,8 @@ void player_drawing(t_data *data)
         i = 0;
         while (i < 10)
         {
-            rotx = round((data->minimap.tmp_x + i) * cos(data->angle) - (data->minimap.tmp_y + j) * sin(data->angle)) + offset;
-            roty = round((data->minimap.tmp_x + i) * sin(data->angle) + (data->minimap.tmp_y +j) * cos(data->angle)  + data->py) + SCREEN_H - offset;
-			// printf("rotx: %d \n", rotx);
+            rotx = round((data->minimap.tmp_x + i) * cos(angle) - (data->minimap.tmp_y + j) * sin(angle)) + offset;
+            roty = round((data->minimap.tmp_x + i) * sin(angle) + (data->minimap.tmp_y +j) * cos(angle)) + SCREEN_H - offset;
             ft_pixelput(data->img, rotx, roty, 0xfcba03);
             i++;
         }
@@ -116,10 +117,13 @@ void minimap_draw(t_img *img, t_data *data, char **map)
 
 	if (data->minimap.j >= count_coloumns(map))
 		data->minimap.j = count_coloumns(map) - 1;
-	if (data->minimap.i > (int)ft_strlen(map[0]))
+	if (data->minimap.i >= (int)ft_strlen(map[0]))
 		data->minimap.i = (int)ft_strlen(map[0]) - 1;
 	int offset = data->minimap.len + 20;
-	double angle = data->angle;
+
+	double angle = -data->angle - PI / 2;
+	if (angle < 0)
+        angle += 2 * PI;
 	int rotx = round(data->minimap.x * cos(angle) - data->minimap.y * sin(angle)) + offset;
 	int roty = round(data->minimap.x * sin(angle) + data->minimap.y * cos(angle)) + SCREEN_H - offset;
 
@@ -129,10 +133,8 @@ void minimap_draw(t_img *img, t_data *data, char **map)
 	{
 		if (!data->minimap.flag)
 		{
-        	data->px = fabs((data->player_x / SOF) - data->minimap.i);
-        	data->py = fabs((data->player_y / SOF) - data->minimap.j);
-			data->minimap.tmp_x = data->minimap.x + data->px * SOF;
-			data->minimap.tmp_y = data->minimap.y + data->py * SOF;
+			data->minimap.tmp_x = data->minimap.x + fabs((data->player_x / SOF) - data->minimap.i) * SOF;
+			data->minimap.tmp_y = data->minimap.y + fabs((data->player_y / SOF) - data->minimap.j) * SOF;
 		}
         ft_pixelput(img, rotx, roty, 0xFF0000);
         data->minimap.flag = 1;
@@ -141,6 +143,7 @@ void minimap_draw(t_img *img, t_data *data, char **map)
 		ft_pixelput(img, rotx, roty, 0xFF0000);
 	else
 		ft_pixelput(img, rotx, roty, 0xE8F9FF);
+	// printf("%d %d\n", rotx,roty);
 }
 
 void minimap(t_data *data)
@@ -166,7 +169,6 @@ void minimap(t_data *data)
 	// 	data->minimap.y++;
 	// 	data->minimap.y_start++;
 	// }
-    minimap1(data);
-	// printf("%f %f\n", data->px, data->py);
-    player_drawing(data);
+	minimap1(data);
+    // player_drawing(data);
 }

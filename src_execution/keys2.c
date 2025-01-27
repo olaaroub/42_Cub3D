@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 01:09:59 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/26 19:09:46 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void move_right(t_data* data)
     end_y = roundf(FRM * sin(data->angle + PI / 2) * SPEED);
     is_valid_move(data, end_x, end_y);
 }
+
+
 
 int move(void *parm)
 {

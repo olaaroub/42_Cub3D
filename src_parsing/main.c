@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/25 02:25:48 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/27 02:19:42 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int    get_x_max(char **map)
 
 void init_texture(t_data *data)
 {
-    data->door_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/door.xpm",
+    data->open_door_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/open.xpm",
+            &data->open_door_tex->width, &data->open_door_tex->height);
+    data->door_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/closed.xpm",
             &data->door_tex->width, &data->door_tex->height);
 	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, data->north_tex->path,
 			 &data->north_tex->width, &data->north_tex->height);
@@ -56,12 +58,13 @@ void init_texture(t_data *data)
     data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, data->west_tex->path,
              &data->west_tex->width, &data->west_tex->height);
 
-	if(!data->north_tex->texture || !data->south_tex->texture || !data->west_tex->texture || !data->east_tex->texture || !data->door_tex->texture)
+	if(!data->north_tex->texture || !data->south_tex->texture || !data->open_door_tex->texture ||!data->west_tex->texture || !data->east_tex->texture || !data->door_tex->texture)
     {
         //free_data(data); // this function is not implemented yet
         ft_error("Error\n: texture not found");
     }
-
+    data->open_door_tex->addr = mlx_get_data_addr(data->open_door_tex->texture, &data->open_door_tex->bits_per_pixel,
+            &data->open_door_tex->line_length, &data->open_door_tex->endian);
 	data->north_tex->addr = mlx_get_data_addr(data->north_tex->texture, &data->north_tex->bits_per_pixel,
 			&data->north_tex->line_length, &data->north_tex->endian);
     data->south_tex->addr = mlx_get_data_addr(data->south_tex->texture, &data->south_tex->bits_per_pixel,
@@ -78,6 +81,7 @@ void    init_game(t_data *data)
 {
     data->y_max = count_coloumns(data->map.map);
     data->x_max = ft_strlen(data->map.map[0]);
+    // printf("%d  %d\n", data->y_max, data->x_max);
     get_postion(data, data->map.map);
 	initialize_variables(data);
     data->mlx = mlx_init();

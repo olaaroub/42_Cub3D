@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 00:52:21 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/28 00:30:31 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void vertical_intersection(t_data *data, t_vect *hit)
 
 }
 
-double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door)
+double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, t_vect *door_coor_v, bool *hit_door_ov)
 {
     t_vect hit;
     t_vect step;
@@ -122,10 +122,21 @@ double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door)
         if (map.y >= 0 && map.y < data->y_max &&
             map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]))
         {
-            if (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D')
+            if (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D' ||
+                data->map.map[(int)map.y][(int)map.x] == 'O')
                 {
                     if(data->map.map[(int)map.y][(int)map.x] == 'D')
+                    {
+                        door_coor_v->x = map.x;
+                        door_coor_v->y = map.y;
                         *hit_door = true;
+                    }
+                    else if(data->map.map[(int)map.y][(int)map.x] == 'O')
+                    {
+                        door_coor_v->x = map.x;
+                        door_coor_v->y = map.y;
+                        *hit_door_ov = true;
+                    }
                     break;
                 }
         }
@@ -161,7 +172,7 @@ void horizontal_intersection(t_data *data, t_vect *hit)
     hit->x = x + ((hit->y - y) / rayDiry) * rayDirx;
 }
 
-double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door)
+double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect *door_coor_h, bool *hit_door_oh)
 {
     t_vect hit;
     t_vect step;
@@ -181,10 +192,21 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door)
         map.y = (int)(hit.y / SOF);
         if (map.y >= 0 && map.y < data->y_max &&
             map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]) &&
-            (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D'))
+            (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D' ||
+             data->map.map[(int)map.y][(int)map.x] == 'O'))
             {
                 if(data->map.map[(int)map.y][(int)map.x] == 'D')
+                {
+                    door_coor_h->x = map.x;
+                    door_coor_h->y = map.y;
                     *hit_door = true;
+                }
+                else if(data->map.map[(int)map.y][(int)map.x] == 'O')
+                {
+                    door_coor_h->x = map.x;
+                    door_coor_h->y = map.y;
+                    *hit_door_oh = true;
+                }
                 break;
             }
         hit.x += step.x;
@@ -202,27 +224,37 @@ double get_ray_lenght(t_data *data)
     t_vect h_hit;
     t_vect v_hit;
     t_vect map;
+    t_vect door_coor_h;
+    t_vect door_coor_v;
     bool hit_door_h = false;
     bool hit_door_v = false;
+    bool hit_door_oh = false;
+    bool hit_door_ov = false;
 
     map.x = 0;
     map.y = 0;
-    hlen = draw_hray(data, map, &h_hit, &hit_door_h);
-    vlen = draw_vray(data, map, &v_hit, &hit_door_v);
+    hlen = draw_hray(data, map, &h_hit, &hit_door_h, &door_coor_h, &hit_door_oh);
+    vlen = draw_vray(data, map, &v_hit, &hit_door_v, &door_coor_v, &hit_door_ov);
     data->is_vertical = false;
     if (hlen < vlen)
     {
         data->hit_x = h_hit.x;
         data->hit_y = h_hit.y;
+        data->door_coor.x = door_coor_h.x;
+        data->door_coor.y = door_coor_h.y;
         data->hit_door = hit_door_h;
+        data->hit_door_open = hit_door_oh;
         return hlen;
     }
     else
     {
         data->hit_x = v_hit.x;
         data->hit_y = v_hit.y;
+        data->door_coor.x = door_coor_v.x;
+        data->door_coor.y = door_coor_v.y;
         data->is_vertical = true;
         data->hit_door = hit_door_v;
+        data->hit_door_open = hit_door_ov;
         return vlen;
     }
     return 0;
@@ -234,14 +266,19 @@ int get_vertical_color(t_data *data, double y)
   int offset;
   int index;
 
-    if( data->hit_door)
+    if(data->hit_door)
     {
         x = (int)(data->door_tex->width * data->hit_y / 64) % data->door_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        // offset = y- data->start_draw;
-
         index = offset * ((double)data->door_tex->height / data->wallhight);
         return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
+    }
+    if(data->hit_door_open)
+    {
+        x = (int)(data->open_door_tex->width * data->hit_y / 64) % data->open_door_tex->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        index = offset * ((double)data->open_door_tex->height / data->wallhight);
+        return (*(int*)(data->open_door_tex->addr + ((data->open_door_tex->width * (index * 4) + (x * 4)))));
     }
     if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
@@ -254,8 +291,6 @@ int get_vertical_color(t_data *data, double y)
     {
         x = (int)(data->west_tex->width * data->hit_y / 64) % data->west_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-
-        // offset = y- data->start_draw;
         index = (offset) * ((double)data->west_tex->height / data->wallhight);
         return (*(int*)(data->west_tex->addr + ((data->west_tex->width * (index * 4) + (x * 4)))));
     }
@@ -271,28 +306,29 @@ int get_horizontal_color(t_data *data, double y)
     {
         x = (int)(data->door_tex->width * data->hit_x / 64) % data->door_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        // offset = y- data->start_draw;
-
         index = offset * ((double)data->door_tex->height / data->wallhight);
         return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
+    }
+    if(data->hit_door_open)
+    {
+        x = (int)(data->open_door_tex->width * data->hit_x / 64) % data->open_door_tex->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        index = offset * ((double)data->open_door_tex->height / data->wallhight);
+        return (*(int*)(data->open_door_tex->addr + ((data->open_door_tex->width * (index * 4) + (x * 4)))));
     }
     if (data->start_angle >= PI && data->start_angle < 2 * PI)
     {
         x = (int)(data->south_tex->width * data->hit_x / 64) % data->south_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        // offset = y- data->start_draw;
-
         index = offset * ((double)data->south_tex->height / data->wallhight);
         return (*(int*)(data->south_tex->addr + ((data->south_tex->width * (index * 4) + (x * 4)))));
     }
-    else{
+    else
+    {
         x = (int)(data->north_tex->width * data->hit_x / 64) % data->north_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        // offset = y- data->start_draw;
-
         index = offset * ((double)data->north_tex->height / data->wallhight);
         return (*(int*)(data->north_tex->addr + ((data->north_tex->width * (index * 4) + (x * 4)))));
-
     }
 }
 

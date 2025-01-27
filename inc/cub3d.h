@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 01:41:11 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/27 01:19:52 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
-
 typedef struct s_texture
 {
 	void *texture;
@@ -90,6 +89,7 @@ typedef struct s_vect
 	double y;
 
 } t_vect;
+
 typedef struct s_minimap
 {
 	int len;
@@ -113,6 +113,7 @@ typedef struct s_data
 	t_texture		*west_tex;
 	t_texture		*east_tex;
 	t_texture		*door_tex;
+	t_texture		*open_door_tex;
 	t_map			map;
 	t_img			*img;
 	t_minimap		minimap;
@@ -145,7 +146,9 @@ typedef struct s_data
 	double			hit_x;
 	double			hit_y;
 	bool			hit_door;
-	bool 			door_open;
+	bool			hit_door_open;
+	t_vect 			door_coor;
+	// t_vect 			door_coor_v;
 
 }	t_data;
 

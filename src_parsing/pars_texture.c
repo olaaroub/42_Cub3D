@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:39:45 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/25 02:24:14 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/27 01:20:40 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ void initialize_textures(t_data *data)
 	data->west_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->east_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->door_tex = (t_texture*)malloc(sizeof(t_texture));
+	data->open_door_tex = (t_texture*)malloc(sizeof(t_texture));
 
 	data->north_tex->path = NULL;
 	data->south_tex->path = NULL;
 	data->west_tex->path = NULL;
 	data->east_tex->path = NULL;
 	data->door_tex->path = NULL;
+	data->open_door_tex->path = NULL;
 }
 
 void pars_texture(t_data *data)

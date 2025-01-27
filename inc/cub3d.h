@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 20:37:43 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/27 01:19:52 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_data
 	t_texture		*west_tex;
 	t_texture		*east_tex;
 	t_texture		*door_tex;
+	t_texture		*open_door_tex;
 	t_map			map;
 	t_img			*img;
 	t_minimap		minimap;

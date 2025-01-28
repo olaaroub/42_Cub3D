@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/27 01:19:52 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:07:08 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,6 @@
 #include <stdbool.h>
 #include <limits.h>
 
-// ---------define the macros for moves-----------
-
-#define UP 119
-#define DOWN 115
-#define LEFT 97
-#define RIGHT 100
-#define ESC 65307
-
-#define RIGHT_V 65363
-#define LEFT_V 65361
-
 #define FRM 4 // this macro to haw match  moves the player do in single clik !
 #define SOP 2 // this is size of player (x and y)!
 #define SOF 64 // this is square size
@@ -49,6 +38,9 @@
 #define SCREEN_W 1920
 #define SCREEN_H 1080
 
+#ifndef BONUS
+#define BONUS 1
+#endif
 typedef struct s_map
 {
 	char **map;

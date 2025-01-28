@@ -6,12 +6,12 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:39:45 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/27 01:20:40 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/28 18:54:46 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 void check_ops(t_data *data, char *str, char *path)
 {

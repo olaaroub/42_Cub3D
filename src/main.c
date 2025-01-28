@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/27 02:19:42 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:06:31 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void    init_game(t_data *data)
 {
     data->y_max = count_coloumns(data->map.map);
     data->x_max = ft_strlen(data->map.map[0]);
-    // printf("%d  %d\n", data->y_max, data->x_max);
     get_postion(data, data->map.map);
 	initialize_variables(data);
     data->mlx = mlx_init();
@@ -98,6 +97,10 @@ int main(int ac, char **av)
     t_data data;
 
     check_argument(av, ac, &data);
+    if(BONUS == 1)
+        printf("BONUS is enabled\n");
+    else
+        printf("BONUS is disabled\n");
     init_game(&data);
     main_of_drawing(&data);
     mlx_loop(data.mlx);

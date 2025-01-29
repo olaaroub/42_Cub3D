@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trash.c                                            :+:      :+:    :+:   */
+/*   utils-v3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 17:43:03 by olaaroub          #+#    #+#             */
-/*   Updated: 2024/12/01 17:43:33 by olaaroub         ###   ########.fr       */
+/*   Created: 2025/01/09 16:14:33 by ohammou-          #+#    #+#             */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../includes/cub3d.h"
 
-void    del(void *add)
+int cont_character(char *str, int c)
 {
-    free(add);
+    int cont;
+    int i;
+
+    cont = 0;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == c)
+            cont++;
+        i++;
+    }
+    return (cont);
 }
 
-void    free_trash(t_list **trash)
+bool is_valid_number(char *str)
 {
-    ft_lstclear(trash, del);
-}
+    int i;
 
-void    add_to_trash(void *add, t_list **trash)
-{
-    t_list *new;
-
-    new = ft_lstnew(add);
-    ft_lstadd_back(trash, new);
+    i = 0;
+    while(str[i])
+    {
+        if (!ft_isdigit(str[i]))
+            return false;
+        i++;
+    }
+    return true;
 }

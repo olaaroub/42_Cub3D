@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/28 00:34:33 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void open_door2(t_data *data)
 {
@@ -76,9 +76,9 @@ int key_press(int key, void *param)
     data = (t_data *)param;
     if (key == XK_Escape)
         exit_key(data);
-    else if(key == XK_f)
+    else if(key == XK_f && BONUS == 1)
         open_door2(data);
-    else if(key == XK_e)
+    else if(key == XK_e && BONUS == 1)
         close_door2(data);
     else  if (key == XK_d)
         data->d_pressed = 1;

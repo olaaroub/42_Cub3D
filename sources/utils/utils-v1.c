@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:36:09 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/01/21 17:23:47 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../includes/cub3d.h"
 
 void	get_postion(t_data *data, char **map)
 {

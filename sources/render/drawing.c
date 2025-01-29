@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/27 01:21:02 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../includes/cub3d.h"
 
 int	exit_key(void *param)
 {
@@ -56,10 +56,8 @@ void initialize_variables(t_data *data)
 	data->hit_door_open = false;
 }
 
-
 void	main_of_drawing(t_data *data)
 {
-	// drawing(img);
 	render_3d(data);
 	mlx_hook(data->mlx_win, DestroyNotify, StructureNotifyMask,exit_key, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, key_release, data);

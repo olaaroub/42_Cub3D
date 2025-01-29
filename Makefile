@@ -1,78 +1,97 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/01 02:28:03 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/26 17:34:49 by olaaroub         ###   ########.fr        #
+#    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
+#    Updated: 2025/01/29 02:26:42 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror #-O3
-CFLAGS += -fsanitize=address -O3 -g3
-MAKEFLAGS := --no-print-directory
 
-# ITALICBOLD
-GREEN = \033[0;32m
-RESET = \033[0m
-BOLD = \033[1m
-LARGE = \033[2m
-SRC = $(wildcard src_parsing/*.c)
-SRC += $(wildcard src_execution/*.c)
-SRC += $(wildcard tools/*.c)
-B_SRCS = $(wildcard src_parsing/*_bonus.c)
-B_SRCS += $(wildcard src_execution/*_bonus.c)
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		+=  -fsanitize=address -O3 -g3
+MAKEFLAGS	:= --no-print-directory
 
-OBJ = $(SRC:.c=.o)
+GREEN		= \033[0;32m
+RESET		= \033[0m
+BOLD		= \033[1m
+LARGE		= \033[2m
 
-NAME = cub3D
-LIB = libft/libft.a
-MINILIBX = minilibx-linux/libmlx_Linux.a
-HEADER = inc/cub3d.h
+BONUS		= 0
+MLX			= minilibx-linux/libmlx.a
+LIBFT		= libft/libft.a
 
-all: $(NAME)
+SRC_PATH 	= ./sources/
+SRC			= 	main.c \
+			parsing/check_map.c \
+			parsing/parse_textures.c \
+			parsing/parse_colors.c \
+			parsing/parse_map.c \
+			utils/trash.c \
+			utils/utils-v1.c \
+			utils/utils-v2.c \
+			utils/utils-v3.c \
+			render/draw.c \
+			render/drawing_rays.c \
+			render/drawing.c \
+			mouvements/keys.c \
+			mouvements/keys2.c \
 
-$(NAME): $(OBJ) $(LIB) $(MINILIBX) $(HEADER)
-	@stty -echoctl
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -o $(NAME)
-	make clean
+SRCS		= $(addprefix $(SRC_PATH), $(SRC))
+
+OBJ_PATH	= ./objects/
+OBJ			= $(SRC:.c=.o)
+OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+
+INC			=	-I ./inc/\
+				-I ./libft/\
+				-I ./minilibx-linux/
+HEADER		= ./includes/cub3d.h
+
+NAME		= cub3D
+
+all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
+
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
+	mkdir -p $(OBJ_PATH)/parsing
+	mkdir -p $(OBJ_PATH)/render
+	mkdir -p $(OBJ_PATH)/utils
+	mkdir -p $(OBJ_PATH)/mouvements
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
+
+$(NAME): $(OBJS) $(HEADER)
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
 
-
-
-$(MINILIBX):
-	@make -C minilibx-linux
-	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
-
-$(LIB):
-	@make -j -C libft
+$(LIBFT):
+	make -j -sC libft/
+	make clean -sC libft/
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)libft$(RESET)"
 
-bonus: $(OBJ) $(LIB) $(MINILIBX) $(HEADER) $(B_OBJ)
-	@stty -echoctl
-	$(CC) $(CFLAGS) $(OBJ) $(B_OBJ) $(LIB) -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -o $(NAME)
-	make clean
-	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
-	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
 
+$(MLX):
+	@make -sC minilibx-linux/
 
+bonus:
+	@make all  BONUS=1
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_PATH)
 	@make clean -C libft
 
 fclean: clean
-	@rm -rf $(NAME)
-	@rm -rf $(LIB)
+	@rm -f $(NAME)
+	@make -C libft fclean
 
-re:
-	@make fclean
-	@make all
-
-.PHONY: all fclean clean re bonus
-.SILENT: $(OBJ) $(NAME)
-.SECONDARY: $(OBJ) $(NAME)
+re: fclean all
+.PHONY: all clean fclean re bonus
+.SILENT:$(OBJ_PATH) $(OBJS) $(LIBFT) $(MLX) $(NAME)
+.SECONDARY: $(OBJS) $(NAME) $(OBJ_PATH) $(LIBFT) $(MLX)

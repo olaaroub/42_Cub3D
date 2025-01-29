@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/26 19:09:46 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void is_valid_move(t_data *data, int end_x, int end_y)
 {

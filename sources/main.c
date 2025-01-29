@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/28 19:06:31 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:33:24 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../includes/cub3d.h"
 
 void check_argument(char **av, int ac, t_data *data)
 {
@@ -44,10 +44,6 @@ int    get_x_max(char **map)
 
 void init_texture(t_data *data)
 {
-    data->open_door_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/open.xpm",
-            &data->open_door_tex->width, &data->open_door_tex->height);
-    data->door_tex->texture = mlx_xpm_file_to_image(data->mlx, "imgs/closed.xpm",
-            &data->door_tex->width, &data->door_tex->height);
 	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, data->north_tex->path,
 			 &data->north_tex->width, &data->north_tex->height);
     data->south_tex->texture = mlx_xpm_file_to_image(data->mlx, data->south_tex->path,
@@ -58,13 +54,9 @@ void init_texture(t_data *data)
     data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, data->west_tex->path,
              &data->west_tex->width, &data->west_tex->height);
 
-	if(!data->north_tex->texture || !data->south_tex->texture || !data->open_door_tex->texture ||!data->west_tex->texture || !data->east_tex->texture || !data->door_tex->texture)
-    {
-        //free_data(data); // this function is not implemented yet
+	if(!data->north_tex->texture || !data->south_tex->texture ||!data->west_tex->texture || !data->east_tex->texture)
         ft_error("Error\n: texture not found");
-    }
-    data->open_door_tex->addr = mlx_get_data_addr(data->open_door_tex->texture, &data->open_door_tex->bits_per_pixel,
-            &data->open_door_tex->line_length, &data->open_door_tex->endian);
+        //free_data(data); // this function is not implemented yet
 	data->north_tex->addr = mlx_get_data_addr(data->north_tex->texture, &data->north_tex->bits_per_pixel,
 			&data->north_tex->line_length, &data->north_tex->endian);
     data->south_tex->addr = mlx_get_data_addr(data->south_tex->texture, &data->south_tex->bits_per_pixel,
@@ -73,8 +65,20 @@ void init_texture(t_data *data)
             &data->west_tex->line_length, &data->west_tex->endian);
     data->east_tex->addr = mlx_get_data_addr(data->east_tex->texture, &data->east_tex->bits_per_pixel,
             &data->east_tex->line_length, &data->east_tex->endian);
-    data->door_tex->addr = mlx_get_data_addr(data->door_tex->texture, &data->door_tex->bits_per_pixel,
+    if(BONUS == 1)
+    {
+        data->open_door_tex->texture = mlx_xpm_file_to_image(data->mlx, "images/open.xpm",
+            &data->open_door_tex->width, &data->open_door_tex->height);
+        data->door_tex->texture = mlx_xpm_file_to_image(data->mlx, "images/closed.xpm",
+            &data->door_tex->width, &data->door_tex->height);
+        if(!data->open_door_tex->texture || !data->door_tex->texture)
+            ft_error("Error\n: texture not found");
+            //free_data(data); // this function is not implemented yet
+        data->door_tex->addr = mlx_get_data_addr(data->door_tex->texture, &data->door_tex->bits_per_pixel,
             &data->door_tex->line_length, &data->door_tex->endian);
+        data->open_door_tex->addr = mlx_get_data_addr(data->open_door_tex->texture, &data->open_door_tex->bits_per_pixel,
+            &data->open_door_tex->line_length, &data->open_door_tex->endian);
+    }
 }
 
 void    init_game(t_data *data)
@@ -92,15 +96,34 @@ void    init_game(t_data *data)
     init_texture(data);
 }
 
+static void	print_controls(void)
+{
+	printf(YELLOW "\n");
+    printf("\t\t███    ███  █████  ██████  ███████ ██████   █████      ██████  ██ ██ ██ ██ ██   ██\n");
+    printf("\t\t████  ████ ██   ██ ██   ██      ██ ██   ██ ██   ██     ██   ██ ██ ██ ██ ██ ██  ██\n");
+    printf("\t\t██ ████ ██ ███████ ██████      ██  ██████  ███████     ██████  ██ ██ ██ ██ █████\n");
+    printf("\t\t██  ██  ██ ██   ██ ██   ██    ██   ██   ██ ██   ██     ██   ██ ██ ██ ██ ██ ██  ██\n");
+    printf("\t\t██      ██ ██   ██ ██   ██    ██   ██████  ██   ██     ██████  ██ ██ ██ ██ ██   ██\n");
+	printf(RESET "\n");
+	printf(RED "\t\t\tW A S D" RESET ": move\t");
+	printf(RED "\t\t\t<| |>" RESET ": turn left / right\t\n");
+	if (BONUS)
+    {
+		printf(RED "\t\t\tF" RESET ": open doors\t");
+		printf(RED "\t\t\tE" RESET ": close doors\t\n");
+		printf(RED "\t\t\tC" RESET ": animation (TODO)");
+		printf(RED "\t\t\tMouse" RESET ": rotate view (TODO)\t");
+    }
+	printf("\n");
+}
+
+
 int main(int ac, char **av)
 {
     t_data data;
 
+    print_controls();
     check_argument(av, ac, &data);
-    if(BONUS == 1)
-        printf("BONUS is enabled\n");
-    else
-        printf("BONUS is disabled\n");
     init_game(&data);
     main_of_drawing(&data);
     mlx_loop(data.mlx);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_surrounded.c                                    :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 10:33:24 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/28 18:54:50 by olaaroub         ###   ########.fr       */
+/*   Created: 2025/01/29 01:26:30 by olaaroub          #+#    #+#             */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../includes/cub3d.h"
 
 bool chack_if_valid(char **map, int i, int j)
 {
@@ -18,9 +18,9 @@ bool chack_if_valid(char **map, int i, int j)
         return false;
     else if (map[j][i] && (map[j][i + 1] == ' ' || !map[j][i + 1]))
         return false;
-    else if (j >= 0 && (j == 0 || map[j - 1][i] == ' '))
+    else if (j >= 0  && (j == 0 || i > (int)ft_strlen(map[j - 1]) - 1 || map[j - 1][i] == ' '))
         return false;
-    else if ((map[j + 1] && map[j + 1][i] == ' ') || !map[j + 1])
+    else if ((map[j + 1] && map[j + 1][i] == ' ') || !map[j + 1] || i > (int)ft_strlen(map[j + 1]) - 1)
         return false;
     return true;
 }
@@ -58,7 +58,7 @@ bool check_if_surrounded(char **map)
                 || map[j][i] == 'S' || map[j][i] == 'E'
                 || map[j][i] == 'W') && !chack_if_valid(map, i, j))
                 ft_error("error: map not surrounded by wall\n");
-            else if(map[j][i] == 'D' && !check_door(map, i, j))
+            else if((map[j][i] == 'D' && !check_door(map, i, j)) && BONUS == 1)
                 ft_error("error: wrong door placement\n");
             i++;
         }

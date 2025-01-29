@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/28 18:55:01 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../includes/cub3d.h"
 
 
 /*
@@ -122,8 +122,8 @@ double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, t_vec
         if (map.y >= 0 && map.y < data->y_max &&
             map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]))
         {
-            if (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D' ||
-                data->map.map[(int)map.y][(int)map.x] == 'O')
+            if (data->map.map[(int)map.y][(int)map.x] == '1' || ((data->map.map[(int)map.y][(int)map.x] == 'D' ||
+                data->map.map[(int)map.y][(int)map.x] == 'O') && BONUS == 1))
                 {
                     if(data->map.map[(int)map.y][(int)map.x] == 'D')
                     {
@@ -192,8 +192,8 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect
         map.y = (int)(hit.y / SOF);
         if (map.y >= 0 && map.y < data->y_max &&
             map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]) &&
-            (data->map.map[(int)map.y][(int)map.x] == '1' || data->map.map[(int)map.y][(int)map.x] == 'D' ||
-             data->map.map[(int)map.y][(int)map.x] == 'O'))
+            (data->map.map[(int)map.y][(int)map.x] == '1' || ((data->map.map[(int)map.y][(int)map.x] == 'D' ||
+             data->map.map[(int)map.y][(int)map.x] == 'O') && BONUS == 1)))
             {
                 if(data->map.map[(int)map.y][(int)map.x] == 'D')
                 {
@@ -266,14 +266,14 @@ int get_vertical_color(t_data *data, double y)
   int offset;
   int index;
 
-    if(data->hit_door)
+    if(data->hit_door && BONUS == 1)
     {
         x = (int)(data->door_tex->width * data->hit_y / 64) % data->door_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         index = offset * ((double)data->door_tex->height / data->wallhight);
         return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
     }
-    if(data->hit_door_open)
+    if(data->hit_door_open && BONUS == 1)
     {
         x = (int)(data->open_door_tex->width * data->hit_y / 64) % data->open_door_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
@@ -302,14 +302,14 @@ int get_horizontal_color(t_data *data, double y)
     int offset;
     int index;
 
-    if(data->hit_door)
+    if(data->hit_door && BONUS == 1)
     {
         x = (int)(data->door_tex->width * data->hit_x / 64) % data->door_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         index = offset * ((double)data->door_tex->height / data->wallhight);
         return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
     }
-    if(data->hit_door_open)
+    if(data->hit_door_open && BONUS == 1)
     {
         x = (int)(data->open_door_tex->width * data->hit_x / 64) % data->open_door_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
@@ -381,26 +381,7 @@ void render_3d(t_data *data)
         draw_3d(data, x);
         data->start_angle += angle_step;
     }
-    minimap(data);
+    if(BONUS == 1)
+        minimap(data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }
-
-// void drawing_rays(t_img *img)
-// {
-//     int screen_width = data_global()->x_max * SOF;
-//     double fov = PI / 3;
-//     double angle_step = fov / screen_width;
-//     double ray_angle;
-//     double start_angle = data_global()->angle - fov / 2;
-//     int i = 0;
-//     int ray;
-
-//     while (i < screen_width)
-//     {
-//         ray_angle = start_angle + i * angle_step;
-//         ray = get_ray_lenght(ray_angle);
-//         drawing_ray(img, ray_angle, ray);
-//         i++;
-//     }
-//     put_img(img);
-// }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/28 18:54:35 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void check_element(t_map *map, char *line, t_list **trash)
 {
@@ -33,7 +33,7 @@ void check_element(t_map *map, char *line, t_list **trash)
 	free(line);
 }
 
-int	check_map(t_map *map)
+int	check_map_bonus(t_map *map)
 {
 	int	i;
 
@@ -48,6 +48,29 @@ int	check_map(t_map *map)
 				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
 					&& map->map_line[i] != 'W' && map->map_line[i] != 'S'
 						&& map->map_line[i] != 'D' && map->map_line[i] != 'O')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+
+int	check_map(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	if(BONUS == 1)
+		return(check_map_bonus(map));
+	while (map->map_line[i])
+	{
+		if (map->map_line[i] == '\n' && (map->map_line[i + 1] == '\n'
+			|| map->map_line[i + 1] == '\0'))
+			return (0);
+		if (map->map_line[i] != '1' && map->map_line[i] != '0'
+			&& map->map_line[i] != ' ' && map->map_line[i] != '\n'
+				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
+					&& map->map_line[i] != 'W' && map->map_line[i] != 'S')
 			return (0);
 		i++;
 	}

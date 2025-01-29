@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_texture.c                                     :+:      :+:    :+:   */
+/*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 18:39:45 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/28 18:54:46 by olaaroub         ###   ########.fr       */
+/*   Created: 2025/01/29 01:28:02 by olaaroub          #+#    #+#             */
+/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../../inc/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void check_ops(t_data *data, char *str, char *path)
 {
@@ -42,15 +41,17 @@ void initialize_textures(t_data *data)
 	data->south_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->west_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->east_tex = (t_texture*)malloc(sizeof(t_texture));
-	data->door_tex = (t_texture*)malloc(sizeof(t_texture));
-	data->open_door_tex = (t_texture*)malloc(sizeof(t_texture));
-
 	data->north_tex->path = NULL;
 	data->south_tex->path = NULL;
 	data->west_tex->path = NULL;
 	data->east_tex->path = NULL;
-	data->door_tex->path = NULL;
-	data->open_door_tex->path = NULL;
+	if(BONUS == 1)
+	{
+		data->open_door_tex = (t_texture*)malloc(sizeof(t_texture));
+		data->open_door_tex->path = NULL;
+		data->door_tex = (t_texture*)malloc(sizeof(t_texture));
+		data->door_tex->path = NULL;
+	}
 }
 
 void pars_texture(t_data *data)

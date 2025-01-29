@@ -1,10 +1,10 @@
-NO      ./images/north.xpm
-EA   	./images/east.xpm
-SO 	./images/south.xpm
-WE  	./images/west.xpm
+NO      ./images/jnon1.xpm
+EA   	./images/jnon2.xpm
+SO 	./images/jnon3.xpm
+WE  	./images/jnon4.xpm
 
-C 128,183,255
-F 127,140,26
+C 59, 30, 84
+F 212, 190, 228
 
         1111111111111111111111111
         10E000000011000000000001

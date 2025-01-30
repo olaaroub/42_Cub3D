@@ -1,19 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/29 02:26:42 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/01/30 02:38:12 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
-CFLAGS		+=  -fsanitize=address -O3 -g3
+CFLAGS		= -Wall -Wextra -Werror -O3
+# CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 
 GREEN		= \033[0;32m
@@ -47,7 +47,7 @@ OBJ_PATH	= ./objects/
 OBJ			= $(SRC:.c=.o)
 OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
 
-INC			=	-I ./inc/\
+INC			=	-I ./includes/\
 				-I ./libft/\
 				-I ./minilibx-linux/
 HEADER		= ./includes/cub3d.h
@@ -75,7 +75,6 @@ $(LIBFT):
 	make -j -sC libft/
 	make clean -sC libft/
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)libft$(RESET)"
-
 
 $(MLX):
 	@make -sC minilibx-linux/

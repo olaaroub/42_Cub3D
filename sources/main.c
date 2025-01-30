@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/29 02:33:24 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/30 01:20:18 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 void check_argument(char **av, int ac, t_data *data)
 {
@@ -67,17 +67,34 @@ void init_texture(t_data *data)
             &data->east_tex->line_length, &data->east_tex->endian);
     if(BONUS == 1)
     {
-        data->open_door_tex->texture = mlx_xpm_file_to_image(data->mlx, "images/open.xpm",
-            &data->open_door_tex->width, &data->open_door_tex->height);
-        data->door_tex->texture = mlx_xpm_file_to_image(data->mlx, "images/closed.xpm",
-            &data->door_tex->width, &data->door_tex->height);
-        if(!data->open_door_tex->texture || !data->door_tex->texture)
-            ft_error("Error\n: texture not found");
+        // data->open_door_tex->texture = mlx_xpm_file_to_image(data->mlx, "images/open.xpm",
+        //     &data->open_door_tex->width, &data->open_door_tex->height);
+        data->door_tex[0].texture = mlx_xpm_file_to_image(data->mlx, "images/11.xpm",
+            &data->door_tex[0].width, &data->door_tex[0].height);
+        data->door_tex[1].texture = mlx_xpm_file_to_image(data->mlx, "images/22.xpm",
+            &data->door_tex[1].width, &data->door_tex[1].height);
+        data->door_tex[2].texture = mlx_xpm_file_to_image(data->mlx, "images/33.xpm",
+            &data->door_tex[2].width, &data->door_tex[2].height);
+        data->door_tex[3].texture = mlx_xpm_file_to_image(data->mlx, "images/44.xpm",
+            &data->door_tex[3].width, &data->door_tex[3].height);
+
+
+        // if(!data->open_door_tex->texture || !data->door_tex->texture)
+        //     ft_error("Error\n: texture not found");
             //free_data(data); // this function is not implemented yet
-        data->door_tex->addr = mlx_get_data_addr(data->door_tex->texture, &data->door_tex->bits_per_pixel,
-            &data->door_tex->line_length, &data->door_tex->endian);
-        data->open_door_tex->addr = mlx_get_data_addr(data->open_door_tex->texture, &data->open_door_tex->bits_per_pixel,
-            &data->open_door_tex->line_length, &data->open_door_tex->endian);
+
+
+        data->door_tex[0].addr = mlx_get_data_addr(data->door_tex[0].texture, &data->door_tex[0].bits_per_pixel,
+            &data->door_tex[0].line_length, &data->door_tex[0].endian);
+        data->door_tex[1].addr = mlx_get_data_addr(data->door_tex[1].texture, &data->door_tex[1].bits_per_pixel,
+            &data->door_tex[1].line_length, &data->door_tex[1].endian);
+        data->door_tex[2].addr = mlx_get_data_addr(data->door_tex[2].texture, &data->door_tex[2].bits_per_pixel,
+            &data->door_tex[2].line_length, &data->door_tex[2].endian);
+        data->door_tex[3].addr = mlx_get_data_addr(data->door_tex[3].texture, &data->door_tex[3].bits_per_pixel,
+            &data->door_tex[3].line_length, &data->door_tex[3].endian);
+
+        // data->open_door_tex->addr = mlx_get_data_addr(data->open_door_tex->texture, &data->open_door_tex->bits_per_pixel,
+        //     &data->open_door_tex->line_length, &data->open_door_tex->endian);
     }
 }
 

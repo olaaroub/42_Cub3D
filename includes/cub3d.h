@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/29 18:15:02 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/30 00:37:43 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,12 @@ typedef struct s_data
 	t_texture	*south_tex;
 	t_texture	*west_tex;
 	t_texture	*east_tex;
-	t_texture	*door_tex;
+	t_texture	door_tex[4];
 	t_texture	*open_door_tex;
 	t_map		map;
 	t_img		*img;
 	t_minimap	minimap;
+	t_list		**trash;
 	void		**animated_textures;
 	void		*mlx;
 	void		*mlx_win;
@@ -127,7 +128,10 @@ typedef struct s_data
 	double		hit_y;
 	bool		hit_door;
 	bool		hit_door_open;
+	int 	f_pressed;
+	int frame;
 	t_vect		door_coor;
+	bool opened;
 
 }				t_data;
 

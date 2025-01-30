@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:28:02 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/30 00:43:32 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void check_ops(t_data *data, char *str, char *path)
 {
@@ -49,8 +49,6 @@ void initialize_textures(t_data *data)
 	{
 		data->open_door_tex = (t_texture*)malloc(sizeof(t_texture));
 		data->open_door_tex->path = NULL;
-		data->door_tex = (t_texture*)malloc(sizeof(t_texture));
-		data->door_tex->path = NULL;
 	}
 }
 

@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:26:30 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:49:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 bool chack_if_valid(char **map, int i, int j)
 {

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/29 16:49:51 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:10:38 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void pars_the_color(t_data *data)
 		else if (data->map.floor_color[j][i] == 'C' && data->map.floor_color[j][i + 1])
 			set_color(data, "C", &data->map.floor_color[j][i + 1]);
 		else
-			ft_error("ERROR: you chold entr a F or C\n");
+			ft_error("ERROR: you should enter a F or C\n");
 		j++;
 	}
 	if (j != 2 || data->map.ceiling_hex == -1 || data->map.floor_hex == -1)

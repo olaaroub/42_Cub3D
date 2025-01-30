@@ -6,11 +6,11 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/29 20:24:50 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/30 02:42:52 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void is_valid_move(t_data *data, int end_x, int end_y)
 {
@@ -23,10 +23,10 @@ void is_valid_move(t_data *data, int end_x, int end_y)
     map = data->map.map;
 
     if ((data->map.map[y / SOF][(x + end_x + 2) / SOF] != '1'
-        && data->map.map[y / SOF][(x + end_x  - 2) / SOF] != '1') && data->map.map[y / SOF][(x + end_x) / SOF] != 'D' )
+        && data->map.map[y / SOF][(x + end_x  - 2) / SOF] != '1') && (data->map.map[y / SOF][(x + end_x + 2) / SOF] != 'D'))
         data->player_x += end_x;
     if ((data->map.map[(y + end_y + 2) / SOF][x / SOF] != '1'
-        && data->map.map[(y + end_y - 2) / SOF][x / SOF] != '1') && data->map.map[(y + end_y) / SOF][x / SOF] != 'D' )
+        && data->map.map[(y + end_y - 2) / SOF][x / SOF] != '1') && (data->map.map[(y + end_y + 2) / SOF][x / SOF] != 'D'))
         data->player_y += end_y;
 }
 
@@ -75,6 +75,7 @@ void move_right(t_data* data)
 int move(void *parm)
 {
     t_data *data = (t_data *)parm;
+    static int i;
 
     if (data->d_pressed)
         move_right(data);
@@ -90,12 +91,35 @@ int move(void *parm)
         if (data->angle < 0)
             data->angle += 2 * PI;
     }
+
     if (data->turn_right)
     {
         data->angle += ROT_SPEED;
         if (data->angle >= 2 * PI)
             data->angle -= 2 * PI;
     }
+    if(data->opened == true)
+    {
+        if(i % 4 == 0)
+        {
+            FRAMES++;
+            if(FRAMES > 3)
+                FRAMES = 3;
+        }
+        i++;
+    }
+    else if(data->opened == false)
+    {
+        if(i % 4 == 0)
+        {
+            FRAMES--;
+            if(FRAMES < 0)
+                FRAMES = 0;
+        }
+        i++;
+    }
+    if(i > 20)
+        i = 0;
     render_3d(data);
     return 0;
 }

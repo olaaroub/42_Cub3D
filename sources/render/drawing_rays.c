@@ -6,11 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/29 02:04:51 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/30 02:43:22 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 
 /*
@@ -105,6 +105,7 @@ double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, t_vec
 {
     t_vect hit;
     t_vect step;
+    // (void)hit_door_ov;
 
     vertical_intersection(data, &hit);
     if (fabs(cos(data->start_angle)) < EPSILON)
@@ -176,6 +177,7 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect
 {
     t_vect hit;
     t_vect step;
+    // (void)hit_door_oh;
 
     horizontal_intersection(data, &hit);
     if (fabs(sin(data->start_angle)) < EPSILON)
@@ -268,17 +270,21 @@ int get_vertical_color(t_data *data, double y)
 
     if(data->hit_door && BONUS == 1)
     {
-        x = (int)(data->door_tex->width * data->hit_y / 64) % data->door_tex->width;
+        x = (int)(data->door_tex[FRAMES].width * data->hit_y / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        index = offset * ((double)data->door_tex->height / data->wallhight);
-        return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
+        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
+        // if(index < 0)
+        //     index = 0;
+        // else if(index >= data->door_tex[FRAMES].height)
+        //     index = data->door_tex[FRAMES].height ;
+        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
     if(data->hit_door_open && BONUS == 1)
     {
-        x = (int)(data->open_door_tex->width * data->hit_y / 64) % data->open_door_tex->width;
+        x = (int)(data->door_tex[FRAMES].width * data->hit_y / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        index = offset * ((double)data->open_door_tex->height / data->wallhight);
-        return (*(int*)(data->open_door_tex->addr + ((data->open_door_tex->width * (index * 4) + (x * 4)))));
+        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
+        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
     if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
@@ -301,20 +307,24 @@ int get_horizontal_color(t_data *data, double y)
     int x;
     int offset;
     int index;
-
     if(data->hit_door && BONUS == 1)
     {
-        x = (int)(data->door_tex->width * data->hit_x / 64) % data->door_tex->width;
+        x = (int)(data->door_tex[FRAMES].width * data->hit_x / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        index = offset * ((double)data->door_tex->height / data->wallhight);
-        return (*(int*)(data->door_tex->addr + ((data->door_tex->width * (index * 4) + (x * 4)))));
+        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
+        // if(index < 0)
+        //     index = 0;
+        // else if(index >= data->door_tex[FRAMES].height)
+        //     index = data->door_tex[FRAMES].height;
+        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
+
     if(data->hit_door_open && BONUS == 1)
     {
-        x = (int)(data->open_door_tex->width * data->hit_x / 64) % data->open_door_tex->width;
+        x = (int)(data->door_tex[FRAMES].width * data->hit_x / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        index = offset * ((double)data->open_door_tex->height / data->wallhight);
-        return (*(int*)(data->open_door_tex->addr + ((data->open_door_tex->width * (index * 4) + (x * 4)))));
+        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
+        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
     if (data->start_angle >= PI && data->start_angle < 2 * PI)
     {
@@ -381,7 +391,7 @@ void render_3d(t_data *data)
         draw_3d(data, x);
         data->start_angle += angle_step;
     }
-    if(BONUS == 1)
-        minimap(data);
+    // if(BONUS == 1)
+    //     minimap(data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }

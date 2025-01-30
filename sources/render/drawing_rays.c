@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 02:43:22 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:19:39 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,8 @@ int get_horizontal_color(t_data *data, double y)
     {
         x = (int)(data->door_tex[FRAMES].width * data->hit_x / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        if (offset < 0)
+            offset = 0;
         index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
         // if(index < 0)
         //     index = 0;
@@ -391,7 +393,7 @@ void render_3d(t_data *data)
         draw_3d(data, x);
         data->start_angle += angle_step;
     }
-    // if(BONUS == 1)
-    //     minimap(data);
+    if(BONUS == 1)
+        minimap(data);
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }

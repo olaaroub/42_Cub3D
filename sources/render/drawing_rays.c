@@ -6,7 +6,7 @@
 /*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 18:19:39 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/30 18:25:22 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,17 +272,17 @@ int get_vertical_color(t_data *data, double y)
     {
         x = (int)(data->door_tex[FRAMES].width * data->hit_y / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        if(offset < 0)
+            offset = 0;
         index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
-        // if(index < 0)
-        //     index = 0;
-        // else if(index >= data->door_tex[FRAMES].height)
-        //     index = data->door_tex[FRAMES].height ;
         return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
     if(data->hit_door_open && BONUS == 1)
     {
         x = (int)(data->door_tex[FRAMES].width * data->hit_y / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        if(offset < 0)
+            offset = 0;
         index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
         return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
@@ -311,13 +311,7 @@ int get_horizontal_color(t_data *data, double y)
     {
         x = (int)(data->door_tex[FRAMES].width * data->hit_x / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-        if (offset < 0)
-            offset = 0;
         index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
-        // if(index < 0)
-        //     index = 0;
-        // else if(index >= data->door_tex[FRAMES].height)
-        //     index = data->door_tex[FRAMES].height;
         return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
 
@@ -325,6 +319,8 @@ int get_horizontal_color(t_data *data, double y)
     {
         x = (int)(data->door_tex[FRAMES].width * data->hit_x / 64) % data->door_tex[FRAMES].width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        if(offset < 0)
+            offset = 0;
         index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
         return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
     }
@@ -332,6 +328,8 @@ int get_horizontal_color(t_data *data, double y)
     {
         x = (int)(data->south_tex->width * data->hit_x / 64) % data->south_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        if(offset < 0)
+            offset = 0;
         index = offset * ((double)data->south_tex->height / data->wallhight);
         return (*(int*)(data->south_tex->addr + ((data->south_tex->width * (index * 4) + (x * 4)))));
     }
@@ -384,6 +382,7 @@ void render_3d(t_data *data)
         data->ray_dis *= cos(data->start_angle - data->angle);
         data->dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
         data->wallhight = (SOF / data->ray_dis) * data->dis;
+
         data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
         data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
         if (data->start_draw < 0)

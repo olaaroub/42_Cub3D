@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/01/30 02:20:23 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/30 22:26:15 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define VARIABLES_H
 
 # define FRM 4  // this macro to haw match  moves the player do in single clik !
-# define SOP 2  // this is size of player (x and y)!
+# define SOP 4  // this is size of player (x and y)!
 # define SOF 64 // this is square size
 # define SPEED 1
 # define MI_SIZE 30

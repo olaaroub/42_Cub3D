@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/30 17:44:40 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/01/30 22:58:20 by ohammou-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -O1
+CFLAGS		= -Wall -Wextra -Werror #-O1
 # CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 

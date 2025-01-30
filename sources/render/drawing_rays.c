@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 17:44:28 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:36:53 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,36 @@
 
 */
 
-// int drawing_ray(t_img *img, double angle, int ray_length)
-// {
-//     int x_start = data_global()->x;
-//     int y_start = data_global()->y;
+int drawing_ray(t_img *img, double angle, int ray_length, t_data *data)
+{
+    int x_start = data->player_x;
+    int y_start = data->player_y;
 
-//     int x_end = x_start + ray_length * cos(angle);
-//     int y_end = y_start + ray_length * sin(angle);
+    int x_end = x_start + ray_length * cos(angle);
+    int y_end = y_start + ray_length * sin(angle);
 
-//     int dx = x_end - x_start;
-//     int dy = y_end - y_start;
-//     int steps = 0;
-//     if (abs(dx) > abs(dy))
-//         steps = abs(dx);
-//     else
-//         steps = abs(dy);
-//     double x_inc = dx / (double)steps;
-//     double y_inc = dy / (double)steps;
+    int dx = x_end - x_start;
+    int dy = y_end - y_start;
+    int steps = 0;
+    if (abs(dx) > abs(dy))
+        steps = abs(dx);
+    else
+        steps = abs(dy);
+    double x_inc = dx / (double)steps;
+    double y_inc = dy / (double)steps;
 
-//     double x = x_start;
-//     double y = y_start;
-//     int i = 0;
-//     while (i <= steps)
-//     {
-//         ft_pixelput(img, round(x), round(y), 0x00FF00);
-//         x += x_inc;
-//         y += y_inc;
-//         i++;
-//     }
-//     return 0;
-// }
+    double x = x_start;
+    double y = y_start;
+    int i = 0;
+    while (i <= steps)
+    {
+        ft_pixelput(img, round(x), round(y), 0x00FF00);
+        x += x_inc;
+        y += y_inc;
+        i++;
+    }
+    return 0;
+}
 
 /*
 
@@ -91,8 +91,8 @@ void vertical_intersection(t_data *data, t_vect *hit)
     ray_dir.x = cos(data->start_angle);
     ray_dir.y = sin(data->start_angle);
 
-    if (fabs(ray_dir.x) < EPSILON)
-        return;
+    // if (fabs(ray_dir.x) < EPSILON)
+    //     return;
     if (ray_dir.x < 0)
         hit->x = floor(x / SOF) * SOF - EPSILON;
     else
@@ -108,8 +108,8 @@ double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, t_vec
     // (void)hit_door_ov;
 
     vertical_intersection(data, &hit);
-    if (fabs(cos(data->start_angle)) < EPSILON)
-        return INT_MAX;
+    // if (fabs(cos(data->start_angle)) < EPSILON)
+    //     return INT_MAX;
     if (cos(data->start_angle) > 0)
         step.x = SOF;
     else
@@ -163,13 +163,12 @@ void horizontal_intersection(t_data *data, t_vect *hit)
     rayDirx = cos(data->start_angle);
     rayDiry = sin(data->start_angle);
 
-    if (fabs(rayDiry) < EPSILON)
-        return ;
+    // if (fabs(rayDiry) < EPSILON)
+    //     return ;
     if (rayDiry < 0)
         hit->y = floor(y / SOF) * SOF - EPSILON;
     else
         hit->y = floor(y / SOF) * SOF + SOF;
-
     hit->x = x + ((hit->y - y) / rayDiry) * rayDirx;
 }
 
@@ -180,8 +179,8 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect
     // (void)hit_door_oh;
 
     horizontal_intersection(data, &hit);
-    if (fabs(sin(data->start_angle)) < EPSILON)
-        return INT_MAX;
+    // if (fabs(sin(data->start_angle)) < EPSILON)
+    //     return INT_MAX;
     if (sin(data->start_angle) > 0)
         step.y = SOF;
     else
@@ -192,6 +191,7 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect
     {
         map.x = (int)(hit.x / SOF);
         map.y = (int)(hit.y / SOF);
+        // printf("%c\n", data->map.map[(int)map.y][(int)map.x]);
         if (map.y >= 0 && map.y < data->y_max &&
             map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]) &&
             (data->map.map[(int)map.y][(int)map.x] == '1' || ((data->map.map[(int)map.y][(int)map.x] == 'D' ||
@@ -384,7 +384,7 @@ void render_3d(t_data *data)
         data->ray_dis *= cos(data->start_angle - data->angle);
         data->dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
         data->wallhight = (SOF / data->ray_dis) * data->dis;
-
+        // printf("%f\n", data->ray_dis);
         data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
         data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
         if (data->start_draw < 0)
@@ -392,6 +392,7 @@ void render_3d(t_data *data)
         if (data->end_draw >= SCREEN_H)
             data->end_draw = SCREEN_H;
         draw_3d(data, x);
+        // drawing_ray(data->img, data->start_angle, data->ray_dis, data);
         data->start_angle += angle_step;
     }
     if(BONUS == 1)

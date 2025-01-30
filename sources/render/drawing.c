@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
 /*   Updated: 2025/01/30 02:21:13 by olaaroub         ###   ########.fr       */
@@ -61,9 +61,9 @@ void initialize_variables(t_data *data)
 void	main_of_drawing(t_data *data)
 {
 	render_3d(data);
-	mlx_hook(data->mlx_win, DestroyNotify, StructureNotifyMask,exit_key, data);
-	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, key_release, data);
+	mlx_hook(data->mlx_win, DestroyNotify, StructureNotifyMask, exit_key, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, key_press, data);
+	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, key_release, data);
 	mlx_loop_hook(data->mlx, move, data);
 }
 

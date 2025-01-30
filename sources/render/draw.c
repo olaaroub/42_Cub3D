@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
 /*   Updated: 2025/01/29 16:48:57 by olaaroub         ###   ########.fr       */
@@ -35,8 +35,28 @@ void	drawing1(t_data *data, int x, int y, int color)
 
 void	drawing_player(t_data*data, int x, int y)
 {
-	data->offset = 10;
-	drawing1(data, x, y, 0xfcba03);
+	int i;
+	int x_max;
+	int y_max;
+	int h;
+	int k;
+
+	x_max =  x + 20;
+	y_max = y + 20;
+	k = y + 10;
+	h = x + 10;
+	i = x;
+	while (y < y_max)
+	{
+		x = i;
+		while(x < x_max)
+		{
+			if (pow(x - h, 2) + pow(y - k, 2) <= pow(8, 2))
+				ft_pixelput(data->img, x, y, 0xD4BEE4);
+			x++;
+		}
+		y++;
+	}
 
 }
 
@@ -52,7 +72,7 @@ void draw_square(t_data *data)
 		x = 0;
 		while (x <= 10)
 		{
-			drawing1(data, x * MI_SIZE, y * MI_SIZE, 0xE8F9FF);
+			drawing1(data, x * MI_SIZE, y * MI_SIZE, 0x0605678);
 			x++;
 		}
 		y++;
@@ -83,13 +103,17 @@ void	minimap1(t_data *data)
 		{
 			data->offset = MI_SIZE;
 			if (data->map.map[y][x] == '1')
-				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFFFFFF);
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x3B1E54);
+			else if (data->map.map[y][x] == 'D')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x2A004E);
+			else if (data->map.map[y][x] == 'O')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x500073);
 			else if (data->map.map[y][x] != ' ')
-				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xFF0000);
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x9B7EBD);
 			if (x == (int)data->player_x / SOF && y == (int)data->player_y / SOF)
             {
-                player_x = (x_draw + fabs(data->player_x / SOF - x)) * MI_SIZE;
-                player_y = (y_draw + fabs(data->player_y / SOF - y)) * MI_SIZE;
+                player_x = ((x_draw + fabs(data->player_x / SOF - x)) * MI_SIZE) - 10;
+                player_y = ((y_draw + fabs(data->player_y / SOF - y)) * MI_SIZE) - 10;
             }
 			x++;
 			x_draw++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:14:08 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 22:58:13 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:44:57 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int move(void *parm)
         if (data->angle < 0)
             data->angle += 2 * PI;
     }
-
     if (data->turn_right)
     {
         data->angle += ROT_SPEED;

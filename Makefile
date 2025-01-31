@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
+#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/30 22:58:20 by ohammou-         ###   ########.fr        #
+#    Updated: 2025/01/31 16:20:01 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ INC			=	-I ./includes/\
 				-I ./libft/\
 				-I ./minilibx-linux/
 HEADER		= ./includes/cub3d.h
+VARIABLES	= ./includes/variables.h
 
 NAME		= cub3D
 
@@ -66,7 +67,7 @@ $(OBJ_PATH):
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
 
-$(NAME): $(OBJS) $(HEADER)
+$(NAME): $(OBJS) $(HEADER) $(VARIABLES)
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
@@ -80,7 +81,7 @@ $(MLX):
 	@make -sC minilibx-linux/
 
 bonus:
-	@make all  BONUS=1
+	@make re  BONUS=1
 
 clean:
 	@rm -rf $(OBJ_PATH)

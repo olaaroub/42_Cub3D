@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 18:47:35 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/02/02 21:35:26 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,22 @@ void	minimap1(t_data *data)
 	draw_square(data);
 	if (y < 0)
 		y = 0;
-	while (y <= (data->player_y / SOF) + 5 && data->map.map[y])
+	while (y <= (data->player_y / SOF) + 5 && data->map->map[y])
 	{
 		x = (data->player_x / SOF) - 5;
 		x_draw = 0;
 		if (x < 0)
 			x = 0;
-		while(x <= (data->player_x / SOF) + 5 && data->map.map[y][x])
+		while(x <= (data->player_x / SOF) + 5 && data->map->map[y][x])
 		{
 			data->offset = MI_SIZE;
-			if (data->map.map[y][x] == '1')
+			if (data->map->map[y][x] == '1')
 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x3B1E54);
-			else if (data->map.map[y][x] == 'D')
+			else if (data->map->map[y][x] == 'D')
 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x2A004E);
-			else if (data->map.map[y][x] == 'O')
+			else if (data->map->map[y][x] == 'O')
 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x500073);
-			else if (data->map.map[y][x] != ' ')
+			else if (data->map->map[y][x] != ' ')
 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x9B7EBD);
 			if (x == (int)data->player_x / SOF && y == (int)data->player_y / SOF)
             {
@@ -201,7 +201,7 @@ void minimap(t_data *data)
 // 	data->minimap.y_end = data->player_y + data->minimap.len;
 // 	data->minimap.y = -data->minimap.len;
 // 	data->minimap.flag = 0;
-// 	char **map = data->map.map;
+// 	char **map = data->map->map;
 // 	while (data->minimap.y_start < data->minimap.y_end)
 // 	{
 // 		data->minimap.x = -data->minimap.len;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 21:36:53 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/02/03 00:11:17 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,10 @@ void vertical_intersection(t_data *data, t_vect *hit)
 
 }
 
-double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, t_vect *door_coor_v, bool *hit_door_ov)
+double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, bool *hit_door_ov, bool *hit_fire)
 {
     t_vect hit;
     t_vect step;
-    // (void)hit_door_ov;
 
     vertical_intersection(data, &hit);
     // if (fabs(cos(data->start_angle)) < EPSILON)
@@ -121,23 +120,17 @@ double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, t_vec
         map.x = (int)hit.x / SOF;
         map.y = (int)hit.y / SOF;
         if (map.y >= 0 && map.y < data->y_max &&
-            map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]))
+            map.x >= 0 && map.x < (int)ft_strlen(data->map->map[(int)map.y]))
         {
-            if (data->map.map[(int)map.y][(int)map.x] == '1' || ((data->map.map[(int)map.y][(int)map.x] == 'D' ||
-                data->map.map[(int)map.y][(int)map.x] == 'O') && BONUS == 1))
+            if (data->map->map[(int)map.y][(int)map.x] == '1' || ((data->map->map[(int)map.y][(int)map.x] == 'D' ||
+                data->map->map[(int)map.y][(int)map.x] == 'O' || data->map->map[(int)map.y][(int)map.x] == 'F') && BONUS == 1))
                 {
-                    if(data->map.map[(int)map.y][(int)map.x] == 'D')
-                    {
-                        door_coor_v->x = map.x;
-                        door_coor_v->y = map.y;
+                    if(data->map->map[(int)map.y][(int)map.x] == 'D')
                         *hit_door = true;
-                    }
-                    else if(data->map.map[(int)map.y][(int)map.x] == 'O')
-                    {
-                        door_coor_v->x = map.x;
-                        door_coor_v->y = map.y;
+                    else if(data->map->map[(int)map.y][(int)map.x] == 'O')
                         *hit_door_ov = true;
-                    }
+                    else if(data->map->map[(int)map.y][(int)map.x] == 'F')
+                        *hit_fire = true;
                     break;
                 }
         }
@@ -172,7 +165,7 @@ void horizontal_intersection(t_data *data, t_vect *hit)
     hit->x = x + ((hit->y - y) / rayDiry) * rayDirx;
 }
 
-double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect *door_coor_h, bool *hit_door_oh)
+double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, bool *hit_door_oh, bool *hit_fire)
 {
     t_vect hit;
     t_vect step;
@@ -191,24 +184,18 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, t_vect
     {
         map.x = (int)(hit.x / SOF);
         map.y = (int)(hit.y / SOF);
-        // printf("%c\n", data->map.map[(int)map.y][(int)map.x]);
+        // printf("%c\n", data->map->map[(int)map.y][(int)map.x]);
         if (map.y >= 0 && map.y < data->y_max &&
-            map.x >= 0 && map.x < (int)ft_strlen(data->map.map[(int)map.y]) &&
-            (data->map.map[(int)map.y][(int)map.x] == '1' || ((data->map.map[(int)map.y][(int)map.x] == 'D' ||
-             data->map.map[(int)map.y][(int)map.x] == 'O') && BONUS == 1)))
+            map.x >= 0 && map.x < (int)ft_strlen(data->map->map[(int)map.y]) &&
+            (data->map->map[(int)map.y][(int)map.x] == '1' || ((data->map->map[(int)map.y][(int)map.x] == 'D' ||
+             data->map->map[(int)map.y][(int)map.x] == 'O' || data->map->map[(int)map.y][(int)map.x] == 'F') && BONUS == 1)))
             {
-                if(data->map.map[(int)map.y][(int)map.x] == 'D')
-                {
-                    door_coor_h->x = map.x;
-                    door_coor_h->y = map.y;
+                if(data->map->map[(int)map.y][(int)map.x] == 'D')
                     *hit_door = true;
-                }
-                else if(data->map.map[(int)map.y][(int)map.x] == 'O')
-                {
-                    door_coor_h->x = map.x;
-                    door_coor_h->y = map.y;
+                else if(data->map->map[(int)map.y][(int)map.x] == 'O')
                     *hit_door_oh = true;
-                }
+                else if(data->map->map[(int)map.y][(int)map.x] == 'F')
+                        *hit_fire = true;
                 break;
             }
         hit.x += step.x;
@@ -226,37 +213,35 @@ double get_ray_lenght(t_data *data)
     t_vect h_hit;
     t_vect v_hit;
     t_vect map;
-    t_vect door_coor_h;
-    t_vect door_coor_v;
     bool hit_door_h = false;
     bool hit_door_v = false;
     bool hit_door_oh = false;
     bool hit_door_ov = false;
+    bool hit_fire_h = false;
+    bool hit_fire_v = false;
 
     map.x = 0;
     map.y = 0;
-    hlen = draw_hray(data, map, &h_hit, &hit_door_h, &door_coor_h, &hit_door_oh);
-    vlen = draw_vray(data, map, &v_hit, &hit_door_v, &door_coor_v, &hit_door_ov);
+    hlen = draw_hray(data, map, &h_hit, &hit_door_h, &hit_door_oh, &hit_fire_h);
+    vlen = draw_vray(data, map, &v_hit, &hit_door_v, &hit_door_ov , &hit_fire_v);
     data->is_vertical = false;
     if (hlen < vlen)
     {
         data->hit_x = h_hit.x;
         data->hit_y = h_hit.y;
-        data->door_coor.x = door_coor_h.x;
-        data->door_coor.y = door_coor_h.y;
         data->hit_door = hit_door_h;
         data->hit_door_open = hit_door_oh;
+        data->hit_fire = hit_fire_h;
         return hlen;
     }
     else
     {
         data->hit_x = v_hit.x;
         data->hit_y = v_hit.y;
-        data->door_coor.x = door_coor_v.x;
-        data->door_coor.y = door_coor_v.y;
         data->is_vertical = true;
         data->hit_door = hit_door_v;
         data->hit_door_open = hit_door_ov;
+        data->hit_fire = hit_fire_v;
         return vlen;
     }
     return 0;
@@ -270,21 +255,32 @@ int get_vertical_color(t_data *data, double y)
 
     if(data->hit_door && BONUS == 1)
     {
-        x = (int)(data->door_tex[FRAMES].width * data->hit_y / 64) % data->door_tex[FRAMES].width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_y / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
-        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
-        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
+        index = offset * ((double)DOOR_TEX[FRAMES]->height / data->wallhight);
+        return (*(int*)(DOOR_TEX[FRAMES]->addr + ((DOOR_TEX[FRAMES]->width * (index * 4) + (x * 4)))));
     }
+
+    if(data->hit_fire && BONUS == 1)
+    {
+        x = (int)(FIRE_TEX[FIRE_CURR_FRAME]->width * data->hit_y / 64) % FIRE_TEX[FIRE_CURR_FRAME]->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        if(offset < 0)
+            offset = 0;
+        index = offset * ((double)FIRE_TEX[FIRE_CURR_FRAME]->height / data->wallhight);
+        return (*(int*)(FIRE_TEX[FIRE_CURR_FRAME]->addr + ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x * 4)))));
+    }
+
     if(data->hit_door_open && BONUS == 1)
     {
-        x = (int)(data->door_tex[FRAMES].width * data->hit_y / 64) % data->door_tex[FRAMES].width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_y / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
-        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
-        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
+        index = offset * ((double)DOOR_TEX[FRAMES]->height / data->wallhight);
+        return (*(int*)(DOOR_TEX[FRAMES]->addr + ((DOOR_TEX[FRAMES]->width * (index * 4) + (x * 4)))));
     }
     if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
@@ -309,22 +305,32 @@ int get_horizontal_color(t_data *data, double y)
     int index;
     if(data->hit_door && BONUS == 1)
     {
-        x = (int)(data->door_tex[FRAMES].width * data->hit_x / 64) % data->door_tex[FRAMES].width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_x / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
-        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
-        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
+        index = offset * ((double)DOOR_TEX[FRAMES]->height / data->wallhight);
+        return (*(int*)(DOOR_TEX[FRAMES]->addr + ((DOOR_TEX[FRAMES]->width * (index * 4) + (x * 4)))));
+    }
+
+    if(data->hit_fire && BONUS == 1)
+    {
+        x = (int)(FIRE_TEX[FIRE_CURR_FRAME]->width * data->hit_x / 64) % FIRE_TEX[FIRE_CURR_FRAME]->width;
+        offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
+        if(offset < 0)
+            offset = 0;
+        index = offset * ((double)FIRE_TEX[FIRE_CURR_FRAME]->height / data->wallhight);
+        return (*(int*)(FIRE_TEX[FIRE_CURR_FRAME]->addr + ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x * 4)))));
     }
 
     if(data->hit_door_open && BONUS == 1)
     {
-        x = (int)(data->door_tex[FRAMES].width * data->hit_x / 64) % data->door_tex[FRAMES].width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_x / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
-        index = offset * ((double)data->door_tex[FRAMES].height / data->wallhight);
-        return (*(int*)(data->door_tex[FRAMES].addr + ((data->door_tex[FRAMES].width * (index * 4) + (x * 4)))));
+        index = offset * ((double)DOOR_TEX[FRAMES]->height / data->wallhight);
+        return (*(int*)(DOOR_TEX[FRAMES]->addr + ((DOOR_TEX[FRAMES]->width * (index * 4) + (x * 4)))));
     }
     if (data->start_angle >= PI && data->start_angle < 2 * PI)
     {
@@ -353,7 +359,7 @@ void draw_3d(t_data *data, int x)
     while (y < SCREEN_H)
     {
         while(y < data->start_draw)
-            ft_pixelput(data->img, x, y++, data->map.ceiling_hex);
+            ft_pixelput(data->img, x, y++, data->map->ceiling_hex);
         while(y >= data->start_draw && y < data->end_draw)
         {
             if(data->is_vertical)
@@ -363,10 +369,28 @@ void draw_3d(t_data *data, int x)
             ft_pixelput(data->img, x, y, color);
             y++;
         }
-        ft_pixelput(data->img, x, y, data->map.floor_hex);
+        ft_pixelput(data->img, x, y, data->map->floor_hex);
         y++;
     }
 }
+
+void render_hand(t_data *data)
+{
+    t_texture *tex = data->animations->hand_tex[HAND_CURR_FRAME];
+    int        pos_x = (SCREEN_W - tex->width) / 2 ;
+    int        pos_y = SCREEN_H - tex->height + data->animations->hand_y_offset;
+
+    for (int y = 0; y < tex->height; y++)
+    {
+        for (int x = 0; x < tex->width; x++)
+        {
+            int color = *(int*)(tex->addr + (y * tex->line_length + x * (tex->bits_per_pixel/8)));
+            if ((color & 0x00FFFFFF) != 0)
+                ft_pixelput(data->img, pos_x + x, pos_y + y, color);
+        }
+    }
+}
+
 
 void render_3d(t_data *data)
 {
@@ -384,7 +408,6 @@ void render_3d(t_data *data)
         data->ray_dis *= cos(data->start_angle - data->angle);
         data->dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
         data->wallhight = (SOF / data->ray_dis) * data->dis;
-        // printf("%f\n", data->ray_dis);
         data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
         data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
         if (data->start_draw < 0)
@@ -392,10 +415,12 @@ void render_3d(t_data *data)
         if (data->end_draw >= SCREEN_H)
             data->end_draw = SCREEN_H;
         draw_3d(data, x);
-        // drawing_ray(data->img, data->start_angle, data->ray_dis, data);
         data->start_angle += angle_step;
     }
     if(BONUS == 1)
+    {
         minimap(data);
+        render_hand(data);
+    }
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img->img, 0, 0);
 }

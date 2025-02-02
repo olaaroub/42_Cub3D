@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
+#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/30 22:58:20 by ohammou-         ###   ########.fr        #
+#    Updated: 2025/02/03 00:20:29 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror #-O1
+CFLAGS		= -Wall -Wextra -Werror -O3
 # CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 
@@ -39,7 +39,7 @@ SRC			= 	main.c \
 			render/drawing_rays.c \
 			render/drawing.c \
 			mouvements/keys.c \
-			mouvements/keys2.c \
+			mouvements/moves.c \
 
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
@@ -51,6 +51,7 @@ INC			=	-I ./includes/\
 				-I ./libft/\
 				-I ./minilibx-linux/
 HEADER		= ./includes/cub3d.h
+VARIABLES	= ./includes/variables.h
 
 NAME		= cub3D
 
@@ -66,7 +67,7 @@ $(OBJ_PATH):
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
 
-$(NAME): $(OBJS) $(HEADER)
+$(NAME): $(OBJS) $(HEADER) $(VARIABLES)
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
@@ -80,7 +81,7 @@ $(MLX):
 	@make -sC minilibx-linux/
 
 bonus:
-	@make all  BONUS=1
+	@make re  BONUS=1
 
 clean:
 	@rm -rf $(OBJ_PATH)

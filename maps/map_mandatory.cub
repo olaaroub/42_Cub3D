@@ -1,7 +1,7 @@
-NO      ./images/north.xpm
-EA   	./images/east.xpm
-SO 	./images/south.xpm
-WE  	./images/west.xpm
+NO      ./imgs/north.xpm
+EA   	./imgs/east.xpm
+SO 	./imgs/south.xpm
+WE  	./imgs/west.xpm
 
 C 128,183,255
 F 127,140,26

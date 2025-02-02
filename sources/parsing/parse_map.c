@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/29 16:49:38 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/02 21:42:54 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	check_map_bonus(t_map *map)
 			&& map->map_line[i] != ' ' && map->map_line[i] != '\n'
 				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
 					&& map->map_line[i] != 'W' && map->map_line[i] != 'S'
-						&& map->map_line[i] != 'D' && map->map_line[i] != 'O')
+						&& map->map_line[i] != 'D' && map->map_line[i] != 'O'
+							&& map->map_line[i] != 'F')
 			return (0);
 		i++;
 	}
@@ -131,7 +132,7 @@ void	check_player(char **map)
 		{
 			if ((map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
 				|| map[i][j] == 'S') && flag == 1)
-				ft_error("multiple player\n");
+				ft_error("Multiple players!\n");
 			else if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
 				|| map[i][j] == 'S')
 				flag = 1;
@@ -140,7 +141,7 @@ void	check_player(char **map)
 		i++;
 	}
 	if (!flag)
-		ft_error("no player !\n");
+		ft_error("No player!\n");
 }
 
 void resize_map(t_map *map)
@@ -167,25 +168,27 @@ void resize_map(t_map *map)
 		}
 		j++;
 	}
-
 }
 
-t_map   read_map(char *file)
+t_map   *read_map(char *file)
 {
 	int fd;
-	t_map	map;
+	t_map	*map;
 
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		ft_error("Error: malloc failed\n");
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error("file not found\n");
-	map.flag = 1;
-	map.color = "";
-	map.texture_line = "";
-	map.map_line = "";
-	get_game_elements(fd, &map);
-	check_player(map.map);
-	check_if_surrounded(map.map);
+	map->flag = 1;
+	map->color = "";
+	map->texture_line = "";
+	map->map_line = "";
+	get_game_elements(fd, map);
+	check_player(map->map);
+	check_if_surrounded(map->map);
 
-	resize_map(&map);
+	resize_map(map);
 	return (map);
 }

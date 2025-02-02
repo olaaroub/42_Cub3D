@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 00:37:43 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/02 22:32:37 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 # ifndef BONUS
 #  define BONUS 1
@@ -85,19 +86,32 @@ typedef struct s_minimap
 	double		tmp_y;
 }				t_minimap;
 
+
+typedef struct s_animations
+{
+	t_texture	**door_tex;
+	t_texture	**fire_tex;
+	t_texture	**hand_tex;
+	int 		hand_curr_frame;
+	int 		fire_curr_frame;
+	int 		door_curr_frame;
+	bool 		fire_switch;
+	double 		anim_time;
+	int 		hand_y_offset;
+
+} t_animations;
+
 typedef struct s_data
 {
-	t_texture	*north_tex;
-	t_texture	*south_tex;
-	t_texture	*west_tex;
-	t_texture	*east_tex;
-	t_texture	door_tex[4];
-	t_texture	*open_door_tex;
-	t_map		map;
-	t_img		*img;
-	t_minimap	minimap;
-	t_list		**trash;
-	void		**animated_textures;
+	t_texture		*north_tex;
+	t_texture		*south_tex;
+	t_texture		*west_tex;
+	t_texture		*east_tex;
+	t_animations	*animations;
+	t_map			*map;
+	t_img			*img;
+	t_minimap		*minimap;
+	t_list			**trash;
 	void		*mlx;
 	void		*mlx_win;
 	double		player_x;
@@ -115,6 +129,7 @@ typedef struct s_data
 	double		px;
 	double		py;
 	// -------rander 3d--------
+
 	bool		is_vertical;
 	double		start_angle;
 	double		ray_dis;
@@ -128,10 +143,10 @@ typedef struct s_data
 	double		hit_y;
 	bool		hit_door;
 	bool		hit_door_open;
-	int 	f_pressed;
-	int frame;
-	t_vect		door_coor;
-	bool opened;
+	int 		f_pressed;
+	bool 		opened;
+	bool		hit_fire;
+	bool 	kkk;
 
 }				t_data;
 
@@ -140,7 +155,7 @@ void			check_argument(char **av, int ac, t_data *data);
 int				is_texture(char *line);
 int				is_color(char *line);
 int				is_empty(char *line);
-t_map			read_map(char *file);
+t_map			*read_map(char *file);
 void			add_to_trash(void *add, t_list **trash);
 void			ft_error(char *str);
 char			**duplicate_map(char **map);

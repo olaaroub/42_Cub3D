@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/30 02:21:13 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/02 22:32:48 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void initialize_the_angle(t_data *data)
 {
 	char **map;
 
-	map = data->map.map;
+	map = data->map->map;
 	if (map[(int)data->player_y][(int)data->player_x] == 'E')
 		data->angle = 0;
 	else if (map[(int)data->player_y][(int)data->player_x] == 'W')
@@ -43,6 +43,9 @@ void initialize_the_angle(t_data *data)
 void initialize_variables(t_data *data)
 {
 	initialize_the_angle(data);
+	data->animations = malloc(sizeof(t_animations));
+	if (!data->animations)
+		ft_error("Error: Malloc failed");
 	data->player_x = (data->player_x * SOF) + SOF / 3;
 	data->player_y = (data->player_y * SOF) + SOF / 3;
     data->d_pressed = 0;
@@ -55,7 +58,11 @@ void initialize_variables(t_data *data)
 	data->hit_door = false;
 	data->opened = false;
 	data->hit_door_open = false;
+	data->animations->fire_switch = false;
 	FRAMES = 0;
+	HAND_CURR_FRAME = 0;
+	FIRE_CURR_FRAME = 0;
+	data->kkk = false;
 }
 
 void	main_of_drawing(t_data *data)

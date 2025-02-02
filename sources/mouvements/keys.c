@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/01/31 16:43:39 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/02 21:35:42 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void open_door2(t_data *data)
     int y;
 
     y = 0;
-    while (data->map.map[y] && y < data->y_max)
+    while (data->map->map[y] && y < data->y_max)
     {
         x = 0;
-        while (data->map.map[y][x] && x < data->x_max)
+        while (data->map->map[y][x] && x < data->x_max)
         {
-                if (data->map.map[y][x] == 'D' && data->opened == false)
-                    data->map.map[y][x] = 'O';
+                if (data->map->map[y][x] == 'D' && data->opened == false)
+                    data->map->map[y][x] = 'O';
             x++;
         }
         y++;
@@ -40,15 +40,15 @@ void    close_door2(t_data *data)
     int player_y = (int)data->player_y / SOF;
 
     y = 0;
-    if (data->map.map[player_y][player_x] == 'O')
+    if (data->map->map[player_y][player_x] == 'O')
         return ;
-    while (data->map.map[y] && y < data->y_max)
+    while (data->map->map[y] && y < data->y_max)
     {
         x = 0;
-        while (data->map.map[y][x] && x < data->x_max)
+        while (data->map->map[y][x] && x < data->x_max)
         {
-                if ((data->map.map[y][x] == 'O') && data->opened == true)
-                    data->map.map[y][x] = 'D';
+                if ((data->map->map[y][x] == 'O') && data->opened == true)
+                    data->map->map[y][x] = 'D';
             x++;
         }
         y++;

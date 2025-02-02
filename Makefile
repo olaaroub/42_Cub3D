@@ -6,13 +6,13 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/31 16:20:01 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/03 00:20:29 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror #-O1
+CFLAGS		= -Wall -Wextra -Werror -O3
 # CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 
@@ -39,7 +39,7 @@ SRC			= 	main.c \
 			render/drawing_rays.c \
 			render/drawing.c \
 			mouvements/keys.c \
-			mouvements/keys2.c \
+			mouvements/moves.c \
 
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 

@@ -76,13 +76,13 @@ typedef struct s_minimap
 	double		x_start;
 	double		x_end;
 	double		y_end;
-	double		x;
-	double		y;
 	int			i;
 	int			j;
 	int			flag;
 	double		tmp_x;
 	double		tmp_y;
+	t_vect		circle_center;
+	t_vect		player;
 }				t_minimap;
 
 typedef struct s_data

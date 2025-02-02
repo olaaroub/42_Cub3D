@@ -19,7 +19,7 @@
 # define SPEED 1
 # define MI_SIZE 30
 
-# define PI 3.14159265
+# define PI 3.14159265358979323846
 # define TOW_PI 6.28318530
 # define ROT_SPEED 0.05
 # define FOV_ANGLE PI / 3

@@ -121,6 +121,8 @@ typedef struct s_data
 	t_vect			hit;
 	void			*mlx;
 	void			*mlx_win;
+	double			two_pi;
+	double			field_of_view;
 	double			angle;
 	double			start_angle;
 	double			ray_dist;

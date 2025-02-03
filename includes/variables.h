@@ -19,11 +19,11 @@
 # define SPEED 1
 # define MI_SIZE 30
 
-# define PI 3.14159265
+# define IS_BLOCKING_TILE(c) ((c) == '1' || (c) == 'D' || (c) == 'F')
+# define PI 3.14159265358979323846264338327950
 # define TOW_PI 6.28318530
 # define ROT_SPEED 0.05
-# define FOV_ANGLE PI / 3
-# define IS_BLOCKING_TILE(c) ((c) == '1' || (c) == 'D' || (c) == 'F')
+# define FOV_ANGLE data->field_of_view
 
 # define EPSILON 1e-6
 # define SCREEN_W 1920

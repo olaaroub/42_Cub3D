@@ -70,6 +70,8 @@ void initialize_variables(t_data *data)
 	data->moves.opened = false;
 	data->hit_open_door = false;
 	data->animations->fire_switch = false;
+	data->field_of_view = PI / 3;
+	data->two_pi = PI * 2;
 	FRAMES = 0;
 	HAND_CURR_FRAME = 0;
 	FIRE_CURR_FRAME = 0;

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 00:19:25 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 00:55:47 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 02:04:03 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static void update_door_animation(t_data *data) {
         door_counter = 0;
 }
 
-int move(void *parm)
+int handle_moves(void *parm)
 {
     t_data *data = (t_data *)parm;
     static unsigned int anim_counter;
@@ -163,7 +163,7 @@ int move(void *parm)
         FIRE_CURR_FRAME = (FIRE_CURR_FRAME + 1) % FIRE_FRAMES;
     if(fire_counter >= UINT_MAX - 1000)
         fire_counter = 0;
-    render_3d(data);
+    render(data);
     return 0;
 }
 

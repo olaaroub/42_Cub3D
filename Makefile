@@ -6,7 +6,7 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/02/03 00:40:14 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/03 02:07:35 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ LIBFT		= libft/libft.a
 
 SRC_PATH 	= ./sources/
 SRC			= 	main.c \
+			init/init.c \
+			init/init_utils.c \
 			parsing/check_map.c \
 			parsing/parse_textures.c \
 			parsing/parse_colors.c \
@@ -35,9 +37,11 @@ SRC			= 	main.c \
 			utils/utils-v1.c \
 			utils/utils-v2.c \
 			utils/utils-v3.c \
+			utils/parsing_utils.c \
+			render/render.c \
+			render/get_texture_pixels.c\
+			render/raycast.c \
 			render/minimap.c \
-			render/drawing_rays.c \
-			render/drawing.c \
 			mouvements/keys.c \
 			mouvements/moves.c \
 
@@ -59,6 +63,7 @@ all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
 
 $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)
+	mkdir -p $(OBJ_PATH)/init
 	mkdir -p $(OBJ_PATH)/parsing
 	mkdir -p $(OBJ_PATH)/render
 	mkdir -p $(OBJ_PATH)/utils

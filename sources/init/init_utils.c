@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing.c                                          :+:      :+:    :+:   */
+/*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 00:59:06 by olaaroub         ###   ########.fr       */
+/*   Created: 2025/02/03 01:24:51 by olaaroub          #+#    #+#             */
+/*   Updated: 2025/02/03 01:28:53 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	exit_key(void *param)
+void	get_postion(t_data *data, char **map)
 {
-	t_data *data;
+	int	i;
+	int	j;
 
-	data= (t_data *)param;
-	mlx_destroy_image(data->mlx, data->img->img);
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
-	return (0);
+	j = 0;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+		   if (map[j][i] == 'N' || map[j][i] == 'S'
+			|| map[j][i] == 'E' || map[j][i] == 'W')
+			{
+				data->player.x = i;
+				data->player.y = j;
+				return ;
+			}
+			i++;
+		}
+		j++;
+	}
 }
 
-void initialize_the_angle(t_data *data)
+static void initialize_the_angle(t_data *data)
 {
 	char **map;
 
@@ -64,13 +75,12 @@ void initialize_variables(t_data *data)
 	FIRE_CURR_FRAME = 0;
 }
 
-void	main_of_drawing(t_data *data)
+int count_coloumns(char **map)
 {
-	render_3d(data);
-	mlx_hook(data->mlx_win, DestroyNotify, StructureNotifyMask, exit_key, data);
-	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, key_press, data);
-	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, key_release, data);
-	mlx_loop_hook(data->mlx, move, data);
+    int len;
+
+    len = 0;
+    while (map[len])
+        len++;
+    return (len);
 }
-
-

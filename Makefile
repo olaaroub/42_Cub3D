@@ -6,7 +6,7 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/02/03 00:20:29 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/03 00:40:14 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC			= 	main.c \
 			utils/utils-v1.c \
 			utils/utils-v2.c \
 			utils/utils-v3.c \
-			render/draw.c \
+			render/minimap.c \
 			render/drawing_rays.c \
 			render/drawing.c \
 			mouvements/keys.c \

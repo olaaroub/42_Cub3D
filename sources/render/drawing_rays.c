@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 00:11:17 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 00:59:06 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 int drawing_ray(t_img *img, double angle, int ray_length, t_data *data)
 {
-    int x_start = data->player_x;
-    int y_start = data->player_y;
+    int x_start = data->player.x;
+    int y_start = data->player.y;
 
     int x_end = x_start + ray_length * cos(angle);
     int y_end = y_start + ray_length * sin(angle);
@@ -85,8 +85,8 @@ void vertical_intersection(t_data *data, t_vect *hit)
     t_vect ray_dir;
     double x, y;
 
-    x = data->player_x;
-    y = data->player_y;
+    x = data->player.x;
+    y = data->player.y;
 
     ray_dir.x = cos(data->start_angle);
     ray_dir.y = sin(data->start_angle);
@@ -141,7 +141,7 @@ double draw_vray(t_data *data , t_vect map, t_vect *v_hit, bool *hit_door, bool 
     }
     v_hit->x = hit.x;
     v_hit->y = hit.y;
-    return (sqrt(pow(hit.x - data->player_x, 2) + pow(hit.y - data->player_y, 2)));
+    return (sqrt(pow(hit.x - data->player.x, 2) + pow(hit.y - data->player.y, 2)));
 }
 
 void horizontal_intersection(t_data *data, t_vect *hit)
@@ -151,8 +151,8 @@ void horizontal_intersection(t_data *data, t_vect *hit)
     double x;
     double y;
 
-    x = data->player_x;
-    y = data->player_y;
+    x = data->player.x;
+    y = data->player.y;
     rayDirx = cos(data->start_angle);
     rayDiry = sin(data->start_angle);
 
@@ -203,7 +203,7 @@ double draw_hray(t_data *data, t_vect map, t_vect *h_hit, bool *hit_door, bool *
     }
     h_hit->x = hit.x;
     h_hit->y = hit.y;
-    return (sqrt(pow(hit.x - data->player_x, 2) + pow(hit.y - data->player_y, 2)));
+    return (sqrt(pow(hit.x - data->player.x, 2) + pow(hit.y - data->player.y, 2)));
 }
 
 double get_ray_lenght(t_data *data)
@@ -227,20 +227,20 @@ double get_ray_lenght(t_data *data)
     data->is_vertical = false;
     if (hlen < vlen)
     {
-        data->hit_x = h_hit.x;
-        data->hit_y = h_hit.y;
+        data->hit.x = h_hit.x;
+        data->hit.y = h_hit.y;
         data->hit_door = hit_door_h;
-        data->hit_door_open = hit_door_oh;
+        data->hit_open_door = hit_door_oh;
         data->hit_fire = hit_fire_h;
         return hlen;
     }
     else
     {
-        data->hit_x = v_hit.x;
-        data->hit_y = v_hit.y;
+        data->hit.x = v_hit.x;
+        data->hit.y = v_hit.y;
         data->is_vertical = true;
         data->hit_door = hit_door_v;
-        data->hit_door_open = hit_door_ov;
+        data->hit_open_door = hit_door_ov;
         data->hit_fire = hit_fire_v;
         return vlen;
     }
@@ -255,7 +255,7 @@ int get_vertical_color(t_data *data, double y)
 
     if(data->hit_door && BONUS == 1)
     {
-        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_y / 64) % DOOR_TEX[FRAMES]->width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit.y / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
@@ -265,7 +265,7 @@ int get_vertical_color(t_data *data, double y)
 
     if(data->hit_fire && BONUS == 1)
     {
-        x = (int)(FIRE_TEX[FIRE_CURR_FRAME]->width * data->hit_y / 64) % FIRE_TEX[FIRE_CURR_FRAME]->width;
+        x = (int)(FIRE_TEX[FIRE_CURR_FRAME]->width * data->hit.y / 64) % FIRE_TEX[FIRE_CURR_FRAME]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
@@ -273,9 +273,9 @@ int get_vertical_color(t_data *data, double y)
         return (*(int*)(FIRE_TEX[FIRE_CURR_FRAME]->addr + ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x * 4)))));
     }
 
-    if(data->hit_door_open && BONUS == 1)
+    if(data->hit_open_door && BONUS == 1)
     {
-        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_y / 64) % DOOR_TEX[FRAMES]->width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit.y / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
@@ -284,14 +284,14 @@ int get_vertical_color(t_data *data, double y)
     }
     if((data->start_angle >= (PI / 2) )&& (data->start_angle < (3 * PI / 2)))
     {
-        x = (int)(data->east_tex->width * data->hit_y / 64) % data->east_tex->width;
+        x = (int)(data->east_tex->width * data->hit.y / 64) % data->east_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         index = offset * ((double)data->east_tex->height / data->wallhight);
         return(*(int*)(data->east_tex->addr + ((data->east_tex->width * (index * 4) + (x * 4)))));
     }
     else
     {
-        x = (int)(data->west_tex->width * data->hit_y / 64) % data->west_tex->width;
+        x = (int)(data->west_tex->width * data->hit.y / 64) % data->west_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         index = (offset) * ((double)data->west_tex->height / data->wallhight);
         return (*(int*)(data->west_tex->addr + ((data->west_tex->width * (index * 4) + (x * 4)))));
@@ -305,7 +305,7 @@ int get_horizontal_color(t_data *data, double y)
     int index;
     if(data->hit_door && BONUS == 1)
     {
-        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_x / 64) % DOOR_TEX[FRAMES]->width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit.x / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
@@ -315,7 +315,7 @@ int get_horizontal_color(t_data *data, double y)
 
     if(data->hit_fire && BONUS == 1)
     {
-        x = (int)(FIRE_TEX[FIRE_CURR_FRAME]->width * data->hit_x / 64) % FIRE_TEX[FIRE_CURR_FRAME]->width;
+        x = (int)(FIRE_TEX[FIRE_CURR_FRAME]->width * data->hit.x / 64) % FIRE_TEX[FIRE_CURR_FRAME]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
@@ -323,9 +323,9 @@ int get_horizontal_color(t_data *data, double y)
         return (*(int*)(FIRE_TEX[FIRE_CURR_FRAME]->addr + ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x * 4)))));
     }
 
-    if(data->hit_door_open && BONUS == 1)
+    if(data->hit_open_door && BONUS == 1)
     {
-        x = (int)(DOOR_TEX[FRAMES]->width * data->hit_x / 64) % DOOR_TEX[FRAMES]->width;
+        x = (int)(DOOR_TEX[FRAMES]->width * data->hit.x / 64) % DOOR_TEX[FRAMES]->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
@@ -334,7 +334,7 @@ int get_horizontal_color(t_data *data, double y)
     }
     if (data->start_angle >= PI && data->start_angle < 2 * PI)
     {
-        x = (int)(data->south_tex->width * data->hit_x / 64) % data->south_tex->width;
+        x = (int)(data->south_tex->width * data->hit.x / 64) % data->south_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         if(offset < 0)
             offset = 0;
@@ -343,7 +343,7 @@ int get_horizontal_color(t_data *data, double y)
     }
     else
     {
-        x = (int)(data->north_tex->width * data->hit_x / 64) % data->north_tex->width;
+        x = (int)(data->north_tex->width * data->hit.x / 64) % data->north_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
         index = offset * ((double)data->north_tex->height / data->wallhight);
         return (*(int*)(data->north_tex->addr + ((data->north_tex->width * (index * 4) + (x * 4)))));
@@ -404,10 +404,10 @@ void render_3d(t_data *data)
     x = -1;
     while (++x < SCREEN_W)
     {
-        data->ray_dis = get_ray_lenght(data);
-        data->ray_dis *= cos(data->start_angle - data->angle);
-        data->dis = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
-        data->wallhight = (SOF / data->ray_dis) * data->dis;
+        data->ray_dist = get_ray_lenght(data);
+        data->ray_dist *= cos(data->start_angle - data->angle);
+        data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
+        data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
         data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
         data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
         if (data->start_draw < 0)

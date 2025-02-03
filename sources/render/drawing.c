@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/02 22:32:48 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 00:59:06 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void initialize_the_angle(t_data *data)
 	char **map;
 
 	map = data->map->map;
-	if (map[(int)data->player_y][(int)data->player_x] == 'E')
+	if (map[(int)data->player.y][(int)data->player.x] == 'E')
 		data->angle = 0;
-	else if (map[(int)data->player_y][(int)data->player_x] == 'W')
+	else if (map[(int)data->player.y][(int)data->player.x] == 'W')
 		data->angle = PI;
-	else if (map[(int)data->player_y][(int)data->player_x] == 'N')
+	else if (map[(int)data->player.y][(int)data->player.x] == 'N')
 		data->angle = PI / 2;
-	else if (map[(int)data->player_y][(int)data->player_x] == 'S')
+	else if (map[(int)data->player.y][(int)data->player.x] == 'S')
 		data->angle = 3 * PI / 2;
 }
 
@@ -46,23 +46,22 @@ void initialize_variables(t_data *data)
 	data->animations = malloc(sizeof(t_animations));
 	if (!data->animations)
 		ft_error("Error: Malloc failed");
-	data->player_x = (data->player_x * SOF) + SOF / 3;
-	data->player_y = (data->player_y * SOF) + SOF / 3;
-    data->d_pressed = 0;
-	data->a_pressed = 0;
-    data->w_pressed = 0;
-	data->s_pressed = 0;
-    data->turn_left = 0;
-    data->turn_right = 0;
+	data->player.x = (data->player.x * SOF) + SOF / 3;
+	data->player.y = (data->player.y * SOF) + SOF / 3;
+    data->moves.d_pressed = 0;
+	data->moves.a_pressed = 0;
+    data->moves.w_pressed = 0;
+	data->moves.s_pressed = 0;
+    data->moves.turn_left = 0;
+    data->moves.turn_right = 0;
 	data->is_vertical = false;
 	data->hit_door = false;
-	data->opened = false;
-	data->hit_door_open = false;
+	data->moves.opened = false;
+	data->hit_open_door = false;
 	data->animations->fire_switch = false;
 	FRAMES = 0;
 	HAND_CURR_FRAME = 0;
 	FIRE_CURR_FRAME = 0;
-	data->kkk = false;
 }
 
 void	main_of_drawing(t_data *data)

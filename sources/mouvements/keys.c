@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/02 21:35:42 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 00:55:47 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ void open_door2(t_data *data)
         x = 0;
         while (data->map->map[y][x] && x < data->x_max)
         {
-                if (data->map->map[y][x] == 'D' && data->opened == false)
+                if (data->map->map[y][x] == 'D' && data->moves.opened == false)
                     data->map->map[y][x] = 'O';
             x++;
         }
         y++;
     }
-    data->opened = true;
+    data->moves.opened = true;
 }
 
 void    close_door2(t_data *data)
 {
     int x;
     int y;
-    int player_x = (int)data->player_x / SOF;
-    int player_y = (int)data->player_y / SOF;
+    int player_x = (int)data->player.x / SOF;
+    int player_y = (int)data->player.y / SOF;
 
     y = 0;
     if (data->map->map[player_y][player_x] == 'O')
@@ -47,14 +47,14 @@ void    close_door2(t_data *data)
         x = 0;
         while (data->map->map[y][x] && x < data->x_max)
         {
-                if ((data->map->map[y][x] == 'O') && data->opened == true)
+                if ((data->map->map[y][x] == 'O') && data->moves.opened == true)
                     data->map->map[y][x] = 'D';
             x++;
         }
         y++;
     }
     // printf("HELLOOO\n");
-    data->opened = false;
+    data->moves.opened = false;
 }
 
 int key_press(int key, void *param)
@@ -68,17 +68,17 @@ int key_press(int key, void *param)
     else if(key == XK_e && BONUS == 1)
         close_door2(data);
     else  if (key == XK_d)
-        data->d_pressed = 1;
+        data->moves.d_pressed = 1;
     else if (key == XK_a)
-        data->a_pressed = 1;
+        data->moves.a_pressed = 1;
     else if (key == XK_w)
-        data->w_pressed = 1;
+        data->moves.w_pressed = 1;
     else if (key == XK_s)
-        data->s_pressed = 1;
+        data->moves.s_pressed = 1;
     else if (key == XK_Left)
-        data->turn_left = 1;
+        data->moves.turn_left = 1;
     else if (key == XK_Right)
-        data->turn_right = 1;
+        data->moves.turn_right = 1;
     return 0;
 }
 
@@ -87,17 +87,17 @@ int key_release(int key, void *param)
     t_data *data;
     data = (t_data*)param;
     if (key == XK_d)
-        data->d_pressed = 0;
+        data->moves.d_pressed = 0;
     else if (key == XK_a)
-        data->a_pressed = 0;
+        data->moves.a_pressed = 0;
     else if (key == XK_w)
-        data->w_pressed = 0;
+        data->moves.w_pressed = 0;
     else if (key ==  XK_s)
-        data->s_pressed = 0;
+        data->moves.s_pressed = 0;
     else if (key == XK_Left )
-        data->turn_left = 0;
+        data->moves.turn_left = 0;
     else if (key == XK_Right)
-        data->turn_right = 0;
+        data->moves.turn_right = 0;
 
     return 0;
 }

@@ -19,17 +19,15 @@
 # define SPEED 1
 # define MI_SIZE 30
 
-
 # define PI 3.14159265
 # define TOW_PI 6.28318530
 # define ROT_SPEED 0.05
 # define FOV_ANGLE PI / 3
-#define IS_BLOCKING_TILE(c) ((c) == '1' || (c) == 'D' || (c) == 'F')
+# define IS_BLOCKING_TILE(c) ((c) == '1' || (c) == 'D' || (c) == 'F')
 
 # define EPSILON 1e-6
 # define SCREEN_W 1920
 # define SCREEN_H 1080
-
 
 # define FRAMES data->animations->door_curr_frame
 # define DOOR_FRAMES 22
@@ -46,7 +44,6 @@
 # define FIRE_FRAME_STEP 2
 # define FIRE_TEX data->animations->fire_tex
 # define FIRE_SWITCH data->animations->fire_switch
-
 
 # define RESET "\e[0m"
 

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/02 22:32:37 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 01:04:34 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,76 +30,79 @@
 
 typedef struct s_map
 {
-	char		**map;
-	char		**texture;
-	char		**floor_color;
-	char		*color;
-	char		*texture_line;
-	char		*map_line;
-	int			ceiling_hex;
-	int			floor_hex;
-	int			flag;
-}				t_map;
+	char			**map;
+	char			**texture;
+	char			**floor_color;
+	char			*color;
+	char			*texture_line;
+	char			*map_line;
+	int				ceiling_hex;
+	int				floor_hex;
+	int				flag;
+}					t_map;
 
 typedef struct s_img
 {
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_img;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}					t_img;
 
 typedef struct s_texture
 {
-	void		*texture;
-	char		*addr;
-	char		*path;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			width;
-	int			height;
+	void			*texture;
+	char			*addr;
+	char			*path;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				width;
+	int				height;
 
-}				t_texture;
+}					t_texture;
 
 typedef struct s_vect
 {
-	double		x;
-	double		y;
+	double			x;
+	double			y;
 
-}				t_vect;
+}					t_vect;
 
 typedef struct s_minimap
 {
-	int			len;
-	double		y_start;
-	double		x_start;
-	double		x_end;
-	double		y_end;
-	int			i;
-	int			j;
-	int			flag;
-	double		tmp_x;
-	double		tmp_y;
-	t_vect		circle_center;
-	t_vect		player;
-}				t_minimap;
-
+	int				len;
+	int				flag;
+	t_vect			circle_center;
+	int				offset;
+}					t_minimap;
 
 typedef struct s_animations
 {
-	t_texture	**door_tex;
-	t_texture	**fire_tex;
-	t_texture	**hand_tex;
-	int 		hand_curr_frame;
-	int 		fire_curr_frame;
-	int 		door_curr_frame;
-	bool 		fire_switch;
-	double 		anim_time;
-	int 		hand_y_offset;
+	t_texture		**door_tex;
+	t_texture		**fire_tex;
+	t_texture		**hand_tex;
+	int				hand_curr_frame;
+	int				fire_curr_frame;
+	int				door_curr_frame;
+	bool			fire_switch;
+	double			anim_time;
+	int				hand_y_offset;
 
-} t_animations;
+}					t_animations;
+
+typedef struct s_moves
+{
+	int				turn_right;
+	int				turn_left;
+	int				a_pressed;
+	int				d_pressed;
+	int				w_pressed;
+	int				s_pressed;
+	bool			opened;
+
+}					t_moves;
 
 typedef struct s_data
 {
@@ -112,72 +115,54 @@ typedef struct s_data
 	t_img			*img;
 	t_minimap		*minimap;
 	t_list			**trash;
-	void		*mlx;
-	void		*mlx_win;
-	double		player_x;
-	double		player_y;
-	int			x_max;
-	int			y_max;
-	double		angle;
-	int			turn_left;
-	int			turn_right;
-	int			a_pressed;
-	int			d_pressed;
-	int			w_pressed;
-	int			s_pressed;
-	int			offset;
-	double		px;
-	double		py;
-	// -------rander 3d--------
+	t_moves			moves;
+	t_vect			player;
+	t_vect			hit;
+	void			*mlx;
+	void			*mlx_win;
+	double			angle;
+	double			start_angle;
+	double			ray_dist;
+	double			projection_dist;
+	double			wallhight;
+	double			start_draw;
+	double			end_draw;
+	int				x_max;
+	int				y_max;
+	bool			is_vertical;
+	bool			hit_door;
+	bool			hit_fire;
+	bool			hit_open_door;
+}					t_data;
 
-	bool		is_vertical;
-	double		start_angle;
-	double		ray_dis;
-	double		dis;
-	double		wallhight;
-	double		start_draw;
-	double		end_draw;
-	int			map_y;
-	int			map_x;
-	double		hit_x;
-	double		hit_y;
-	bool		hit_door;
-	bool		hit_door_open;
-	int 		f_pressed;
-	bool 		opened;
-	bool		hit_fire;
-	bool 	kkk;
-
-}				t_data;
-
-void			free_trash(t_list **trash);
-void			check_argument(char **av, int ac, t_data *data);
-int				is_texture(char *line);
-int				is_color(char *line);
-int				is_empty(char *line);
-t_map			*read_map(char *file);
-void			add_to_trash(void *add, t_list **trash);
-void			ft_error(char *str);
-char			**duplicate_map(char **map);
-int				count_coloumns(char **map);
-void			free_map(char **map);
-void			check_player(char **map);
-t_data			*data_global(void);
-void			get_postion(t_data *data, char **map);
-bool			is_valid_number(char *str);
-void			pars_the_color(t_data *data);
-int				cont_character(char *str, int c);
-void			main_of_drawing(t_data *data);
-int				rgb_to_hex(int r, int g, int b);
-int				exit_key(void *data);
-int				move(void *parm);
-void			ft_pixelput(t_img *img, int x, int y, int color);
-int				key_release(int key, void *parm);
-int				key_press(int key, void *parm);
-void			render_3d(t_data *data);
-void			initialize_variables(t_data *data);
-bool			check_if_surrounded(char **map);
-void			pars_texture(t_data *data);
-int				get_x_max(char **map);
-void			minimap(t_data *data);
+void				free_trash(t_list **trash);
+void				check_argument(char **av, int ac, t_data *data);
+int					is_texture(char *line);
+int					is_color(char *line);
+int					is_empty(char *line);
+t_map				*read_map(char *file);
+void				add_to_trash(void *add, t_list **trash);
+void				ft_error(char *str);
+char				**duplicate_map(char **map);
+int					count_coloumns(char **map);
+void				free_map(char **map);
+void				check_player(char **map);
+t_data				*data_global(void);
+void				get_postion(t_data *data, char **map);
+bool				is_valid_number(char *str);
+void				pars_the_color(t_data *data);
+int					cont_character(char *str, int c);
+void				main_of_drawing(t_data *data);
+int					rgb_to_hex(int r, int g, int b);
+int					exit_key(void *data);
+int					move(void *parm);
+void				ft_pixelput(t_img *img, int x, int y, int color);
+int					key_release(int key, void *parm);
+int					key_press(int key, void *parm);
+void				render_3d(t_data *data);
+void				initialize_variables(t_data *data);
+bool				check_if_surrounded(char **map);
+void				pars_texture(t_data *data);
+int					get_x_max(char **map);
+void				minimap(t_data *data);
 #endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   minimap->c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -152,10 +152,10 @@ void minimap_draw(t_data *data, char **map)
         while(dest_x < offset * 2)
         {
             src = inverse_rotate(dest_x, dest_y, data, offset);
-            grid_x = round((src.x + data->minimap.player.x) / MI_SIZE);
-            grid_y = round((src.y + data->minimap.player.y) / MI_SIZE);
-            if (pow(dest_x - data->minimap.circle_center.x, 2) + 
-                pow(dest_y - data->minimap.circle_center.y, 2) <= pow(offset, 2))
+            grid_x = round((src.x + data->minimap->player.x) / MI_SIZE);
+            grid_y = round((src.y + data->minimap->player.y) / MI_SIZE);
+            if (pow(dest_x - data->minimap->circle_center.x, 2) + 
+                pow(dest_y - data->minimap->circle_center.y, 2) <= pow(offset, 2))
             {
                 if (grid_x >= 0 && grid_y >= 0 && grid_y < data->y_max &&
                     grid_x < (int)ft_strlen(map[grid_y]))
@@ -182,12 +182,12 @@ void minimap_draw(t_data *data, char **map)
 
 void minimap(t_data *data)
 {
-    data->minimap.len = MI_SIZE * 5;
-    data->minimap.circle_center.x = data->minimap.len;
-    data->minimap.circle_center.y = SCREEN_H - data->minimap.len;
-    data->minimap.flag = false;
-    data->minimap.player.x = (data->player_x / SOF) * MI_SIZE;
-    data->minimap.player.y = (data->player_y / SOF) * MI_SIZE;
-    minimap_draw(data, data->map.map);
-    drawing_player(data, data->minimap.circle_center.x - 10, data->minimap.circle_center.y - 10);
+    data->minimap->len = MI_SIZE * 5;
+    data->minimap->circle_center.x = data->minimap->len;
+    data->minimap->circle_center.y = SCREEN_H - data->minimap->len;
+    data->minimap->flag = false;
+    data->minimap->player.x = (data->player.x / SOF) * MI_SIZE;
+    data->minimap->player.y = (data->player.y / SOF) * MI_SIZE;
+    minimap_draw(data, data->map->map);
+    drawing_player(data, data->minimap->circle_center.x - 10, data->minimap->circle_center.y - 10);
 }

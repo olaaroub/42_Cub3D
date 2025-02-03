@@ -76,6 +76,7 @@ typedef struct s_minimap
 	int				flag;
 	t_vect			circle_center;
 	t_vect			player;
+	t_vect			position;
 	int				offset;
 }					t_minimap;
 

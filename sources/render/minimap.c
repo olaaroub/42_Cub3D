@@ -152,8 +152,8 @@ void minimap_draw(t_data *data, char **map)
         while(dest_x < offset * 2)
         {
             src = inverse_rotate(dest_x, dest_y, data, offset);
-            grid_x = round((src.x + data->minimap->player.x) / MI_SIZE);
-            grid_y = round((src.y + data->minimap->player.y) / MI_SIZE);
+            grid_x = floor((src.x + data->minimap->player.x) / MI_SIZE);
+            grid_y = floor((src.y + data->minimap->player.y) / MI_SIZE);
             if (pow(dest_x - data->minimap->circle_center.x, 2) + 
                 pow(dest_y - data->minimap->circle_center.y, 2) <= pow(offset, 2))
             {
@@ -189,5 +189,5 @@ void minimap(t_data *data)
     data->minimap->player.x = (data->player.x / SOF) * MI_SIZE;
     data->minimap->player.y = (data->player.y / SOF) * MI_SIZE;
     minimap_draw(data, data->map->map);
-    drawing_player(data, data->minimap->circle_center.x - 10, data->minimap->circle_center.y - 10);
+    drawing_player(data, data->minimap->circle_center.x - 10,data->minimap->circle_center.y - 10);
 }

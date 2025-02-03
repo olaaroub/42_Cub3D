@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 02:07:46 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:56:39 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,22 @@ typedef struct s_moves
 
 }					t_moves;
 
+typedef struct s_raycast_vars
+{
+	bool			hit_door_h;
+	bool			hit_door_v;
+	bool			hit_door_oh;
+	bool			hit_door_ov;
+	bool			hit_fire_h;
+	bool			hit_fire_v;
+	t_vect			h_hit;
+	t_vect			v_hit;
+	t_vect			hit;
+	t_vect			step;
+	t_vect			map;
+} t_raycast_vars;
+
+
 typedef struct s_data
 {
 	t_texture		*north_tex;
@@ -120,6 +136,8 @@ typedef struct s_data
 	t_moves			moves;
 	t_vect			player;
 	t_vect			hit;
+	t_raycast_vars	*vars_h;
+	t_raycast_vars	*vars_v;
 	void			*mlx;
 	void			*mlx_win;
 	double			two_pi;

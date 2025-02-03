@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:24:51 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 01:28:53 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:18:05 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void initialize_variables(t_data *data)
 {
 	initialize_the_angle(data);
 	data->animations = malloc(sizeof(t_animations));
-	if (!data->animations)
+	data->vars_h = malloc(sizeof(t_raycast_vars));
+	data->vars_v = malloc(sizeof(t_raycast_vars));
+	if (!data->animations || !data->vars_h || !data->vars_v)
 		ft_error("Error: Malloc failed");
 	data->player.x = (data->player.x * SOF) + SOF / 3;
 	data->player.y = (data->player.y * SOF) + SOF / 3;
@@ -65,7 +67,6 @@ void initialize_variables(t_data *data)
 	data->moves.s_pressed = 0;
     data->moves.turn_left = 0;
     data->moves.turn_right = 0;
-	data->is_vertical = false;
 	data->hit_door = false;
 	data->moves.opened = false;
 	data->hit_open_door = false;

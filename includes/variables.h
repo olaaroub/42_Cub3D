@@ -20,8 +20,8 @@
 # define MI_SIZE 30
 
 # define IS_BLOCKING_TILE(c) ((c) == '1' || (c) == 'D' || (c) == 'F')
-# define PI 3.14159265358979323846264338327950
-# define TOW_PI 6.28318530
+# define PI 3.141592653589793
+# define TOW_PI data->two_pi
 # define ROT_SPEED 0.06
 # define FOV_ANGLE data->field_of_view
 

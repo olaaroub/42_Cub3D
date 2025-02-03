@@ -106,7 +106,7 @@ int get_horizontal_color(t_data *data, double y)
     color = get_fire_pixel_color(data, y, data->hit.x);
     if(color != 69)
         return color;
-    if (data->start_angle >= PI && data->start_angle < 2 * PI)
+    if (data->start_angle >= PI && data->start_angle < TOW_PI)
     {
         x = (int)(data->south_tex->width * data->hit.x / 64) % data->south_tex->width;
         offset = y + (data->wallhight / 2) - (SCREEN_H / 2);

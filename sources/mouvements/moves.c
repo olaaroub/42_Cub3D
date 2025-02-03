@@ -142,13 +142,13 @@ int handle_moves(void *parm)
     {
         data->angle -= ROT_SPEED;
         if (data->angle < 0)
-            data->angle += 2 * PI;
+            data->angle += TOW_PI;
     }
     if (data->moves.turn_right)
     {
         data->angle += ROT_SPEED;
-        if (data->angle >= 2 * PI)
-            data->angle -= 2 * PI;
+        if (data->angle >= TOW_PI)
+            data->angle -= TOW_PI;
     }
     update_door_animation(data);
     if (++anim_counter % ANIM_STEP == 0)

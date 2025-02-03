@@ -191,7 +191,7 @@ static void    hit_vertical(t_data *data, t_raycast_vars *vars, double vlen)
     data->hit_fire = vars->hit_fire_v;
     data->ray_dist = vlen;
     data->ray_dist *= cos(data->start_angle - data->angle);
-    data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
+    // data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
     data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
     data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
     data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
@@ -212,25 +212,8 @@ double raycast(t_data *data)
     vlen = draw_vray(data, data->vars_v);
     data->is_vertical = false;
     if (hlen < vlen)
-    {
         hit_horizontal(data, data->vars_h, hlen);
-        // data->hit.x = data->vars_h->h_hit.x;
-        // data->hit.y = data->vars_h->h_hit.y;
-        // data->hit_door = data->vars_h->hit_door_h;
-        // data->hit_open_door = data->vars_h->hit_door_oh;
-        // data->hit_fire = data->vars_h->hit_fire_h;
-        // return hlen;
-    }
     else
-    {
         hit_vertical(data, data->vars_v, vlen);
-        // data->hit.x = data->vars_v->v_hit.x;
-        // data->hit.y = data->vars_v->v_hit.y;
-        // data->is_vertical = true;
-        // data->hit_door = data->vars_v->hit_door_v;
-        // data->hit_open_door = data->vars_v->hit_door_ov;
-        // data->hit_fire = data->vars_v->hit_fire_v;
-        // return vlen;
-    }
     return 0;
 }

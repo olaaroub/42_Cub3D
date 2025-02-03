@@ -127,12 +127,11 @@ void	minimap1(t_data *data)
 t_vect inverse_rotate(int x, int y, t_data *data, int offset)
 {
     t_vect p;
-    double angle = data->angle + PI/2;
     double translated_x = x - offset;
     double translated_y = y - (SCREEN_H - offset);
 
-    p.x = translated_x * cos(angle) - translated_y * sin(angle);
-    p.y = translated_x * sin(angle) + translated_y * cos(angle);
+    p.x = translated_x * cos(data->minimap->rot_angle) - translated_y * sin(data->minimap->rot_angle);
+    p.y = translated_x * sin(data->minimap->rot_angle) + translated_y * cos(data->minimap->rot_angle);
     return p;
 }
 
@@ -146,6 +145,7 @@ void minimap_draw(t_data *data, char **map)
     int dest_x;
 
     dest_y = SCREEN_H - offset * 2 - 10;
+	data->minimap->rot_angle = data->angle + PI/2; 
     while(dest_y < SCREEN_H)
     {
         dest_x = 0;
@@ -190,4 +190,6 @@ void minimap(t_data *data)
     data->minimap->player.y = (data->player.y / SOF) * MI_SIZE;
     minimap_draw(data, data->map->map);
     drawing_player(data, data->minimap->circle_center.x - 10,data->minimap->circle_center.y - 10);
+    // minimap1(data);
+
 }

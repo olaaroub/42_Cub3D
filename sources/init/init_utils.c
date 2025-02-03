@@ -73,6 +73,7 @@ void initialize_variables(t_data *data)
 	data->animations->fire_switch = false;
 	data->field_of_view = PI / 3;
 	data->two_pi = PI * 2;
+	data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
 	FRAMES = 0;
 	HAND_CURR_FRAME = 0;
 	FIRE_CURR_FRAME = 0;

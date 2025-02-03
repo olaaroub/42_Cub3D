@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/02 20:29:37 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 01:23:15 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void set_color(t_data *data, char *name, char *color)
 	green = ft_strtrim(sp[1], "\n\t ");
 	blue = ft_strtrim(sp[2], "\n\t ");
 	if (!is_valid_number(red) || !is_valid_number(green) || !is_valid_number(blue)
-		|| cont_character(color, ',') != 2)
+		|| count_chars(color, ',') != 2)
 		ft_error("invalid colors!\n");
 	if (strlen_scipingziro(red) > 3 || strlen_scipingziro(green) > 3
 		|| strlen_scipingziro(blue) > 3)

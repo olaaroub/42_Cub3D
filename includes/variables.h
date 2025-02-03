@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 00:36:11 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 02:08:16 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define ANIM_SPEED 85
 # define HAND_FRAMES 54
 # define HAND_CURR_FRAME data->animations->hand_curr_frame
-# define ANIM_STEP 6
+# define ANIM_STEP 4
 
 # define FIRE_FRAMES 10
 # define FIRE_CURR_FRAME data->animations->fire_curr_frame

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 01:04:34 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 02:07:46 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,35 +134,61 @@ typedef struct s_data
 	bool			hit_fire;
 	bool			hit_open_door;
 }					t_data;
+//					** Initialization **
+void    init_game(t_data *data);
+void initialize_variables(t_data *data);
+void	get_postion(t_data *data, char **map);
 
-void				free_trash(t_list **trash);
-void				check_argument(char **av, int ac, t_data *data);
+
+
+// 					** Parsing **
+
+void check_element(t_map *map, char *line);
 int					is_texture(char *line);
 int					is_color(char *line);
 int					is_empty(char *line);
+void resize_map(t_map *map);
+int    get_x_max(char **map);
+void	skip_trailing_nl(t_map *map);
+bool				is_valid_number(char *str);
+
+
+
+
+
+
+// 					** Rendering **
+void				render(t_data *data);
+double raycast(t_data *data);
+int get_vertical_color(t_data *data, double y);
+int get_horizontal_color(t_data *data, double y);
+void	game_loop(t_data *data);
+int handle_moves(void *parm);
+
+
+// 					** keys **
+int					exit_key(void *data);
+
+
+
+
+
+
+int count_chars(char *str, int c);
+
+void				free_trash(t_list **trash);
 t_map				*read_map(char *file);
 void				add_to_trash(void *add, t_list **trash);
 void				ft_error(char *str);
-char				**duplicate_map(char **map);
 int					count_coloumns(char **map);
-void				free_map(char **map);
-void				check_player(char **map);
-t_data				*data_global(void);
-void				get_postion(t_data *data, char **map);
-bool				is_valid_number(char *str);
 void				pars_the_color(t_data *data);
-int					cont_character(char *str, int c);
-void				main_of_drawing(t_data *data);
+int					count_chars(char *str, int c);
+void				game_loop(t_data *data);
 int					rgb_to_hex(int r, int g, int b);
-int					exit_key(void *data);
-int					move(void *parm);
 void				ft_pixelput(t_img *img, int x, int y, int color);
 int					key_release(int key, void *parm);
 int					key_press(int key, void *parm);
-void				render_3d(t_data *data);
-void				initialize_variables(t_data *data);
 bool				check_if_surrounded(char **map);
 void				pars_texture(t_data *data);
-int					get_x_max(char **map);
 void				minimap(t_data *data);
 #endif

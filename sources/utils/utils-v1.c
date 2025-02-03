@@ -6,63 +6,58 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:36:09 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 00:54:02 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 01:46:56 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_postion(t_data *data, char **map)
+void	ft_pixelput(t_img *img, int x, int y, int color)
 {
-	int	i;
-	int	j;
+	char	*tmp;
 
-	j = 0;
-	while (map[j])
-	{
-		i = 0;
-		while (map[j][i])
-		{
-		   if (map[j][i] == 'N' || map[j][i] == 'S'
-			|| map[j][i] == 'E' || map[j][i] == 'W')
-			{
-				data->player.x = i;
-				data->player.y = j;
-				return ;
-			}
-			i++;
-		}
-		j++;
-	}
+	if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
+		return ;
+	tmp = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)tmp = color;
 }
 
-char    **duplicate_map(char **map)
-{
-    int len;
-    int i;
-    char **map_v2;
 
-    len = count_coloumns(map);
-    map_v2 = malloc((len + 1) * sizeof(char *));
+
+bool is_valid_number(char *str)
+{
+    int i;
+
     i = 0;
-    map_v2[len] = NULL;
-    while (map[i])
+    while(str[i])
     {
-        map_v2[i] = ft_strdup(map[i]);
+        if (!ft_isdigit(str[i]))
+            return false;
         i++;
     }
-    return (map_v2);
+    return true;
 }
 
-t_data	*data_global()
+int count_chars(char *str, int c)
 {
-	static t_data	data_gl;
+    int cont;
+    int i;
 
-	return (&data_gl);
+    cont = 0;
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == c)
+            cont++;
+        i++;
+    }
+    return (cont);
 }
+
 
 void	ft_error(char *str)
 {
 	write(1, str, ft_strlen(str));
 	exit(1);
 }
+

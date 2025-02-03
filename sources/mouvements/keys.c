@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 00:55:47 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 02:01:57 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,21 @@ void    close_door2(t_data *data)
         }
         y++;
     }
-    // printf("HELLOOO\n");
     data->moves.opened = false;
 }
+int	exit_key(void *param)
+{
+	t_data *data;
+
+	data= (t_data *)param;
+	mlx_destroy_image(data->mlx, data->img->img);
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	exit(0);
+	return (0);
+}
+
 
 int key_press(int key, void *param)
 {
@@ -98,6 +110,5 @@ int key_release(int key, void *param)
         data->moves.turn_left = 0;
     else if (key == XK_Right)
         data->moves.turn_right = 0;
-
     return 0;
 }

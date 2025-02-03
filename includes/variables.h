@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 02:08:16 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:32:15 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # define FRM 4  // this macro to haw match  moves the player do in single clik !
 # define SOP 4  // this is size of player (x and y)!
 # define SOF 64 // this is square size
-# define SPEED 1
+# define SPEED 1.5
 # define MI_SIZE 30
 
 # define IS_BLOCKING_TILE(c) ((c) == '1' || (c) == 'D' || (c) == 'F')
 # define PI 3.14159265358979323846264338327950
 # define TOW_PI 6.28318530
-# define ROT_SPEED 0.05
+# define ROT_SPEED 0.06
 # define FOV_ANGLE data->field_of_view
 
 # define EPSILON 1e-6
@@ -31,17 +31,16 @@
 
 # define FRAMES data->animations->door_curr_frame
 # define DOOR_FRAMES 22
-# define DOOR_FRAME_STEP 2
+# define DOOR_FRAME_STEP 1
 # define DOOR_TEX data->animations->door_tex
 
-# define ANIM_SPEED 85
 # define HAND_FRAMES 54
 # define HAND_CURR_FRAME data->animations->hand_curr_frame
-# define ANIM_STEP 4
+# define ANIM_STEP 3
 
 # define FIRE_FRAMES 10
 # define FIRE_CURR_FRAME data->animations->fire_curr_frame
-# define FIRE_FRAME_STEP 2
+# define FIRE_FRAME_STEP 4
 # define FIRE_TEX data->animations->fire_tex
 # define FIRE_SWITCH data->animations->fire_switch
 

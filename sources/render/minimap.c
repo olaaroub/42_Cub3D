@@ -60,69 +60,69 @@ void	drawing_player(t_data*data, int x, int y)
 
 }
 
-// void draw_square(t_data *data)
-// {
-// 	int x;
-// 	int y;
+void draw_square(t_data *data)
+{
+	int x;
+	int y;
 
-// 	y = 0;
-// 	data->minimap->offset = MI_SIZE;
-// 	while (y <= 10)
-// 	{
-// 		x = 0;
-// 		while (x <= 10)
-// 		{
-// 			drawing1(data, x * MI_SIZE, y * MI_SIZE, 0x0605678);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
+	y = 0;
+	data->minimap->offset = MI_SIZE;
+	while (y <= 10)
+	{
+		x = 0;
+		while (x <= 10)
+		{
+			drawing1(data, x * MI_SIZE, y * MI_SIZE, 0x0605678);
+			x++;
+		}
+		y++;
+	}
+}
 
-// void	minimap1(t_data *data)
-// {
-// 	int	x;
-// 	int	y;
-// 	int x_draw;
-// 	int y_draw;
-//     double player_x;
-//     double player_y;
+void	minimap1(t_data *data)
+{
+	int	x;
+	int	y;
+	int x_draw;
+	int y_draw;
+    double player_x;
+    double player_y;
 
-// 	y_draw = 0;
-// 	y = (data->player.y / SOF) - 5;
-// 	draw_square(data);
-// 	if (y < 0)
-// 		y = 0;
-// 	while (y <= (data->player.y / SOF) + 5 && data->map.map[y])
-// 	{
-// 		x = (data->player.x / SOF) - 5;
-// 		x_draw = 0;
-// 		if (x < 0)
-// 			x = 0;
-// 		while(x <= (data->player.x / SOF) + 5 && data->map.map[y][x])
-// 		{
-// 			data->minimap->offset = MI_SIZE;
-// 			if (data->map.map[y][x] == '1')
-// 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x3B1E54);
-// 			else if (data->map.map[y][x] == 'D')
-// 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x2A004E);
-// 			else if (data->map.map[y][x] == 'O')
-// 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x500073);
-// 			else if (data->map.map[y][x] != ' ')
-// 				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x9B7EBD);
-// 			if (x == (int)data->player.x / SOF && y == (int)data->player.y / SOF)
-//             {
-//                 player_x = ((x_draw + fabs(data->player.x / SOF - x)) * MI_SIZE) - 10;
-//                 player_y = ((y_draw + fabs(data->player.y / SOF - y)) * MI_SIZE) - 10;
-//             }
-// 			x++;
-// 			x_draw++;
-// 		}
-// 		y_draw++;
-// 		y++;
-// 	}
-// 	drawing_player(data, player_x, player_y);
-// }
+	y_draw = 0;
+	y = (data->player.y / SOF) - 5;
+	draw_square(data);
+	if (y < 0)
+		y = 0;
+	while (y <= (data->player.y / SOF) + 5 && data->map->map[y])
+	{
+		x = (data->player.x / SOF) - 5;
+		x_draw = 0;
+		if (x < 0)
+			x = 0;
+		while(x <= (data->player.x / SOF) + 5 && data->map->map[y][x])
+		{
+			data->minimap->offset = MI_SIZE;
+			if (data->map->map[y][x] == '1')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x3B1E54);
+			else if (data->map->map[y][x] == 'D')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x2A004E);
+			else if (data->map->map[y][x] == 'O')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x500073);
+			else if (data->map->map[y][x] != ' ')
+				drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x9B7EBD);
+			if (x == (int)data->player.x / SOF && y == (int)data->player.y / SOF)
+            {
+                player_x = ((x_draw + fabs(data->player.x / SOF - x)) * MI_SIZE) - 10;
+                player_y = ((y_draw + fabs(data->player.y / SOF - y)) * MI_SIZE) - 10;
+            }
+			x++;
+			x_draw++;
+		}
+		y_draw++;
+		y++;
+	}
+	drawing_player(data, player_x, player_y);
+}
 
 t_vect inverse_rotate(int x, int y, t_data *data, int offset)
 {
@@ -154,7 +154,7 @@ void minimap_draw(t_data *data, char **map)
             src = inverse_rotate(dest_x, dest_y, data, offset);
             grid_x = round((src.x + data->minimap->player.x) / MI_SIZE);
             grid_y = round((src.y + data->minimap->player.y) / MI_SIZE);
-            if (pow(dest_x - data->minimap->circle_center.x, 2) + 
+            if (pow(dest_x - data->minimap->circle_center.x, 2) +
                 pow(dest_y - data->minimap->circle_center.y, 2) <= pow(offset, 2))
             {
                 if (grid_x >= 0 && grid_y >= 0 && grid_y < data->y_max &&
@@ -182,12 +182,13 @@ void minimap_draw(t_data *data, char **map)
 
 void minimap(t_data *data)
 {
-    data->minimap->len = MI_SIZE * 5;
-    data->minimap->circle_center.x = data->minimap->len;
-    data->minimap->circle_center.y = SCREEN_H - data->minimap->len;
-    data->minimap->flag = false;
-    data->minimap->player.x = (data->player.x / SOF) * MI_SIZE;
-    data->minimap->player.y = (data->player.y / SOF) * MI_SIZE;
-    minimap_draw(data, data->map->map);
-    drawing_player(data, data->minimap->circle_center.x - 10, data->minimap->circle_center.y - 10);
+    // data->minimap->len = MI_SIZE * 5;
+    // data->minimap->circle_center.x = data->minimap->len;
+    // data->minimap->circle_center.y = SCREEN_H - data->minimap->len;
+    // data->minimap->flag = false;
+    // data->minimap->player.x = (data->player.x / SOF) * MI_SIZE;
+    // data->minimap->player.y = (data->player.y / SOF) * MI_SIZE;
+    // minimap_draw(data, data->map->map);
+    // drawing_player(data, data->minimap->circle_center.x - 10, data->minimap->circle_center.y - 10);
+    minimap1(data);
 }

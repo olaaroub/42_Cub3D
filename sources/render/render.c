@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 02:04:34 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:23:41 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ void render(t_data *data)
     x = -1;
     while (++x < SCREEN_W)
     {
-        data->ray_dist = raycast(data);
-        data->ray_dist *= cos(data->start_angle - data->angle);
-        data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
-        data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
-        data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
-        data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
-        if (data->start_draw < 0)
-            data->start_draw = 0;
-        if (data->end_draw >= SCREEN_H)
-            data->end_draw = SCREEN_H;
+        raycast(data);
+        // data->ray_dist = raycast(data);
+        // data->ray_dist *= cos(data->start_angle - data->angle);
+        // data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
+        // data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
+        // data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
+        // data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
+        // if (data->start_draw < 0)
+        //     data->start_draw = 0;
+        // if (data->end_draw >= SCREEN_H)
+        //     data->end_draw = SCREEN_H;
         draw_pixels(data, x);
         data->start_angle += angle_step;
     }

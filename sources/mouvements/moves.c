@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 00:19:25 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 00:20:00 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/03 00:55:47 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,42 +19,42 @@ void is_valid_move(t_data *data, double end_x, double end_y)
     double next_y;
     char **map;
 
-    next_x = data->player_x + end_x;
-    next_y = data->player_y + end_y;
+    next_x = data->player.x + end_x;
+    next_y = data->player.y + end_y;
     map = data->map->map;
 
-    int grid_y = (int)data->player_y / SOF;
+    int grid_y = (int)data->player.y / SOF;
     int grid_x_plus = (int)(next_x + 2) / SOF;
     int grid_x_minus = (int)(next_x - 2) / SOF;
 
     if (!IS_BLOCKING_TILE(map[grid_y][grid_x_plus]) &&
         !IS_BLOCKING_TILE(map[grid_y][grid_x_minus]))
     {
-        data->player_x = next_x;
+        data->player.x = next_x;
     }
 
     // Y-axis movement check
-    int grid_x = (int)data->player_x / SOF;
+    int grid_x = (int)data->player.x / SOF;
     int grid_y_plus = (int)(next_y + 2) / SOF;
     int grid_y_minus = (int)(next_y - 2) / SOF;
 
     if (!IS_BLOCKING_TILE(map[grid_y_plus][grid_x]) &&
         !IS_BLOCKING_TILE(map[grid_y_minus][grid_x]))
     {
-        data->player_y = next_y;
+        data->player.y = next_y;
     }
 
     // printf("%c  %c  %c %c\n", map[(y + end_y - 2) / SOF][x / SOF], map[y / SOF][(x + end_x + 2) / SOF], map[(y + end_y + 2) / SOF][x / SOF] , map[(y + end_y - 2) / SOF][x / SOF]);
-    // if (map[(int)data->player_y / SOF][(int)(next_x + 2) / SOF] != '1'
-    //     && map[(int)data->player_y / SOF][(int)(next_x - 2) / SOF] != '1'
-    //     && map[(int)data->player_y / SOF][(int)(next_x + 2) / SOF] != 'D'
-    //     && map[(int)data->player_y / SOF][(int)(next_x - 2) / SOF] != 'D')
-    //     data->player_x = next_x;
-    // if (map[(int)(next_y + 2) / SOF][(int)data->player_x / SOF] != '1'
-    //     && map[(int)(next_y  - 2) / SOF][(int)data->player_x / SOF] != '1'
-    //     && map[(int)(next_y + 2) / SOF][(int)data->player_x / SOF] != 'D'
-    //     && map[(int)(next_y  - 2) / SOF][(int)data->player_x / SOF] != 'D')
-    //     data->player_y = next_y;
+    // if (map[(int)data->player.y / SOF][(int)(next_x + 2) / SOF] != '1'
+    //     && map[(int)data->player.y / SOF][(int)(next_x - 2) / SOF] != '1'
+    //     && map[(int)data->player.y / SOF][(int)(next_x + 2) / SOF] != 'D'
+    //     && map[(int)data->player.y / SOF][(int)(next_x - 2) / SOF] != 'D')
+    //     data->player.x = next_x;
+    // if (map[(int)(next_y + 2) / SOF][(int)data->player.x / SOF] != '1'
+    //     && map[(int)(next_y  - 2) / SOF][(int)data->player.x / SOF] != '1'
+    //     && map[(int)(next_y + 2) / SOF][(int)data->player.x / SOF] != 'D'
+    //     && map[(int)(next_y  - 2) / SOF][(int)data->player.x / SOF] != 'D')
+    //     data->player.y = next_y;
 }
 
 void move_up(t_data* data)
@@ -110,7 +110,7 @@ static void update_door_animation(t_data *data) {
     static int door_counter;
     int frame_step;
 
-    if(data->opened == true)
+    if(data->moves.opened == true)
         frame_step = 1;
     else
         frame_step = -1;
@@ -130,21 +130,21 @@ int move(void *parm)
     static unsigned int anim_counter;
     static unsigned int fire_counter;
 
-    if (data->d_pressed)
+    if (data->moves.d_pressed)
         move_right(data);
-    if (data->a_pressed)
+    if (data->moves.a_pressed)
         move_left(data);
-    if (data->w_pressed)
+    if (data->moves.w_pressed)
         move_up(data);
-    if (data->s_pressed)
+    if (data->moves.s_pressed)
         move_down(data);
-    if (data->turn_left)
+    if (data->moves.turn_left)
     {
         data->angle -= ROT_SPEED;
         if (data->angle < 0)
             data->angle += 2 * PI;
     }
-    if (data->turn_right)
+    if (data->moves.turn_right)
     {
         data->angle += ROT_SPEED;
         if (data->angle >= 2 * PI)

@@ -83,6 +83,7 @@ typedef struct s_minimap
 	double		tmp_y;
 	t_vect		circle_center;
 	t_vect		player;
+	t_vect		position
 }				t_minimap;
 
 typedef struct s_data

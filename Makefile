@@ -35,7 +35,7 @@ SRC			= 	main.c \
 			utils/utils-v1.c \
 			utils/utils-v2.c \
 			utils/utils-v3.c \
-			render/draw.c \
+			render/minimap.c \
 			render/drawing_rays.c \
 			render/drawing.c \
 			mouvements/keys.c \

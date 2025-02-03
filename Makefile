@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
+#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/30 22:58:20 by ohammou-         ###   ########.fr        #
+#    Updated: 2025/02/03 02:07:35 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ LIBFT		= libft/libft.a
 
 SRC_PATH 	= ./sources/
 SRC			= 	main.c \
+			init/init.c \
+			init/init_utils.c \
 			parsing/check_map.c \
 			parsing/parse_textures.c \
 			parsing/parse_colors.c \
@@ -35,11 +37,13 @@ SRC			= 	main.c \
 			utils/utils-v1.c \
 			utils/utils-v2.c \
 			utils/utils-v3.c \
+			utils/parsing_utils.c \
+			render/render.c \
+			render/get_texture_pixels.c\
+			render/raycast.c \
 			render/minimap.c \
-			render/drawing_rays.c \
-			render/drawing.c \
 			mouvements/keys.c \
-			mouvements/keys2.c \
+			mouvements/moves.c \
 
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
@@ -51,6 +55,7 @@ INC			=	-I ./includes/\
 				-I ./libft/\
 				-I ./minilibx-linux/
 HEADER		= ./includes/cub3d.h
+VARIABLES	= ./includes/variables.h
 
 NAME		= cub3D
 
@@ -58,6 +63,7 @@ all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
 
 $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)
+	mkdir -p $(OBJ_PATH)/init
 	mkdir -p $(OBJ_PATH)/parsing
 	mkdir -p $(OBJ_PATH)/render
 	mkdir -p $(OBJ_PATH)/utils
@@ -66,7 +72,7 @@ $(OBJ_PATH):
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
 
-$(NAME): $(OBJS) $(HEADER)
+$(NAME): $(OBJS) $(HEADER) $(VARIABLES)
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)minilibx$(RESET)"
 	@echo "✅ $(LARGE)$(BOLD)$(GREEN)$(NAME)$(RESET)"
@@ -80,7 +86,7 @@ $(MLX):
 	@make -sC minilibx-linux/
 
 bonus:
-	@make all  BONUS=1
+	@make re  BONUS=1
 
 clean:
 	@rm -rf $(OBJ_PATH)

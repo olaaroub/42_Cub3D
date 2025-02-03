@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:26:30 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/01/29 16:49:51 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/01 02:50:08 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ bool check_if_surrounded(char **map)
                 ft_error("error: map not surrounded by wall\n");
             else if((map[j][i] == 'D' && !check_door(map, i, j)) && BONUS == 1)
                 ft_error("error: wrong door placement\n");
+            // else if(BONUS == 1 && (map[j][i] == 'F' && !chack_if_valid(map, i, j)))
+            //     ft_error("error: wrong fire placement\n");
             i++;
         }
         j++;

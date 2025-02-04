@@ -6,14 +6,14 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/02/03 02:07:35 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/04 17:40:45 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -O3
-# CFLAGS		+=  -fsanitize=address  -g3
+CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 
 GREEN		= \033[0;32m

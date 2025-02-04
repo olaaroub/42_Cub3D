@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 21:24:52 by olaaroub          #+#    #+#             */
-/*   Updated: 2024/02/14 22:40:04 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:16:19 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		*buff++ = *s2++;
 	}
 	*buff = '\0';
+	// free((char *)s1 - ft_strlen(s1));
 	return (ptr);
 }

@@ -6,28 +6,30 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 18:13:58 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:40:16 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void check_argument(char **av, int ac, t_data *data)
+static void check_argument(t_data *data, char **av, int ac)
 {
     int i;
 
     if (ac != 2)
         exit(1);
-    data->map = malloc(sizeof(t_map));
     data->minimap = malloc(sizeof(t_minimap));
-    if (!data->map || !data->minimap)
+    data->trash = NULL;
+    add_to_trash(&data->trash, data->minimap);
+    if (!data->minimap)
         return(printf("Error\n: malloc failed\n"), exit(1));
     i = ft_strlen(av[1]);
     if (ft_strncmp(av[1] + i - 4, ".cub", 5) != 0)
-        return(ft_error("Error\n: file not valid\n"));
-    data->map = read_map(av[1]);
+        return(ft_error(data,  "Error\n: file not valid\n"));
+    data->map = read_map(data, av[1]);
+
     pars_the_color(data);
-    pars_texture(data);
+    // pars_texture(data);
 }
 
 static void	print_controls(void)
@@ -57,9 +59,10 @@ int main(int ac, char **av)
     t_data data;
 
     print_controls();
-    check_argument(av, ac, &data);
-    init_game(&data);
-    game_loop(&data);
-    mlx_loop(data.mlx);
+    check_argument( &data, av, ac);
+    // init_game(&data);
+    // game_loop(&data);
+    // mlx_loop(data.mlx);
+    free_trash(&data.trash);
     return 0;
 }

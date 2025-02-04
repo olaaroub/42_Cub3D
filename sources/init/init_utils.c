@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:24:51 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 18:18:05 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:32:35 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void initialize_variables(t_data *data)
 	data->vars_h = malloc(sizeof(t_raycast_vars));
 	data->vars_v = malloc(sizeof(t_raycast_vars));
 	if (!data->animations || !data->vars_h || !data->vars_v)
-		ft_error("Error: Malloc failed");
+		ft_error(data,  "Error: Malloc failed");
 	data->player.x = (data->player.x * SOF) + SOF / 3;
 	data->player.y = (data->player.y * SOF) + SOF / 3;
     data->moves.d_pressed = 0;

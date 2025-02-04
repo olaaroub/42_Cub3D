@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 17:56:39 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:37:09 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ typedef struct s_data
 	t_map			*map;
 	t_img			*img;
 	t_minimap		*minimap;
-	t_list			**trash;
+	t_list			*trash;
 	t_moves			moves;
 	t_vect			player;
 	t_vect			hit;
@@ -165,14 +165,17 @@ void	get_postion(t_data *data, char **map);
 
 // 					** Parsing **
 
-void check_element(t_map *map, char *line);
+void check_element(t_data *data, t_map *map, char *line);
 int					is_texture(char *line);
 int					is_color(char *line);
 int					is_empty(char *line);
-void resize_map(t_map *map);
+void resize_map(t_data *data, t_map *map);
 int    get_x_max(char **map);
-void	skip_trailing_nl(t_map *map);
+void	skip_trailing_nl(t_data *data, t_map *map);
+void    add_double_ptr_to_trash(t_data *data, void **add);
 bool				is_valid_number(char *str);
+t_map				*read_map(t_data *data, char *file);
+bool				check_if_surrounded(t_data* data, char **map);
 
 
 
@@ -193,15 +196,14 @@ int					exit_key(void *data);
 
 
 
+void				ft_error(t_data *data,  char *str);
+void				add_to_trash(t_list **trash, void *add);
+void				free_trash(t_list **trash);
 
 
 
 int count_chars(char *str, int c);
 
-void				free_trash(t_list **trash);
-t_map				*read_map(char *file);
-void				add_to_trash(void *add, t_list **trash);
-void				ft_error(char *str);
 int					count_coloumns(char **map);
 void				pars_the_color(t_data *data);
 int					count_chars(char *str, int c);
@@ -210,7 +212,6 @@ int					rgb_to_hex(int r, int g, int b);
 void				ft_pixelput(t_img *img, int x, int y, int color);
 int					key_release(int key, void *parm);
 int					key_press(int key, void *parm);
-bool				check_if_surrounded(char **map);
 void				pars_texture(t_data *data);
 void				minimap(t_data *data);
 #endif

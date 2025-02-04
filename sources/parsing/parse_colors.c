@@ -13,20 +13,10 @@
 
 #include "cub3d.h"
 
-int    rgb_to_hex(int r, int g, int b)
+int    rgb_to_hex(t_data *data , int r, int g, int b)
 {
-	if (r < 0)
-		r = 0;
-	if (r > 255)
-		r = 255;
-	if (g < 0)
-		g = 0;
-	if (g > 255)
-		g = 255;
-	if (b < 0)
-		b = 0;
-	if (b > 255)
-		b = 255;
+	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
+		ft_error(data, "ERROR:\nthe RGB color must be between 0 and 255\n");
 	return ((r << 16) | (g << 8) | b);
 }
 
@@ -52,11 +42,15 @@ void set_color(t_data *data, char *name, char *color)
 	char *blue;
 
 	sp = ft_split(color, ',');
+	add_double_ptr_to_trash(data, (void **)sp);
 	if (count_coloumns(sp) != 3)
 		ft_error(data,  "invalid colors!\n");
 	red = ft_strtrim(sp[0], "\n\t ");
 	green = ft_strtrim(sp[1], "\n\t ");
 	blue = ft_strtrim(sp[2], "\n\t ");
+	add_to_trash(&data->trash, red);
+	add_to_trash(&data->trash, green);
+	add_to_trash(&data->trash, blue);
 	if (!is_valid_number(red) || !is_valid_number(green) || !is_valid_number(blue)
 		|| count_chars(color, ',') != 2)
 		ft_error(data,  "invalid colors!\n");
@@ -64,12 +58,9 @@ void set_color(t_data *data, char *name, char *color)
 		|| strlen_scipingziro(blue) > 3)
 		ft_error(data,  "invalid colors!\n");
 	if (!ft_strcmp(name, "F"))
-		data->map->floor_hex = rgb_to_hex(ft_atoi(red), ft_atoi(green), ft_atoi(blue));
+		data->map->floor_hex = rgb_to_hex(data, ft_atoi(red), ft_atoi(green), ft_atoi(blue));
 	else if (!ft_strcmp(name, "C"))
-		data->map->ceiling_hex = rgb_to_hex(ft_atoi(red), ft_atoi(green), ft_atoi(blue));
-	free(red);
-	free(green);
-	free(blue);
+		data->map->ceiling_hex = rgb_to_hex(data, ft_atoi(red), ft_atoi(green), ft_atoi(blue));
 }
 
 void pars_the_color(t_data *data)

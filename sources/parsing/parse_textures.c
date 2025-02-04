@@ -15,13 +15,25 @@
 static void ckeck_tex_path(t_data *data, char *str, char *path)
 {
 	if (!ft_strcmp(str, "NO"))
+	{
 		data->north_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->north_tex->path);
+	}
 	else if (!ft_strcmp(str, "SO"))
+	{
 		data->south_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->south_tex->path);
+	}
 	else if (!ft_strcmp(str, "WE"))
+	{
 		data->west_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->west_tex->path);
+	}
 	else if (!ft_strcmp(str, "EA"))
+	{
 		data->east_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->east_tex->path);
+	}
 	free(str);
 	free(path);
 }
@@ -41,6 +53,10 @@ static void initialize_textures(t_data *data)
 	data->south_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->west_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->east_tex = (t_texture*)malloc(sizeof(t_texture));
+	add_to_trash(&data->trash, data->north_tex);
+	add_to_trash(&data->trash, data->south_tex);
+	add_to_trash(&data->trash, data->west_tex);
+	add_to_trash(&data->trash, data->east_tex);
 	data->north_tex->path = NULL;
 	data->south_tex->path = NULL;
 	data->west_tex->path = NULL;

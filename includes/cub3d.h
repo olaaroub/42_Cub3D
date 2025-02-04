@@ -208,7 +208,7 @@ int					count_coloumns(char **map);
 void				pars_the_color(t_data *data);
 int					count_chars(char *str, int c);
 void				game_loop(t_data *data);
-int					rgb_to_hex(int r, int g, int b);
+int					rgb_to_hex(t_data *data, int r, int g, int b);
 void				ft_pixelput(t_img *img, int x, int y, int color);
 int					key_release(int key, void *parm);
 int					key_press(int key, void *parm);

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 17:39:45 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:22:25 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	get_game_elements(t_data *data, t_map *map, int fd)
 	if (!check_map(map))
 	{
 
-		ft_error(data,  "map invalid\n");
+		ft_error(data,  "map invalid\n", 1);
 	}
 	map->floor_color = ft_split(map->color, '\n');
 	add_double_ptr_to_trash(data, (void **)map->floor_color);
@@ -98,7 +98,7 @@ static void	check_player(t_data *data, char **map)
 		{
 			if ((map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
 				|| map[i][j] == 'S') && flag == 1)
-				ft_error(data,  "Multiple players!\n");
+				ft_error(data,  "Multiple players!\n", 1);
 			else if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
 				|| map[i][j] == 'S')
 				flag = 1;
@@ -107,7 +107,7 @@ static void	check_player(t_data *data, char **map)
 		i++;
 	}
 	if (!flag)
-		ft_error(data,  "No player!\n");
+		ft_error(data,  "No player!\n", 1);
 }
 
 t_map   *read_map(t_data* data, char *file)
@@ -117,11 +117,11 @@ t_map   *read_map(t_data* data, char *file)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		ft_error(data,  "Error: malloc failed\n");
+		ft_error(data,  "Error: malloc failed\n", 1);
 	add_to_trash(&data->trash, map);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_error(data,  "file not found\n");
+		ft_error(data,  "file not found\n", 1);
 	map->flag = 1;
 	map->color = NULL;
 	map->texture_line = NULL;

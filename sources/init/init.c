@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:16:37 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/04 16:32:35 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:25:06 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void init_texture(t_data *data)
     data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, data->west_tex->path,
              &data->west_tex->width, &data->west_tex->height);
 	if(!data->north_tex->texture || !data->south_tex->texture ||!data->west_tex->texture || !data->east_tex->texture)
-        ft_error(data,  "Error: texture not found");
+        ft_error(data,  "Error: texture not found", 1);
 	data->north_tex->addr = mlx_get_data_addr(data->north_tex->texture, &data->north_tex->bits_per_pixel,
 			&data->north_tex->line_length, &data->north_tex->endian);
     data->south_tex->addr = mlx_get_data_addr(data->south_tex->texture, &data->south_tex->bits_per_pixel,
@@ -41,13 +41,14 @@ static void init_door_textures(t_data *data)
 
     data->animations->door_tex = malloc(sizeof(t_texture *) * DOOR_FRAMES);
     if (!data->animations->door_tex)
-        ft_error(data,  "Error: Malloc failed");
+        ft_error(data,  "Error: Malloc failed", 1);
+    // add_double_ptr_to_trash(data, (void **)data->animations->door_tex);
     while (current_frame <= DOOR_FRAMES)
     {
         snprintf(path, sizeof(path), "imgs/door/%d.xpm", current_frame);
         data->animations->door_tex[current_frame - 1] = malloc(sizeof(t_texture));
         if (!data->animations->door_tex[current_frame - 1])
-            ft_error(data,  "Error: texture not found");
+            ft_error(data,  "Error: texture not found", 1);
         data->animations->door_tex[current_frame - 1]->texture = mlx_xpm_file_to_image(data->mlx,
                 path, &data->animations->door_tex[current_frame - 1]->width,
                 &data->animations->door_tex[current_frame - 1]->height);
@@ -66,13 +67,13 @@ static void    init_hand_textures(t_data *data)
 
     data->animations->hand_tex = malloc(sizeof(t_texture *) * HAND_FRAMES);
     if (!data->animations->hand_tex)
-        ft_error(data,  "Error: Malloc failed");
+        ft_error(data,  "Error: Malloc failed", 1);
     while (current_frame <= HAND_FRAMES)
     {
         snprintf(path, sizeof(path), "imgs/anim/%d.xpm", current_frame);
         data->animations->hand_tex[current_frame - 1] = malloc(sizeof(t_texture));
         if (!data->animations->hand_tex[current_frame - 1])
-            ft_error(data,  "Error: texture not found");
+            ft_error(data,  "Error: texture not found", 1);
         data->animations->hand_tex[current_frame - 1]->texture = mlx_xpm_file_to_image(data->mlx,
                 path, &data->animations->hand_tex[current_frame - 1]->width,
                 &data->animations->hand_tex[current_frame - 1]->height);
@@ -91,13 +92,13 @@ static void    init_fire_textures(t_data *data)
 
     data->animations->fire_tex = malloc(sizeof(t_texture *) * FIRE_FRAMES);
     if (!data->animations->fire_tex)
-        ft_error(data,  "Error: Malloc failed");
+        ft_error(data,  "Error: Malloc failed", 1);
     while (current_frame <= FIRE_FRAMES)
     {
         snprintf(path, sizeof(path), "imgs/fire/f%d.xpm", current_frame);
         data->animations->fire_tex[current_frame - 1] = malloc(sizeof(t_texture));
         if (!data->animations->fire_tex[current_frame - 1])
-            ft_error(data,  "Error: texture not found");
+            ft_error(data,  "Error: texture not found", 1);
         data->animations->fire_tex[current_frame - 1]->texture = mlx_xpm_file_to_image(data->mlx,
                 path, &data->animations->fire_tex[current_frame - 1]->width,
                 &data->animations->fire_tex[current_frame - 1]->height);

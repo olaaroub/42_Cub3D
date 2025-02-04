@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 17:37:09 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:21:26 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,10 +193,7 @@ int handle_moves(void *parm);
 
 // 					** keys **
 int					exit_key(void *data);
-
-
-
-void				ft_error(t_data *data,  char *str);
+void				ft_error(t_data *data,  char *str, int exit_code);
 void				add_to_trash(t_list **trash, void *add);
 void				free_trash(t_list **trash);
 

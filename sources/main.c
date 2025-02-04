@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 22:06:37 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:32:58 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ static void check_argument(t_data *data, char **av, int ac)
         return(printf("Error\n: malloc failed\n"), exit(1));
     i = ft_strlen(av[1]);
     if (ft_strncmp(av[1] + i - 4, ".cub", 5) != 0)
-        return(ft_error(data,  "Error\n: file not valid\n"));
+        return(ft_error(data,  "Error\n: file not valid\n", 1));
     data->map = read_map(data, av[1]);
-
     pars_the_color(data);
     pars_texture(data);
 }
@@ -59,10 +58,12 @@ int main(int ac, char **av)
     t_data data;
 
     print_controls();
+    data.mlx = NULL;
     check_argument( &data, av, ac);
-    // init_game(&data);
-    // game_loop(&data);
-    // mlx_loop(data.mlx);
-    free_trash(&data.trash);
+    init_game(&data);
+    game_loop(&data);
+    mlx_loop(data.mlx);
+    // free_trash(&data.trash);
+    // ft_error(&data, "fini", 0);
     return 0;
 }

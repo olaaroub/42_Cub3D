@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:28:02 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/04 16:41:07 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:23:47 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,6 @@ static void initialize_textures(t_data *data)
 	data->south_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->west_tex = (t_texture*)malloc(sizeof(t_texture));
 	data->east_tex = (t_texture*)malloc(sizeof(t_texture));
-	add_to_trash(&data->trash, data->north_tex);
-	add_to_trash(&data->trash, data->south_tex);
-	add_to_trash(&data->trash, data->west_tex);
-	add_to_trash(&data->trash, data->east_tex);
 	data->north_tex->path = NULL;
 	data->south_tex->path = NULL;
 	data->west_tex->path = NULL;
@@ -89,5 +85,5 @@ void pars_texture(t_data *data)
 	}
 	if (i != 4 || !data->north_tex->path || !data->south_tex->path
 		|| !data->west_tex->path || !data->east_tex->path)
-		ft_error(data,  "you have multiple texture args\n");
+		ft_error(data,  "you have multiple texture args\n", 1);
 }

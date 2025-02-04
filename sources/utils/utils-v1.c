@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:36:09 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/04 17:37:03 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:01:07 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,4 @@ void    add_double_ptr_to_trash(t_data *data, void **add)
     add_to_trash(&data->trash, add);
 }
 
-
-void	ft_error(t_data* data,  char *str)
-{
-    free_trash(&data->trash);
-	write(1, str, ft_strlen(str));
-	exit(1);
-}
 

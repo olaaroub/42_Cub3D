@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:28:02 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/03 01:30:44 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:41:07 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void pars_texture(t_data *data)
 	}
 	if (i != 4 || !data->north_tex->path || !data->south_tex->path
 		|| !data->west_tex->path || !data->east_tex->path)
-		ft_error("you have multiple texture args\n");
+		ft_error(data,  "you have multiple texture args\n");
 }

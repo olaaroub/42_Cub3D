@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:26:30 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/01 02:50:08 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:34:43 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool check_door(char **map, int i, int j)
     return true;
 }
 
-bool check_if_surrounded(char **map)
+bool check_if_surrounded(t_data *data, char **map)
 {
     int i;
     int j;
@@ -57,11 +57,11 @@ bool check_if_surrounded(char **map)
             if ((map[j][i] == '0' || map[j][i] == 'N'
                 || map[j][i] == 'S' || map[j][i] == 'E'
                 || map[j][i] == 'W') && !chack_if_valid(map, i, j))
-                ft_error("error: map not surrounded by wall\n");
+                ft_error(data,  "error: map not surrounded by wall\n");
             else if((map[j][i] == 'D' && !check_door(map, i, j)) && BONUS == 1)
-                ft_error("error: wrong door placement\n");
+                ft_error(data,  "error: wrong door placement\n");
             // else if(BONUS == 1 && (map[j][i] == 'F' && !chack_if_valid(map, i, j)))
-            //     ft_error("error: wrong fire placement\n");
+            //     ft_error(data,  "error: wrong fire placement\n");
             i++;
         }
         j++;

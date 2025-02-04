@@ -29,7 +29,7 @@ static void check_argument(t_data *data, char **av, int ac)
     data->map = read_map(data, av[1]);
 
     pars_the_color(data);
-    // pars_texture(data);
+    pars_texture(data);
 }
 
 static void	print_controls(void)

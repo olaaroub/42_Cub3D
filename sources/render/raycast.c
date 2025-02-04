@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 18:29:23 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:03:18 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,6 @@ double draw_hray(t_data *data, t_raycast_vars* vars)
     // (void)hit_door_oh;
 
     horizontal_intersection(data, &vars->hit);
-    // if (fabs(sin(data->start_angle)) < EPSILON)
-    //     return INT_MAX;
     if (sin(data->start_angle) > 0)
         vars->step.y = SOF;
     else

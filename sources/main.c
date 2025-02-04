@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:29 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 17:40:16 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:04:08 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static void check_argument(t_data *data, char **av, int ac)
     if (ft_strncmp(av[1] + i - 4, ".cub", 5) != 0)
         return(ft_error(data,  "Error\n: file not valid\n"));
     data->map = read_map(data, av[1]);
-
-    pars_the_color(data);
+    // pars_the_color(data);
     // pars_texture(data);
 }
 

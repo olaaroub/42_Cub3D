@@ -24,6 +24,7 @@
 # define TOW_PI data->two_pi
 # define ROT_SPEED 0.06
 # define FOV_ANGLE data->field_of_view
+# define PROJECTION_DIST data->projection_dist
 
 # define EPSILON 1e-6
 # define SCREEN_W 1920

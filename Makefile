@@ -86,7 +86,7 @@ $(MLX):
 	@make -sC minilibx-linux/
 
 bonus:
-	@make re  BONUS=1
+	@make all  BONUS=1
 
 clean:
 	@rm -rf $(OBJ_PATH)

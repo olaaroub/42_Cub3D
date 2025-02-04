@@ -171,7 +171,8 @@ static void    hit_horizontal(t_data *data, t_raycast_vars *vars, double hlen)
     data->hit_fire = vars->hit_fire_h;
     data->ray_dist = hlen;
     data->ray_dist *= cos(data->start_angle - data->angle);
-    data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
+    // data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
+    data->projection_dist = PROJECTION_DIST;
     data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
     data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
     data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
@@ -192,6 +193,7 @@ static void    hit_vertical(t_data *data, t_raycast_vars *vars, double vlen)
     data->ray_dist = vlen;
     data->ray_dist *= cos(data->start_angle - data->angle);
     // data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
+    data->projection_dist = PROJECTION_DIST;
     data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
     data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
     data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/02/04 22:49:59 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/05 23:46:14 by ohammou-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC			= 	main.c \
 			utils/utils-v1.c \
 			utils/utils-v2.c \
 			utils/utils-v3.c \
+			utils/minimap_utils.c \
 			utils/parsing_utils.c \
 			render/render.c \
 			render/get_texture_pixels.c\

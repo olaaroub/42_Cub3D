@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static void ckeck_tex_path(t_data *data, char *str, char *path)
+static void	ckeck_tex_path(t_data *data, char *str, char *path)
 {
 	if (!ft_strcmp(str, "NO"))
 	{
@@ -38,34 +38,35 @@ static void ckeck_tex_path(t_data *data, char *str, char *path)
 	free(path);
 }
 
-static void skep_whitespace_to_texture(t_data *data, int *j, int *cont, int i)
+static void	skep_whitespace_to_texture(t_data *data, int *j, int *cont, int i)
 {
-	while (data->map->texture[i][*j] && is_whitespace(data->map->texture[i][*j]))
+	while (data->map->texture[i][*j]
+		&& is_whitespace(data->map->texture[i][*j]))
 		(*j)++;
 	(*cont) = *j;
-	while (data->map->texture[i][*cont] && !is_whitespace(data->map->texture[i][*cont]))
+	while (data->map->texture[i][*cont]
+		&& !is_whitespace(data->map->texture[i][*cont]))
 		(*cont)++;
 }
 
-static void initialize_textures(t_data *data)
+static void	initialize_textures(t_data *data)
 {
-	data->north_tex = (t_texture*)malloc(sizeof(t_texture));
-	data->south_tex = (t_texture*)malloc(sizeof(t_texture));
-	data->west_tex = (t_texture*)malloc(sizeof(t_texture));
-	data->east_tex = (t_texture*)malloc(sizeof(t_texture));
+	data->north_tex = (t_texture *)malloc(sizeof(t_texture));
+	data->south_tex = (t_texture *)malloc(sizeof(t_texture));
+	data->west_tex = (t_texture *)malloc(sizeof(t_texture));
+	data->east_tex = (t_texture *)malloc(sizeof(t_texture));
 	data->north_tex->path = NULL;
 	data->south_tex->path = NULL;
 	data->west_tex->path = NULL;
 	data->east_tex->path = NULL;
 }
 
-void pars_texture(t_data *data)
+void	pars_texture(t_data *data)
 {
-	int i;
-	int j;
-	int cont;
-	char *sp;
+	int		cont;
+	char	*sp;
 
+	int (i), (j);
 	i = 0;
 	initialize_textures(data);
 	while (data->map->texture[i])
@@ -74,8 +75,9 @@ void pars_texture(t_data *data)
 		skep_whitespace_to_texture(data, &j, &cont, i);
 		sp = ft_substr(data->map->texture[i], j, cont - j);
 		j = cont;
-		while (data->map->texture[i][j] && is_whitespace(data->map->texture[i][j]))
-		j++;
+		while (data->map->texture[i][j]
+			&& is_whitespace(data->map->texture[i][j]))
+			j++;
 		cont = j;
 		while (data->map->texture[i][cont])
 			cont++;
@@ -85,5 +87,5 @@ void pars_texture(t_data *data)
 	}
 	if (i != 4 || !data->north_tex->path || !data->south_tex->path
 		|| !data->west_tex->path || !data->east_tex->path)
-		ft_error(data,  "you have multiple texture args\n", 1);
+		ft_error(data, "you have multiple texture args\n", 1);
 }

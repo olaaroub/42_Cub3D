@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 23:26:41 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/05 23:33:29 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,32 @@ int	exit_key(void *param)
 	return (0);
 }
 
+int mouse_input(int x, int y, void *param)
+{
+    static int old_x = 0;
+    int distance;
+    float sense;
+    float rotation = 0;
+
+    if (BONUS == 0)
+        return (0);
+    t_data *data = (t_data *)param;
+    (void)y;
+    sense = 0.02;
+    distance = x - old_x;
+    if(distance  > 0)
+        rotation = ROT_SPEED * sense * distance;
+    else if(distance < 0)
+        rotation= ROT_SPEED * sense * distance;
+    data->angle += rotation;
+    if (data->angle >= TOW_PI)
+            data->angle -= TOW_PI;
+    if (data->angle < 0)
+            data->angle += TOW_PI;
+    old_x = x;
+    mlx_mouse_hide(data->mlx, data->mlx_win);
+    return (0);
+}
 
 int key_press(int key, void *param)
 {

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 23:21:26 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/05 22:15:56 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef struct s_data
 	bool			hit_door;
 	bool			hit_fire;
 	bool			hit_open_door;
+	int 			old_x;
 }					t_data;
 //					** Initialization **
 void    init_game(t_data *data);
@@ -194,6 +195,7 @@ int handle_moves(void *parm);
 // 					** keys **
 int					exit_key(void *data);
 void				ft_error(t_data *data,  char *str, int exit_code);
+int mouse_input(int x, int y, void *param);
 void				add_to_trash(t_list **trash, void *add);
 void				free_trash(t_list **trash);
 

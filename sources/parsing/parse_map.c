@@ -20,14 +20,14 @@ static int	check_map_bonus(t_map *map)
 	while (map->map_line[i])
 	{
 		if (map->map_line[i] == '\n' && (map->map_line[i + 1] == '\n'
-			|| map->map_line[i + 1] == '\0'))
+				|| map->map_line[i + 1] == '\0'))
 			return (0);
 		if (map->map_line[i] != '1' && map->map_line[i] != '0'
 			&& map->map_line[i] != ' ' && map->map_line[i] != '\n'
-				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
-					&& map->map_line[i] != 'W' && map->map_line[i] != 'S'
-						&& map->map_line[i] != 'D' && map->map_line[i] != 'O'
-							&& map->map_line[i] != 'F')
+			&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
+			&& map->map_line[i] != 'W' && map->map_line[i] != 'S'
+			&& map->map_line[i] != 'D' && map->map_line[i] != 'O'
+			&& map->map_line[i] != 'F')
 			return (0);
 		i++;
 	}
@@ -39,17 +39,17 @@ static int	check_map(t_map *map)
 	int	i;
 
 	i = 0;
-	if(BONUS == 1)
-		return(check_map_bonus(map));
+	if (BONUS == 1)
+		return (check_map_bonus(map));
 	while (map->map_line[i])
 	{
 		if (map->map_line[i] == '\n' && (map->map_line[i + 1] == '\n'
-			|| map->map_line[i + 1] == '\0'))
+				|| map->map_line[i + 1] == '\0'))
 			return (0);
 		if (map->map_line[i] != '1' && map->map_line[i] != '0'
 			&& map->map_line[i] != ' ' && map->map_line[i] != '\n'
-				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
-					&& map->map_line[i] != 'W' && map->map_line[i] != 'S')
+			&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
+			&& map->map_line[i] != 'W' && map->map_line[i] != 'S')
 			return (0);
 		i++;
 	}
@@ -64,16 +64,14 @@ static void	get_game_elements(t_data *data, t_map *map, int fd)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		check_element(data, map, line);
 	}
-	// printf("HHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
 	skip_trailing_nl(data, map);
 	close(fd);
 	if (!check_map(map))
 	{
-
-		ft_error(data,  "map invalid\n", 1);
+		ft_error(data, "map invalid\n", 1);
 	}
 	map->floor_color = ft_split(map->color, '\n');
 	add_double_ptr_to_trash(data, (void **)map->floor_color);
@@ -87,7 +85,7 @@ static void	check_player(t_data *data, char **map)
 {
 	int	i;
 	int	flag;
-	int j;
+	int	j;
 
 	flag = 0;
 	i = 0;
@@ -97,8 +95,8 @@ static void	check_player(t_data *data, char **map)
 		while (map[i][j])
 		{
 			if ((map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
-				|| map[i][j] == 'S') && flag == 1)
-				ft_error(data,  "Multiple players!\n", 1);
+					|| map[i][j] == 'S') && flag == 1)
+				ft_error(data, "Multiple players!\n", 1);
 			else if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
 				|| map[i][j] == 'S')
 				flag = 1;
@@ -107,21 +105,21 @@ static void	check_player(t_data *data, char **map)
 		i++;
 	}
 	if (!flag)
-		ft_error(data,  "No player!\n", 1);
+		ft_error(data, "No player!\n", 1);
 }
 
-t_map   *read_map(t_data* data, char *file)
+t_map	*read_map(t_data *data, char *file)
 {
-	int fd;
+	int		fd;
 	t_map	*map;
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		ft_error(data,  "Error: malloc failed\n", 1);
+		ft_error(data, "Error: malloc failed\n", 1);
 	add_to_trash(&data->trash, map);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_error(data,  "file not found\n", 1);
+		ft_error(data, "file not found\n", 1);
 	map->flag = 1;
 	map->color = NULL;
 	map->texture_line = NULL;

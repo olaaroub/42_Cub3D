@@ -50,7 +50,8 @@ static int	get_fire_pixel_color(t_data *data, double y, double flag)
 		index = offset * ((double)FIRE_TEX[FIRE_CURR_FRAME]->height
 				/ data->wallhight);
 		return (*(int *)(FIRE_TEX[FIRE_CURR_FRAME]->addr
-			+ ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x * 4)))));
+				+ ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x
+							* 4)))));
 	}
 	else
 		return (69);

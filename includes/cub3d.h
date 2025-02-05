@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/05 22:15:56 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 00:41:42 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_minimap
 	int				flag;
 	t_vect			circle_center;
 	t_vect			player;
+	int				map_x;
+	int				map_y;
 	double			rot_angle;
 	int				offset;
 }					t_minimap;
@@ -184,6 +186,7 @@ bool				check_if_surrounded(t_data* data, char **map);
 
 
 // 					** Rendering **
+void	get_position_of_player_in_minimap(t_data *data, int x_draw, int y_draw);
 void				render(t_data *data);
 double raycast(t_data *data);
 int get_vertical_color(t_data *data, double y);

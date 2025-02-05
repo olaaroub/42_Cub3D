@@ -166,6 +166,8 @@ void minimap_draw(t_data *data, char **map)
                         ft_pixelput(data->img, dest_x, dest_y, 0x2A004E);
                     else if (map[grid_y][grid_x] == 'O')
                         ft_pixelput(data->img, dest_x, dest_y, 0x500073);
+					else if (map[grid_y][grid_x] == 'F')
+                        ft_pixelput(data->img, dest_x, dest_y, 0xA888B5);
                     else if (map[grid_y][grid_x] != ' ')
                         ft_pixelput(data->img, dest_x, dest_y, 0x9B7EBD);
                     else

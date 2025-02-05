@@ -12,8 +12,8 @@
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
-CFLAGS		+=  -fsanitize=address  -g3
+CFLAGS		= -Wall -Wextra -Werror -O3
+# CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 
 GREEN		= \033[0;32m

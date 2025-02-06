@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/06 03:39:20 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:00:37 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	render_hand(t_data *data)
 	int			j;
 
 	i = 0;
-	tex = H_TEX[HAND_CURR_FRAME];
+	tex = data->anim->h_tex[data->anim->h_curr];
 	pos.x = (SCREEN_W - tex->width) / 2;
 	pos.y = SCREEN_H - tex->height + data->anim->hand_y_offset;
 	while (i < tex->height)

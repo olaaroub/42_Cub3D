@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 23:23:40 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:47:27 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	set_color(t_data *data, char *name, char *color)
 
 	sp = ft_split(color, ',');
 	add_double_ptr_to_trash(data, (void **)sp);
-	if (count_coloumns(sp) != 3)
+	if (words_len(sp) != 3)
 		ft_error(data, "invalid colors!\n", 1);
 	red = ft_strtrim(sp[0], "\n\t ");
 	green = ft_strtrim(sp[1], "\n\t ");

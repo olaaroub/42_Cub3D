@@ -6,7 +6,7 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 11:35:23 by olaaroub          #+#    #+#              #
-#    Updated: 2025/01/29 01:45:16 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/06 18:49:10 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,6 @@ SRCS += ft_printf.c ft_putchar.c ft_putstr.c ft_putptr.c ft_putnbr_base.c ft_pla
 SRCS += get_next_line_utils.c get_next_line.c mini_utils.c
 
 #=== ft_printf_fd ===#
-
-SRCS += $(wildcard ft_printf_fd/*.c)
 
 OBJ = $(SRCS:.c=.o)
 

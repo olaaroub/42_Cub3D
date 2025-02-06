@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/06 03:28:42 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:52:08 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ typedef struct s_minimap
 
 typedef struct s_animations
 {
-	t_texture		**door_tex;
-	t_texture		**fire_tex;
-	t_texture		**hand_tex;
-	int				hand_curr_frame;
-	int				fire_curr_frame;
-	int				door_curr_frame;
-	bool			fire_switch;
+	t_texture		**d_tex;
+	t_texture		**f_tex;
+	t_texture		**h_tex;
+	int				h_curr;
+	int				f_curr;
+	int				d_curr;
+	bool			f_switch;
 	double			anim_time;
 	int				hand_y_offset;
 
@@ -125,10 +125,10 @@ typedef struct s_raycast_vars
 
 typedef struct s_data
 {
-	t_texture		*north_tex;
-	t_texture		*south_tex;
-	t_texture		*west_tex;
-	t_texture		*east_tex;
+	t_texture		*n_tex;
+	t_texture		*s_tex;
+	t_texture		*w_tex;
+	t_texture		*e_tex;
 	t_animations	*anim;
 	t_map			*map;
 	t_img			*img;
@@ -141,8 +141,6 @@ typedef struct s_data
 	t_raycast_vars	*vars_v;
 	void			*mlx;
 	void			*mlx_win;
-	double			two_pi;
-	double			field_of_view;
 	double			angle;
 	double			start_angle;
 	double			ray_dist;
@@ -158,7 +156,9 @@ typedef struct s_data
 	bool			hit_open_door;
 	int				old_x;
 }					t_data;
+
 //					** Initialization **
+
 void				init_game(t_data *data);
 void				initialize_variables(t_data *data);
 void				get_postion(t_data *data, char **map);
@@ -169,6 +169,7 @@ void				check_element(t_data *data, t_map *map, char *line);
 int					is_texture(char *line);
 int					is_color(char *line);
 int					is_empty(char *line);
+int					is_blocking_tile(char c);
 void				resize_map(t_data *data, t_map *map);
 int					get_x_max(char **map);
 void				skip_trailing_nl(t_data *data, t_map *map);
@@ -205,8 +206,6 @@ void				move_left(t_data *data);
 void				move_right(t_data *data);
 
 int					count_chars(char *str, int c);
-
-int					count_coloumns(char **map);
 void				pars_the_color(t_data *data);
 int					count_chars(char *str, int c);
 void				game_loop(t_data *data);
@@ -216,4 +215,5 @@ int					key_release(int key, void *parm);
 int					key_press(int key, void *parm);
 void				pars_texture(t_data *data);
 void				minimap(t_data *data);
+
 #endif

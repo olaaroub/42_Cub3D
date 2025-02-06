@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_printf_fd.h"
 
 void	ft_putchar_pr(int fd, char ch, int *count)

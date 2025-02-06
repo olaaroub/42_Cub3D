@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 03:20:28 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 03:47:39 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:51:47 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	is_valid_move(t_data *data, double end_x, double end_y)
 	grid.y = (int)data->player.y / SOF;
 	grid_plus.x = (int)(next.x + 2) / SOF;
 	grid_minus.x = (int)(next.x - 2) / SOF;
-	if (!IS_BLOCKING_TILE(map[(int)grid.y][(int)grid_plus.x]) &&
-		!IS_BLOCKING_TILE(map[(int)grid.y][(int)grid_minus.x]))
+	if (!is_blocking_tile(map[(int)grid.y][(int)grid_plus.x]) &&
+		!is_blocking_tile(map[(int)grid.y][(int)grid_minus.x]))
 		data->player.x = next.x;
 	grid.x = (int)data->player.x / SOF;
 	grid_plus.y = (int)(next.y + 2) / SOF;
 	grid_minus.y = (int)(next.y - 2) / SOF;
-	if (!IS_BLOCKING_TILE(map[(int)grid_plus.y][(int)grid.x]) &&
-		!IS_BLOCKING_TILE(map[(int)grid_minus.y][(int)grid.x]))
+	if (!is_blocking_tile(map[(int)grid_plus.y][(int)grid.x]) &&
+		!is_blocking_tile(map[(int)grid_minus.y][(int)grid.x]))
 		data->player.y = next.y;
 }
 

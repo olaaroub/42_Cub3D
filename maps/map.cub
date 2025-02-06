@@ -1,5 +1,5 @@
-NO      ./imgs/younes.xpm
-EA   	./imgs/younes.xpm
+NO      ./imgs/north.xpm
+EA   	./imgs/south.xpm
 WE  	./imgs/west.xpm
 SO 	./imgs/east.xpm
 

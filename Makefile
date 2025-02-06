@@ -6,7 +6,7 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/02/06 00:41:26 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/06 03:34:34 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,15 @@ SRC			= 	main.c \
 			utils/utils-v3.c \
 			utils/minimap_utils.c \
 			utils/parsing_utils.c \
+			utils/raycast_utils.c \
 			render/render.c \
 			render/get_texture_pixels.c\
 			render/raycast.c \
 			render/minimap.c \
-			mouvements/keys.c \
-			mouvements/moves.c \
+			mouvements/input.c \
+			mouvements/move.c \
+			mouvements/apply_moves.c \
+			mouvements/doors.c \
 
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 

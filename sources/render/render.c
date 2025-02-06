@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/05 22:09:29 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 03:39:20 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,27 @@
 static void	render_hand(t_data *data)
 {
 	t_texture	*tex;
-	int			pos_x;
-	int			pos_y;
+	t_vect		pos;
 	int			color;
+	int			i;
+	int			j;
 
-	tex = data->animations->hand_tex[HAND_CURR_FRAME];
-	pos_x = (SCREEN_W - tex->width) / 2;
-	pos_y = SCREEN_H - tex->height + data->animations->hand_y_offset;
-	for (int y = 0; y < tex->height; y++)
+	i = 0;
+	tex = H_TEX[HAND_CURR_FRAME];
+	pos.x = (SCREEN_W - tex->width) / 2;
+	pos.y = SCREEN_H - tex->height + data->anim->hand_y_offset;
+	while (i < tex->height)
 	{
-		for (int x = 0; x < tex->width; x++)
+		j = 0;
+		while (j < tex->width)
 		{
-			color = *(int *)(tex->addr + (y * tex->line_length + x
-						* (tex->bits_per_pixel / 8)));
+			color = *(int *)(tex->addr + (i * tex->line_len + j * (tex->bpp
+							/ 8)));
 			if ((color & 0x00FFFFFF) != 0)
-				ft_pixelput(data->img, pos_x + x, pos_y + y, color);
+				ft_pixelput(data->img, pos.x + j, pos.y + i, color);
+			j++;
 		}
+		i++;
 	}
 }
 
@@ -89,5 +94,5 @@ void	game_loop(t_data *data)
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, key_release, data);
 	mlx_hook(data->mlx_win, MotionNotify, PointerMotionMask, mouse_input, data);
-	mlx_loop_hook(data->mlx, handle_moves, data);
+	mlx_loop_hook(data->mlx, apply_moves, data);
 }

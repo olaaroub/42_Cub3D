@@ -1,9 +1,9 @@
 /*
 ** mlx_new_image.c for MiniLibX in raytraceur
-** 
+**
 ** Made by Charlie Root
 ** Login   <ol@epitech.net>
-** 
+**
 ** Started on  Mon Aug 14 15:29:14 2000 Charlie Root
 ** Last update Wed May 25 16:46:31 2011 Olivier Crouzet
 */
@@ -53,7 +53,7 @@ void	*mlx_int_new_xshm_image(t_xvar *xvar,int width,int height,int format)
   img->width = width;
   img->height = height;
   img->size_line = img->image->bytes_per_line;
-  img->bpp = img->image->bits_per_pixel;
+  img->bpp = img->image->bpp;
   img->format = format;
   img->shm.shmid = shmget(IPC_PRIVATE,(width+32)*height*4,IPC_CREAT|0777);
   if (img->shm.shmid==-1)
@@ -126,7 +126,7 @@ void	*mlx_int_new_image(t_xvar *xvar,int width, int height,int format)
     }
   img->gc = 0;
   img->size_line = img->image->bytes_per_line;
-  img->bpp = img->image->bits_per_pixel;
+  img->bpp = img->image->bpp;
   img->width = width;
   img->height = height;
   img->pix = XCreatePixmap(xvar->display,xvar->root,width,height,xvar->depth);

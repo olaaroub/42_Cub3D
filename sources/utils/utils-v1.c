@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:36:09 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/04 23:01:07 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 02:55:22 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,51 +18,49 @@ void	ft_pixelput(t_img *img, int x, int y, int color)
 
 	if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
 		return ;
-	tmp = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	tmp = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)tmp = color;
 }
 
-
-
-bool is_valid_number(char *str)
+bool	is_valid_number(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(str[i])
-    {
-        if (!ft_isdigit(str[i]))
-            return false;
-        i++;
-    }
-    return true;
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
-int count_chars(char *str, int c)
+int	count_chars(char *str, int c)
 {
-    int cont;
-    int i;
+	int	cont;
+	int	i;
 
-    cont = 0;
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == c)
-            cont++;
-        i++;
-    }
-    return (cont);
+	cont = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			cont++;
+		i++;
+	}
+	return (cont);
 }
 
-void    add_double_ptr_to_trash(t_data *data, void **add)
+void	add_double_ptr_to_trash(t_data *data, void **add)
 {
-    int i = 0;
-    while(add[i])
-    {
-        add_to_trash(&data->trash, add[i]);
-        i++;
-    }
-    add_to_trash(&data->trash, add);
+	int	i;
+
+	i = 0;
+	while (add[i])
+	{
+		add_to_trash(&data->trash, add[i]);
+		i++;
+	}
+	add_to_trash(&data->trash, add);
 }
-
-

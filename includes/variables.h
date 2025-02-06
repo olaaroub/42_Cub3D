@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/05 22:32:50 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 03:00:51 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@
 # define SPEED 1.5
 # define MI_SIZE 30
 
+# define XPM_IMG mlx_xpm_file_to_image
+# define ADDR mlx_get_data_addr
+
+# define N_TEX data->north_tex
+# define S_TEX data->south_tex
+# define W_TEX data->west_tex
+# define E_TEX data->east_tex
+# define D_TEX data->anim->door_tex
+# define H_TEX data->anim->hand_tex
+# define F_TEX data->anim->fire_tex
+
 # define IS_BLOCKING_TILE(c) ((c) == '1' || (c) == 'D' || (c) == 'F')
 # define PI 3.141592653589793
 # define TOW_PI data->two_pi
@@ -30,20 +41,20 @@
 # define SCREEN_W 1920
 # define SCREEN_H 1080
 
-# define FRAMES data->animations->door_curr_frame
+# define FRAMES data->anim->door_curr_frame
 # define DOOR_FRAMES 22
 # define DOOR_FRAME_STEP 1
-# define DOOR_TEX data->animations->door_tex
+# define DOOR_TEX data->anim->door_tex
 
 # define HAND_FRAMES 54
-# define HAND_CURR_FRAME data->animations->hand_curr_frame
+# define HAND_CURR_FRAME data->anim->hand_curr_frame
 # define ANIM_STEP 3
 
 # define FIRE_FRAMES 10
-# define FIRE_CURR_FRAME data->animations->fire_curr_frame
+# define FIRE_CURR_FRAME data->anim->fire_curr_frame
 # define FIRE_FRAME_STEP 4
-# define FIRE_TEX data->animations->fire_tex
-# define FIRE_SWITCH data->animations->fire_switch
+# define FIRE_TEX data->anim->fire_tex
+# define FIRE_SWITCH data->anim->fire_switch
 
 # define RESET "\e[0m"
 

@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/04 22:03:18 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 02:49:40 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,9 @@
 
 */
 
-void	vertical_intersection(t_data *data, t_vect *hit)
+static double	draw_vray(t_data *data, t_raycast_vars *vars)
 {
-	t_vect	ray_dir;
-
-	double x, y;
-	x = data->player.x;
-	y = data->player.y;
-	ray_dir.x = cos(data->start_angle);
-	ray_dir.y = sin(data->start_angle);
-	// if (fabs(ray_dir.x) < EPSILON)
-	//     return ;
-	if (ray_dir.x < 0)
-		hit->x = floor(x / SOF) * SOF - EPSILON;
-	else
-		hit->x = floor(x / SOF) * SOF + SOF;
-	hit->y = y + ((hit->x - x) / ray_dir.x) * ray_dir.y;
-}
-
-double	draw_vray(t_data *data, t_raycast_vars *vars)
-{
-	// t_vect hit;
-	// t_vect step;
 	vertical_intersection(data, &vars->hit);
-	// if (fabs(cos(data->start_angle)) < EPSILON)
-	//     return (INT_MAX);
 	if (cos(data->start_angle) > 0)
 		vars->step.x = SOF;
 	else
@@ -71,25 +49,9 @@ double	draw_vray(t_data *data, t_raycast_vars *vars)
 	{
 		vars->map.x = (int)vars->hit.x / SOF;
 		vars->map.y = (int)vars->hit.y / SOF;
-		if (vars->map.y >= 0 && vars->map.y < data->y_max && vars->map.x >= 0
-			&& vars->map.x < (int)ft_strlen(data->map->map[(int)vars->map.y]))
-		{
-			if (data->map->map[(int)vars->map.y][(int)vars->map.x] == '1'
-				|| ((data->map->map[(int)vars->map.y][(int)vars->map.x] == 'D'
-						|| data->map->map[(int)vars->map.y][(int)vars->map.x] == 'O'
-						|| data->map->map[(int)vars->map.y][(int)vars->map.x] == 'F')
-					&& BONUS == 1))
-			{
-				if (data->map->map[(int)vars->map.y][(int)vars->map.x] == 'D')
-					vars->hit_door_v = true;
-				else if (data->map->map[(int)vars->map.y][(int)vars->map.x] == 'O')
-					vars->hit_door_ov = true;
-				else if (data->map->map[(int)vars->map.y][(int)vars->map.x] == 'F')
-					vars->hit_fire_v = true;
-				break ;
-			}
-		}
-		else
+		if (hit_tile_v(data, vars) == 69)
+			break ;
+		else if (hit_tile_v(data, vars) == 0)
 			break ;
 		vars->hit.x += vars->step.x;
 		vars->hit.y += vars->step.y;
@@ -100,31 +62,8 @@ double	draw_vray(t_data *data, t_raycast_vars *vars)
 				- data->player.y, 2)));
 }
 
-void	horizontal_intersection(t_data *data, t_vect *hit)
+static double	draw_hray(t_data *data, t_raycast_vars *vars)
 {
-	double	rayDirx;
-	double	rayDiry;
-	double	x;
-	double	y;
-
-	x = data->player.x;
-	y = data->player.y;
-	rayDirx = cos(data->start_angle);
-	rayDiry = sin(data->start_angle);
-	// if (fabs(rayDiry) < EPSILON)
-	//     return ;
-	if (rayDiry < 0)
-		hit->y = floor(y / SOF) * SOF - EPSILON;
-	else
-		hit->y = floor(y / SOF) * SOF + SOF;
-	hit->x = x + ((hit->y - y) / rayDiry) * rayDirx;
-}
-
-double	draw_hray(t_data *data, t_raycast_vars *vars)
-{
-	// t_vect hit;
-	// t_vect step;
-	// (void)hit_door_oh;
 	horizontal_intersection(data, &vars->hit);
 	if (sin(data->start_angle) > 0)
 		vars->step.y = SOF;
@@ -136,23 +75,8 @@ double	draw_hray(t_data *data, t_raycast_vars *vars)
 	{
 		vars->map.x = (int)(vars->hit.x / SOF);
 		vars->map.y = (int)(vars->hit.y / SOF);
-		// printf("%c\n", data->map->map[(int)map.y][(int)map.x]);
-		if (vars->map.y >= 0 && vars->map.y < data->y_max && vars->map.x >= 0
-			&& vars->map.x < (int)ft_strlen(data->map->map[(int)vars->map.y])
-			&& (data->map->map[(int)vars->map.y][(int)vars->map.x] == '1'
-				|| ((data->map->map[(int)vars->map.y][(int)vars->map.x] == 'D'
-						|| data->map->map[(int)vars->map.y][(int)vars->map.x] == 'O'
-						|| data->map->map[(int)vars->map.y][(int)vars->map.x] == 'F')
-					&& BONUS == 1)))
-		{
-			if (data->map->map[(int)vars->map.y][(int)vars->map.x] == 'D')
-				vars->hit_door_h = true;
-			else if (data->map->map[(int)vars->map.y][(int)vars->map.x] == 'O')
-				vars->hit_door_oh = true;
-			else if (data->map->map[(int)vars->map.y][(int)vars->map.x] == 'F')
-				vars->hit_fire_h = true;
+		if (hit_tile_h(data, vars) == 69)
 			break ;
-		}
 		vars->hit.x += vars->step.x;
 		vars->hit.y += vars->step.y;
 	}
@@ -171,8 +95,6 @@ static void	hit_horizontal(t_data *data, t_raycast_vars *vars, double hlen)
 	data->hit_fire = vars->hit_fire_h;
 	data->ray_dist = hlen;
 	data->ray_dist *= cos(data->start_angle - data->angle);
-	// data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
-	// data->projection_dist = PROJECTION_DIST;
 	data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
 	data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
 	data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
@@ -192,8 +114,6 @@ static void	hit_vertical(t_data *data, t_raycast_vars *vars, double vlen)
 	data->hit_fire = vars->hit_fire_v;
 	data->ray_dist = vlen;
 	data->ray_dist *= cos(data->start_angle - data->angle);
-	// data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
-	// data->projection_dist = PROJECTION_DIST;
 	data->wallhight = (SOF / data->ray_dist) * data->projection_dist;
 	data->start_draw = (SCREEN_H / 2) - (data->wallhight / 2);
 	data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);

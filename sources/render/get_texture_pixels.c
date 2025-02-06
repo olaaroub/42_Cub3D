@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:57:19 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/04 22:03:02 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 03:40:58 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ static int	get_fire_pixel_color(t_data *data, double y, double flag)
 		index = offset * ((double)FIRE_TEX[FIRE_CURR_FRAME]->height
 				/ data->wallhight);
 		return (*(int *)(FIRE_TEX[FIRE_CURR_FRAME]->addr
-				+ ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x
-							* 4)))));
+			+ ((FIRE_TEX[FIRE_CURR_FRAME]->width * (index * 4) + (x * 4)))));
 	}
 	else
 		return (69);
@@ -72,9 +71,9 @@ int	get_vertical_color(t_data *data, double y)
 	if (color != 69)
 		return (color);
 	if ((data->start_angle >= (PI / 2)) && (data->start_angle < (3 * PI / 2)))
-		tex = data->east_tex;
+		tex = E_TEX;
 	else
-		tex = data->west_tex;
+		tex = W_TEX;
 	x = (int)(tex->width * data->hit.y / 64);
 	x = x % tex->width;
 	offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
@@ -97,9 +96,9 @@ int	get_horizontal_color(t_data *data, double y)
 	if (color != 69)
 		return (color);
 	if (data->start_angle >= PI && data->start_angle < data->two_pi)
-		tex = data->south_tex;
+		tex = S_TEX;
 	else
-		tex = data->north_tex;
+		tex = N_TEX;
 	x = (int)(tex->width * data->hit.x / 64);
 	x = x % tex->width;
 	offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
@@ -122,20 +121,20 @@ int	get_horizontal_color(t_data *data, double y)
 // 		return (color);
 // 	if ((data->start_angle >= (PI / 2)) && (data->start_angle < (3 * PI / 2)))
 // 	{
-// 		x = (int)(data->east_tex->width * data->hit.y / 64)
-// 			% data->east_tex->width;
+// 		x = (int)(E_TEX->width * data->hit.y / 64)
+// 			% E_TEX->width;
 // 		offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-// 		index = offset * ((double)data->east_tex->height / data->wallhight);
-// 		return (*(int *)(data->east_tex->addr + ((data->east_tex->width * (index
+// 		index = offset * ((double)E_TEX->height / data->wallhight);
+// 		return (*(int *)(E_TEX->addr + ((E_TEX->width * (index
 // 							* 4) + (x * 4)))));
 // 	}
 // 	else
 // 	{
-// 		x = (int)(data->west_tex->width * data->hit.y / 64)
-// 			% data->west_tex->width;
+// 		x = (int)(W_TEX->width * data->hit.y / 64)
+// 			% W_TEX->width;
 // 		offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-// 		index = (offset) * ((double)data->west_tex->height / data->wallhight);
-// 		return (*(int *)(data->west_tex->addr + ((data->west_tex->width * (index
+// 		index = (offset) * ((double)W_TEX->height / data->wallhight);
+// 		return (*(int *)(W_TEX->addr + ((W_TEX->width * (index
 // 							* 4) + (x * 4)))));
 // 	}
 // }
@@ -155,20 +154,20 @@ int	get_horizontal_color(t_data *data, double y)
 // 		return (color);
 // 	if (data->start_angle >= PI && data->start_angle < TOW_PI)
 // 	{
-// 		x = (int)(data->south_tex->width * data->hit.x / 64)
-// 			% data->south_tex->width;
+// 		x = (int)(S_TEX->width * data->hit.x / 64)
+// 			% S_TEX->width;
 // 		offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-// 		index = offset * ((double)data->south_tex->height / data->wallhight);
-// 		return (*(int *)(data->south_tex->addr + ((data->south_tex->width
+// 		index = offset * ((double)S_TEX->height / data->wallhight);
+// 		return (*(int *)(S_TEX->addr + ((S_TEX->width
 // 						* (index * 4) + (x * 4)))));
 // 	}
 // 	else
 // 	{
-// 		x = (int)(data->north_tex->width * data->hit.x / 64)
-// 			% data->north_tex->width;
+// 		x = (int)(N_TEX->width * data->hit.x / 64)
+// 			% N_TEX->width;
 // 		offset = y + (data->wallhight / 2) - (SCREEN_H / 2);
-// 		index = offset * ((double)data->north_tex->height / data->wallhight);
-// 		return (*(int *)(data->north_tex->addr + ((data->north_tex->width
+// 		index = offset * ((double)N_TEX->height / data->wallhight);
+// 		return (*(int *)(N_TEX->addr + ((N_TEX->width
 // 						* (index * 4) + (x * 4)))));
 // 	}
 // }

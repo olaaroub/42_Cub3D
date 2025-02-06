@@ -6,127 +6,130 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:16:37 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/04 23:25:06 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 03:29:41 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void init_texture(t_data *data)
+static void	init_texture(t_data *data)
 {
-	data->north_tex->texture = mlx_xpm_file_to_image(data->mlx, data->north_tex->path,
-			 &data->north_tex->width, &data->north_tex->height);
-    data->south_tex->texture = mlx_xpm_file_to_image(data->mlx, data->south_tex->path,
-                &data->south_tex->width, &data->south_tex->height);
-    data->east_tex->texture = mlx_xpm_file_to_image(data->mlx, data->east_tex->path,
-                &data->east_tex->width, &data->east_tex->height);
-    data->west_tex->texture = mlx_xpm_file_to_image(data->mlx, data->west_tex->path,
-             &data->west_tex->width, &data->west_tex->height);
-	if(!data->north_tex->texture || !data->south_tex->texture ||!data->west_tex->texture || !data->east_tex->texture)
-        ft_error(data,  "Error: texture not found", 1);
-	data->north_tex->addr = mlx_get_data_addr(data->north_tex->texture, &data->north_tex->bits_per_pixel,
-			&data->north_tex->line_length, &data->north_tex->endian);
-    data->south_tex->addr = mlx_get_data_addr(data->south_tex->texture, &data->south_tex->bits_per_pixel,
-            &data->south_tex->line_length, &data->south_tex->endian);
-    data->west_tex->addr = mlx_get_data_addr(data->west_tex->texture, &data->west_tex->bits_per_pixel,
-            &data->west_tex->line_length, &data->west_tex->endian);
-    data->east_tex->addr = mlx_get_data_addr(data->east_tex->texture, &data->east_tex->bits_per_pixel,
-            &data->east_tex->line_length, &data->east_tex->endian);
+	N_TEX->texture = XPM_IMG(data->mlx, N_TEX->path, &N_TEX->width,
+			&N_TEX->height);
+	S_TEX->texture = XPM_IMG(data->mlx, S_TEX->path, &S_TEX->width,
+			&S_TEX->height);
+	E_TEX->texture = XPM_IMG(data->mlx, E_TEX->path, &E_TEX->width,
+			&E_TEX->height);
+	W_TEX->texture = XPM_IMG(data->mlx, W_TEX->path, &W_TEX->width,
+			&W_TEX->height);
+	if (!N_TEX->texture || !S_TEX->texture || !W_TEX->texture
+		|| !E_TEX->texture)
+		ft_error(data, "Error: texture not found", 1);
+	N_TEX->addr = ADDR(N_TEX->texture, &N_TEX->bpp, &N_TEX->line_len,
+			&N_TEX->endian);
+	S_TEX->addr = ADDR(S_TEX->texture, &S_TEX->bpp, &S_TEX->line_len,
+			&S_TEX->endian);
+	W_TEX->addr = ADDR(W_TEX->texture, &W_TEX->bpp, &W_TEX->line_len,
+			&W_TEX->endian);
+	E_TEX->addr = ADDR(E_TEX->texture, &E_TEX->bpp, &E_TEX->line_len,
+			&E_TEX->endian);
 }
 
-static void init_door_textures(t_data *data)
+static void	init_door_textures(t_data *data)
 {
-    int current_frame = 1;
-    char path[1024];
+	int		curr;
+	char	path[1024];
 
-    data->animations->door_tex = malloc(sizeof(t_texture *) * DOOR_FRAMES);
-    if (!data->animations->door_tex)
-        ft_error(data,  "Error: Malloc failed", 1);
-    // add_double_ptr_to_trash(data, (void **)data->animations->door_tex);
-    while (current_frame <= DOOR_FRAMES)
-    {
-        snprintf(path, sizeof(path), "imgs/door/%d.xpm", current_frame);
-        data->animations->door_tex[current_frame - 1] = malloc(sizeof(t_texture));
-        if (!data->animations->door_tex[current_frame - 1])
-            ft_error(data,  "Error: texture not found", 1);
-        data->animations->door_tex[current_frame - 1]->texture = mlx_xpm_file_to_image(data->mlx,
-                path, &data->animations->door_tex[current_frame - 1]->width,
-                &data->animations->door_tex[current_frame - 1]->height);
-        data->animations->door_tex[current_frame - 1]->addr = mlx_get_data_addr(data->animations->door_tex[current_frame - 1]->texture,
-                &data->animations->door_tex[current_frame - 1]->bits_per_pixel,
-                &data->animations->door_tex[current_frame - 1]->line_length,
-                &data->animations->door_tex[current_frame - 1]->endian);
-        current_frame++;
-    }
+	curr = 1;
+	D_TEX = malloc(sizeof(t_texture *) * DOOR_FRAMES);
+	if (!D_TEX)
+		ft_error(data, "Error: Malloc failed", 1);
+	while (curr <= DOOR_FRAMES)
+	{
+		snprintf(path, sizeof(path), "imgs/door/%d.xpm", curr);
+		D_TEX[curr - 1] = malloc(sizeof(t_texture));
+		if (!D_TEX[curr - 1])
+			ft_error(data, "Error: texture not found", 1);
+		D_TEX[curr - 1]->texture = XPM_IMG(data->mlx, path,
+				&D_TEX[curr - 1]->width, &D_TEX[curr - 1]->height);
+		D_TEX[curr - 1]->addr = ADDR(D_TEX[curr - 1]->texture,
+				&D_TEX[curr - 1]->bpp,
+				&D_TEX[curr - 1]->line_len,
+				&D_TEX[curr - 1]->endian);
+		curr++;
+	}
 }
 
-static void    init_hand_textures(t_data *data)
+static void	init_hand_textures(t_data *data)
 {
-    int current_frame = 1;
-    char path[1024];
+	int		curr;
+	char	path[1024];
 
-    data->animations->hand_tex = malloc(sizeof(t_texture *) * HAND_FRAMES);
-    if (!data->animations->hand_tex)
-        ft_error(data,  "Error: Malloc failed", 1);
-    while (current_frame <= HAND_FRAMES)
-    {
-        snprintf(path, sizeof(path), "imgs/anim/%d.xpm", current_frame);
-        data->animations->hand_tex[current_frame - 1] = malloc(sizeof(t_texture));
-        if (!data->animations->hand_tex[current_frame - 1])
-            ft_error(data,  "Error: texture not found", 1);
-        data->animations->hand_tex[current_frame - 1]->texture = mlx_xpm_file_to_image(data->mlx,
-                path, &data->animations->hand_tex[current_frame - 1]->width,
-                &data->animations->hand_tex[current_frame - 1]->height);
-        data->animations->hand_tex[current_frame - 1]->addr = mlx_get_data_addr(data->animations->hand_tex[current_frame - 1]->texture,
-                &data->animations->hand_tex[current_frame - 1]->bits_per_pixel,
-                &data->animations->hand_tex[current_frame - 1]->line_length,
-                &data->animations->hand_tex[current_frame - 1]->endian);
-        current_frame++;
-    }
+	curr = 1;
+	H_TEX = malloc(sizeof(t_texture *) * HAND_FRAMES);
+	if (!H_TEX)
+		ft_error(data, "Error: Malloc failed", 1);
+	while (curr <= HAND_FRAMES)
+	{
+		snprintf(path, sizeof(path), "imgs/anim/%d.xpm", curr);
+		H_TEX[curr - 1] = malloc(sizeof(t_texture));
+		if (!H_TEX[curr - 1])
+			ft_error(data, "Error: texture not found", 1);
+		H_TEX[curr - 1]->texture = XPM_IMG(data->mlx, path,
+				&H_TEX[curr - 1]->width, &H_TEX[curr - 1]->height);
+		H_TEX[curr - 1]->addr = ADDR(H_TEX[curr - 1]->texture,
+				&H_TEX[curr - 1]->bpp,
+				&H_TEX[curr - 1]->line_len,
+				&H_TEX[curr - 1]->endian);
+		curr++;
+	}
 }
 
-static void    init_fire_textures(t_data *data)
+static void	init_fire_textures(t_data *data)
 {
-    int current_frame = 1;
-    char path[1024];
+	int		curr;
+	char	path[1024];
 
-    data->animations->fire_tex = malloc(sizeof(t_texture *) * FIRE_FRAMES);
-    if (!data->animations->fire_tex)
-        ft_error(data,  "Error: Malloc failed", 1);
-    while (current_frame <= FIRE_FRAMES)
-    {
-        snprintf(path, sizeof(path), "imgs/fire/f%d.xpm", current_frame);
-        data->animations->fire_tex[current_frame - 1] = malloc(sizeof(t_texture));
-        if (!data->animations->fire_tex[current_frame - 1])
-            ft_error(data,  "Error: texture not found", 1);
-        data->animations->fire_tex[current_frame - 1]->texture = mlx_xpm_file_to_image(data->mlx,
-                path, &data->animations->fire_tex[current_frame - 1]->width,
-                &data->animations->fire_tex[current_frame - 1]->height);
-        FIRE_TEX[current_frame - 1]->addr = mlx_get_data_addr(FIRE_TEX[current_frame - 1]->texture,
-                &data->animations->fire_tex[current_frame - 1]->bits_per_pixel,
-                &data->animations->fire_tex[current_frame - 1]->line_length,
-                &data->animations->fire_tex[current_frame - 1]->endian);
-        current_frame++;
-    }
+	curr = 1;
+	F_TEX = malloc(sizeof(t_texture *) * FIRE_FRAMES);
+	if (!F_TEX)
+		ft_error(data, "Error: Malloc failed", 1);
+	while (curr <= FIRE_FRAMES)
+	{
+		snprintf(path, sizeof(path), "imgs/fire/f%d.xpm", curr);
+		F_TEX[curr - 1] = malloc(sizeof(t_texture));
+		if (!F_TEX[curr - 1])
+			ft_error(data, "Error: texture not found", 1);
+		F_TEX[curr - 1]->texture = XPM_IMG(data->mlx, path,
+				&F_TEX[curr - 1]->width, &F_TEX[curr - 1]->height);
+		F_TEX[curr - 1]->addr = ADDR(F_TEX[curr - 1]->texture,
+				&F_TEX[curr - 1]->bpp,
+				&F_TEX[curr - 1]->line_len,
+				&F_TEX[curr - 1]->endian);
+		curr++;
+	}
 }
 
-void    init_game(t_data *data)
+void	init_game(t_data *data)
 {
-    data->y_max = count_coloumns(data->map->map);
-    data->x_max = ft_strlen(data->map->map[0]);
-    get_postion(data, data->map->map);
+	data->y_max = count_coloumns(data->map->map);
+	data->x_max = ft_strlen(data->map->map[0]);
+	get_postion(data, data->map->map);
 	initialize_variables(data);
-    data->mlx = mlx_init();
-    init_texture(data);
-    if(BONUS)
-    {
-        init_door_textures(data);
-        init_hand_textures(data);
-        init_fire_textures(data);
-    }
-    data->mlx_win = mlx_new_window(data->mlx, SCREEN_W, SCREEN_H, "Cub3D");
-    data->img = malloc(sizeof(t_img));
-    data->img->img = mlx_new_image(data->mlx, SCREEN_W, SCREEN_H);
-    data->img->addr = mlx_get_data_addr(data->img->img, &data->img->bits_per_pixel,
-                &data->img->line_length, &data->img->endian);
+	data->mlx = mlx_init();
+	init_texture(data);
+	if (BONUS)
+	{
+		init_door_textures(data);
+		init_hand_textures(data);
+		init_fire_textures(data);
+		FRAMES = 0;
+		HAND_CURR_FRAME = 0;
+		FIRE_CURR_FRAME = 0;
+	}
+	data->mlx_win = mlx_new_window(data->mlx, SCREEN_W, SCREEN_H, "Cub3D");
+	data->img = malloc(sizeof(t_img));
+	data->img->img = mlx_new_image(data->mlx, SCREEN_W, SCREEN_H);
+	data->img->addr = ADDR(data->img->img, &data->img->bpp,
+			&data->img->line_len, &data->img->endian);
 }

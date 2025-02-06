@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:43:03 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 03:51:06 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:37:23 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,23 @@ static void	bonus_cleanup(t_data *data)
 {
 	int	i;
 
-	if (D_TEX)
+	if (data->anim->d_tex)
 	{
 		i = 0;
-		while (i < DOOR_FRAMES && D_TEX[i])
-			mlx_destroy_image(data->mlx, D_TEX[i++]->texture);
+		while (i < DOOR_FRAMES && data->anim->d_tex[i])
+			mlx_destroy_image(data->mlx, data->anim->d_tex[i++]->texture);
 	}
-	if (H_TEX)
+	if (data->anim->h_tex)
 	{
 		i = 0;
-		while (i < HAND_FRAMES && H_TEX[i])
-			mlx_destroy_image(data->mlx, H_TEX[i++]->texture);
+		while (i < HAND_FRAMES && data->anim->h_tex[i])
+			mlx_destroy_image(data->mlx, data->anim->h_tex[i++]->texture);
 	}
-	if (F_TEX)
+	if (data->anim->f_tex)
 	{
 		i = 0;
-		while (i < FIRE_FRAMES && F_TEX[i])
-			mlx_destroy_image(data->mlx, F_TEX[i++]->texture);
+		while (i < FIRE_FRAMES && data->anim->f_tex[i])
+			mlx_destroy_image(data->mlx, data->anim->f_tex[i++]->texture);
 	}
 }
 
@@ -60,25 +60,26 @@ void	ft_error(t_data *data, char *str, int exit_code)
 	free_trash(&data->trash);
 	if (data->mlx != NULL)
 	{
-		if (N_TEX)
-			mlx_destroy_image(data->mlx, N_TEX->texture);
-		if (S_TEX)
-			mlx_destroy_image(data->mlx, S_TEX->texture);
-		if (W_TEX)
-			mlx_destroy_image(data->mlx, W_TEX->texture);
-		if (E_TEX)
-			mlx_destroy_image(data->mlx, E_TEX->texture);
+		if (data->n_tex->texture)
+			mlx_destroy_image(data->mlx, data->n_tex->texture);
+		if (data->s_tex->texture)
+			mlx_destroy_image(data->mlx, data->s_tex->texture);
+		if (data->w_tex->texture)
+			mlx_destroy_image(data->mlx, data->w_tex->texture);
+		if (data->e_tex->texture)
+			mlx_destroy_image(data->mlx, data->e_tex->texture);
 		if (BONUS)
 			bonus_cleanup(data);
 		if (data->img)
 			mlx_destroy_image(data->mlx, data->img->img);
-		mlx_destroy_window(data->mlx, data->mlx_win);
+		if (data->mlx_win)
+			mlx_destroy_window(data->mlx, data->mlx_win);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
 	if (exit_code == 1)
-		write(2, str, ft_strlen(str));
+		ft_printf_fd(2, RED"%s\n" RESET, str);
 	else
-		printf("%s\n", str);
+		printf(GREEN"%s\n" RESET, str);
 	exit(exit_code);
 }

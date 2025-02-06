@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:28:02 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 02:52:31 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:31:58 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@ static void	ckeck_tex_path(t_data *data, char *str, char *path)
 {
 	if (!ft_strcmp(str, "NO"))
 	{
-		N_TEX->path = ft_strdup(path);
-		add_to_trash(&data->trash, N_TEX->path);
+		data->n_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->n_tex->path);
 	}
 	else if (!ft_strcmp(str, "SO"))
 	{
-		S_TEX->path = ft_strdup(path);
-		add_to_trash(&data->trash, S_TEX->path);
+		data->s_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->s_tex->path);
 	}
 	else if (!ft_strcmp(str, "WE"))
 	{
-		W_TEX->path = ft_strdup(path);
-		add_to_trash(&data->trash, W_TEX->path);
+		data->w_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->w_tex->path);
 	}
 	else if (!ft_strcmp(str, "EA"))
 	{
-		E_TEX->path = ft_strdup(path);
-		add_to_trash(&data->trash, E_TEX->path);
+		data->e_tex->path = ft_strdup(path);
+		add_to_trash(&data->trash, data->e_tex->path);
 	}
 	free(str);
 	free(path);
@@ -51,14 +51,14 @@ static void	skep_whitespace_to_texture(t_data *data, int *j, int *cont, int i)
 
 static void	initialize_textures(t_data *data)
 {
-	N_TEX = (t_texture *)malloc(sizeof(t_texture));
-	S_TEX = (t_texture *)malloc(sizeof(t_texture));
-	W_TEX = (t_texture *)malloc(sizeof(t_texture));
-	E_TEX = (t_texture *)malloc(sizeof(t_texture));
-	N_TEX->path = NULL;
-	S_TEX->path = NULL;
-	W_TEX->path = NULL;
-	E_TEX->path = NULL;
+	data->n_tex = (t_texture *)malloc(sizeof(t_texture));
+	data->s_tex = (t_texture *)malloc(sizeof(t_texture));
+	data->w_tex = (t_texture *)malloc(sizeof(t_texture));
+	data->e_tex = (t_texture *)malloc(sizeof(t_texture));
+	data->n_tex->path = NULL;
+	data->s_tex->path = NULL;
+	data->w_tex->path = NULL;
+	data->e_tex->path = NULL;
 }
 
 void	pars_texture(t_data *data)
@@ -85,7 +85,7 @@ void	pars_texture(t_data *data)
 		j = cont;
 		i++;
 	}
-	if (i != 4 || !N_TEX->path || !S_TEX->path
-		|| !W_TEX->path || !E_TEX->path)
-		ft_error(data, "you have multiple texture args\n", 1);
+	if (i != 4 || !data->n_tex->path || !data->s_tex->path
+		|| !data->w_tex->path || !data->e_tex->path)
+		ft_error(data, "Error:\ninvalid textures\n", 1);
 }

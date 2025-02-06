@@ -13,6 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "ft_printf_fd/ft_printf_fd.h"
 # include <ctype.h>
 # include <fcntl.h>
 # include <stdarg.h>
@@ -21,8 +22,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "ft_printf_fd/ft_printf_fd.h"
-
 
 //==== LIBFT ===//
 

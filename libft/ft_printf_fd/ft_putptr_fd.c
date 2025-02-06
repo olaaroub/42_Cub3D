@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "ft_printf_fd.h"
 
 void	ft_putptr_pr(int fd, unsigned long l, int *count)

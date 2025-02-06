@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:26:30 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/04 23:22:43 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:29:55 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,14 @@ bool	check_if_surrounded(t_data *data, char **map)
 		while (map[j][i])
 		{
 			if ((map[j][i] == '0' || map[j][i] == 'N' || map[j][i] == 'S'
-					|| map[j][i] == 'E' || map[j][i] == 'W')
-				&& !chack_if_valid(map, i, j))
-				ft_error(data, "error: map not surrounded by wall\n", 1);
-			else if ((map[j][i] == 'D' && !check_door(map, i, j)) && BONUS == 1)
-				ft_error(data, "error: wrong door placement\n", 1);
+				|| map[j][i] == 'E' || map[j][i] == 'W'
+				|| (BONUS && map[j][i] == 'D')) && !chack_if_valid(map, i, j))
+				ft_error(data, "Error:\ninvalid map\n", 1);
+			else if ((map[j][i] == 'D' && !check_door(map, i, j)) && BONUS)
+				ft_error(data, "Error:\nwrong door placement\n", 1);
 			i++;
 		}
 		j++;
 	}
 	return (true);
 }
-			// else if(BONUS == 1 && (map[j][i] == 'F'
-				//&& !chack_if_valid(map,i, j)))
-			//     ft_error(data,  "error: wrong fire placement\n", 1);

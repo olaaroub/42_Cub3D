@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:24:51 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 18:47:58 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:32:42 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ void	initialize_variables(t_data *data)
 	data->vars_h = malloc(sizeof(t_raycast_vars));
 	data->vars_v = malloc(sizeof(t_raycast_vars));
 	if (!data->anim || !data->vars_h || !data->vars_v)
-		ft_error(data, "Error: Malloc failed", 1);
+		ft_error(data, "Error:\nMalloc failed\n", 1);
 	add_to_trash(&data->trash, data->vars_h);
 	add_to_trash(&data->trash, data->vars_v);
 	data->player.x = (data->player.x * SOF) + SOF / 3;
 	data->player.y = (data->player.y * SOF) + SOF / 3;
 	ft_memset((void *)&data->moves, 0, sizeof(t_moves));
+	ft_memset((void *)data->anim, 0, sizeof(t_animations));
 	data->hit_door = false;
 	data->hit_open_door = false;
-	data->anim->f_switch = false;
 	data->projection_dist = (SCREEN_W / 2) / tan(FOV_ANGLE / 2);
 }

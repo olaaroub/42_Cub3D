@@ -6,20 +6,11 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 00:19:25 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 18:44:00 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:08:11 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*int	protect_value(int value, int min, int max)
-{
-	if (value < min)
-		return (min);
-	if (value > max)
-		return (max);
-	return (value);
-}*/
 
 void	turn(t_data *data)
 {

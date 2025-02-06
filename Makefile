@@ -6,14 +6,14 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/02/06 03:34:34 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/06 21:41:28 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -O3
-# CFLAGS		+=  -fsanitize=address  -g3
+CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 
 GREEN		= \033[0;32m
@@ -36,7 +36,6 @@ SRC			= 	main.c \
 			utils/trash.c \
 			utils/utils-v1.c \
 			utils/utils-v2.c \
-			utils/utils-v3.c \
 			utils/minimap_utils.c \
 			utils/parsing_utils.c \
 			utils/raycast_utils.c \

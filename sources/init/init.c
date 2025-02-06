@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:16:37 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 18:47:27 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:35:40 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	init_texture(t_data *data)
 			&data->w_tex->width, &data->w_tex->height);
 	if (!data->n_tex->texture || !data->s_tex->texture
 		|| !data->w_tex->texture || !data->e_tex->texture)
-		ft_error(data, "Error: texture not found", 1);
+		ft_error(data, "Error:\ntexture not found\n", 1);
 	data->n_tex->addr = ADDR(data->n_tex->texture, &data->n_tex->bpp,
 			&data->n_tex->line_len, &data->n_tex->endian);
 	data->s_tex->addr = ADDR(data->s_tex->texture, &data->s_tex->bpp,
@@ -43,13 +43,13 @@ static void	init_door_textures(t_data *data)
 	curr = 1;
 	data->anim->d_tex = malloc(sizeof(t_texture *) * DOOR_FRAMES);
 	if (!data->anim->d_tex)
-		ft_error(data, "Error: Malloc failed", 1);
+		ft_error(data, "Error:\nMalloc failed\n", 1);
 	while (curr <= DOOR_FRAMES)
 	{
 		snprintf(path, sizeof(path), "imgs/door/%d.xpm", curr);
 		data->anim->d_tex[curr - 1] = malloc(sizeof(t_texture));
 		if (!data->anim->d_tex[curr - 1])
-			ft_error(data, "Error: texture not found", 1);
+			ft_error(data, "Error:\ntexture not found\n", 1);
 		data->anim->d_tex[curr - 1]->texture = XPM_IMG(data->mlx, path,
 				&data->anim->d_tex[curr - 1]->width,
 				&data->anim->d_tex[curr - 1]->height);
@@ -70,13 +70,13 @@ static void	init_hand_textures(t_data *data)
 	curr = 1;
 	data->anim->h_tex = malloc(sizeof(t_texture *) * HAND_FRAMES);
 	if (!data->anim->h_tex)
-		ft_error(data, "Error: Malloc failed", 1);
+		ft_error(data, "Error:\nMalloc failed\n", 1);
 	while (curr <= HAND_FRAMES)
 	{
 		snprintf(path, sizeof(path), "imgs/anim/%d.xpm", curr);
 		data->anim->h_tex[curr - 1] = malloc(sizeof(t_texture));
 		if (!data->anim->h_tex[curr - 1])
-			ft_error(data, "Error: texture not found", 1);
+			ft_error(data, "Error:\ntexture not found\n", 1);
 		data->anim->h_tex[curr - 1]->texture = XPM_IMG(data->mlx, path,
 				&data->anim->h_tex[curr - 1]->width,
 				&data->anim->h_tex[curr - 1]->height);
@@ -97,13 +97,13 @@ static void	init_fire_textures(t_data *data)
 	curr = 1;
 	data->anim->f_tex = malloc(sizeof(t_texture *) * FIRE_FRAMES);
 	if (!data->anim->f_tex)
-		ft_error(data, "Error: Malloc failed", 1);
+		ft_error(data, "Error:\nMalloc failed\n", 1);
 	while (curr <= FIRE_FRAMES)
 	{
 		snprintf(path, sizeof(path), "imgs/fire/f%d.xpm", curr);
 		data->anim->f_tex[curr - 1] = malloc(sizeof(t_texture));
 		if (!data->anim->f_tex[curr - 1])
-			ft_error(data, "Error: texture not found", 1);
+			ft_error(data, "Error:\ntexture not found\n", 1);
 		data->anim->f_tex[curr - 1]->texture = XPM_IMG(data->mlx, path,
 				&data->anim->f_tex[curr - 1]->width,
 				&data->anim->f_tex[curr - 1]->height);
@@ -123,6 +123,8 @@ void	init_game(t_data *data)
 	get_postion(data, data->map->map);
 	initialize_variables(data);
 	data->mlx = mlx_init();
+	if (!data->mlx)
+		ft_error(data, "Error:\nmlx failed\n", 1);
 	init_texture(data);
 	if (BONUS)
 	{
@@ -136,6 +138,8 @@ void	init_game(t_data *data)
 	data->mlx_win = mlx_new_window(data->mlx, SCREEN_W, SCREEN_H, "Cub3D");
 	data->img = malloc(sizeof(t_img));
 	data->img->img = mlx_new_image(data->mlx, SCREEN_W, SCREEN_H);
+	if (!data->mlx_win || !data->img->img)
+		ft_error(data, "Error:\nmlx failed\n", 1);
 	data->img->addr = ADDR(data->img->img, &data->img->bpp,
 			&data->img->line_len, &data->img->endian);
 }

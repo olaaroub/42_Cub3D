@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 18:52:24 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 22:00:43 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define PI 3.141592653589793
 # define TOW_PI 6.28318530718
-# define ROT_SPEED 0.06
+# define ROT_SPEED 0.03
 # define FOV_ANGLE  1.0471975512
 
 # define EPSILON 1e-6

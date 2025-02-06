@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:51:20 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/06 18:52:08 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:09:25 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int					is_texture(char *line);
 int					is_color(char *line);
 int					is_empty(char *line);
 int					is_blocking_tile(char c);
+int					words_len(char **words);
 void				resize_map(t_data *data, t_map *map);
 int					get_x_max(char **map);
 void				skip_trailing_nl(t_data *data, t_map *map);

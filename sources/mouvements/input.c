@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/06 03:23:12 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:14:45 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	exit_key(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	ft_error(data, "Thella", 0);
+	ft_error(data, "Au revoir", 0);
 	return (0);
 }
 

@@ -6,14 +6,14 @@
 #    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
-#    Updated: 2025/02/03 02:07:35 by olaaroub         ###   ########.fr        #
+#    Updated: 2025/02/06 21:41:28 by olaaroub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -O3
-# CFLAGS		+=  -fsanitize=address  -g3
+CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		+=  -fsanitize=address  -g3
 MAKEFLAGS	:= --no-print-directory
 
 GREEN		= \033[0;32m
@@ -36,14 +36,17 @@ SRC			= 	main.c \
 			utils/trash.c \
 			utils/utils-v1.c \
 			utils/utils-v2.c \
-			utils/utils-v3.c \
+			utils/minimap_utils.c \
 			utils/parsing_utils.c \
+			utils/raycast_utils.c \
 			render/render.c \
 			render/get_texture_pixels.c\
 			render/raycast.c \
 			render/minimap.c \
-			mouvements/keys.c \
-			mouvements/moves.c \
+			mouvements/input.c \
+			mouvements/move.c \
+			mouvements/apply_moves.c \
+			mouvements/doors.c \
 
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
@@ -86,7 +89,7 @@ $(MLX):
 	@make -sC minilibx-linux/
 
 bonus:
-	@make re  BONUS=1
+	@make all  BONUS=1
 
 clean:
 	@rm -rf $(OBJ_PATH)

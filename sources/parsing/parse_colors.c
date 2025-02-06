@@ -6,34 +6,23 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:45:52 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 01:23:15 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:31:16 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 
-int    rgb_to_hex(int r, int g, int b)
+int	rgb_to_hex(t_data *data, int r, int g, int b)
 {
-	if (r < 0)
-		r = 0;
-	if (r > 255)
-		r = 255;
-	if (g < 0)
-		g = 0;
-	if (g > 255)
-		g = 255;
-	if (b < 0)
-		b = 0;
-	if (b > 255)
-		b = 255;
+	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
+		ft_error(data, "ERROR:\ncolors must be in rgb format\n", 1);
 	return ((r << 16) | (g << 8) | b);
 }
 
-int strlen_scipingziro(char *str)
+int	strlen_scipingziro(char *str)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
@@ -41,41 +30,51 @@ int strlen_scipingziro(char *str)
 		i++;
 	while (str[i++])
 		len++;
-	return len;
+	return (len);
 }
 
-void set_color(t_data *data, char *name, char *color)
+void	add_the_var_to_trash(t_data *data, char *red, char *blue, char *green)
 {
-	char **sp;
-	char *red;
-	char *green;
-	char *blue;
+	add_to_trash(&data->trash, red);
+	add_to_trash(&data->trash, green);
+	add_to_trash(&data->trash, blue);
+	if ((!red || !blue || !green) || (!*red || !*blue || !*green))
+		ft_error(data, "ERROR:\nInvalid colors\n", 1);
+}
+
+void	set_color(t_data *data, char *name, char *color)
+{
+	char	**sp;
+	char	*red;
+	char	*green;
+	char	*blue;
 
 	sp = ft_split(color, ',');
-	if (count_coloumns(sp) != 3)
-		ft_error("invalid colors!\n");
+	add_double_ptr_to_trash(data, (void **)sp);
+	if (words_len(sp) != 3)
+		ft_error(data, "Error:\ninvalid colors!\n", 1);
 	red = ft_strtrim(sp[0], "\n\t ");
 	green = ft_strtrim(sp[1], "\n\t ");
 	blue = ft_strtrim(sp[2], "\n\t ");
-	if (!is_valid_number(red) || !is_valid_number(green) || !is_valid_number(blue)
-		|| count_chars(color, ',') != 2)
-		ft_error("invalid colors!\n");
+	add_the_var_to_trash(data, red, blue, green);
+	if (!is_valid_number(red) || !is_valid_number(green)
+		|| !is_valid_number(blue) || count_chars(color, ',') != 2)
+		ft_error(data, "Error:\ninvalid colors!\n", 1);
 	if (strlen_scipingziro(red) > 3 || strlen_scipingziro(green) > 3
 		|| strlen_scipingziro(blue) > 3)
-		ft_error("invalid colors!\n");
+		ft_error(data, "Error:\ninvalid colors!\n", 1);
 	if (!ft_strcmp(name, "F"))
-		data->map->floor_hex = rgb_to_hex(ft_atoi(red), ft_atoi(green), ft_atoi(blue));
+		data->map->floor_hex = rgb_to_hex(data, ft_atoi(red), ft_atoi(green),
+				ft_atoi(blue));
 	else if (!ft_strcmp(name, "C"))
-		data->map->ceiling_hex = rgb_to_hex(ft_atoi(red), ft_atoi(green), ft_atoi(blue));
-	free(red);
-	free(green);
-	free(blue);
+		data->map->ceiling_hex = rgb_to_hex(data, ft_atoi(red), ft_atoi(green),
+				ft_atoi(blue));
 }
 
-void pars_the_color(t_data *data)
+void	pars_the_color(t_data *data)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	data->map->ceiling_hex = -1;
@@ -83,16 +82,19 @@ void pars_the_color(t_data *data)
 	while (data->map->floor_color[j])
 	{
 		i = 0;
-		while (data->map->floor_color[j][i] && is_whitespace(data->map->floor_color[j][i]))
+		while (data->map->floor_color[j][i]
+			&& is_whitespace(data->map->floor_color[j][i]))
 			i++;
-		if (data->map->floor_color[j][i] == 'F' && data->map->floor_color[j][i + 1])
+		if (data->map->floor_color[j][i] == 'F' && data->map->floor_color[j][i
+			+ 1])
 			set_color(data, "F", &data->map->floor_color[j][i + 1]);
-		else if (data->map->floor_color[j][i] == 'C' && data->map->floor_color[j][i + 1])
+		else if (data->map->floor_color[j][i] == 'C'
+			&& data->map->floor_color[j][i + 1])
 			set_color(data, "C", &data->map->floor_color[j][i + 1]);
 		else
-			ft_error("Enter a valid color!\n");
+			ft_error(data, "Error:\nenter a valid color!\n", 1);
 		j++;
 	}
 	if (j != 2 || data->map->ceiling_hex == -1 || data->map->floor_hex == -1)
-		ft_error("Enter a valid color!\n");
+		ft_error(data, "Error:\nenter a valid color!\n", 1);
 }

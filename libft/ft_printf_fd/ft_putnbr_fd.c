@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "ft_printf_fd.h"
 
 void	ft_putnbr(int fd, long nb, int *count)

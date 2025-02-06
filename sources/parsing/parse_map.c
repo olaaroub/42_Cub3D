@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:02:07 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/03 01:43:09 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:29:05 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ static int	check_map_bonus(t_map *map)
 	while (map->map_line[i])
 	{
 		if (map->map_line[i] == '\n' && (map->map_line[i + 1] == '\n'
-			|| map->map_line[i + 1] == '\0'))
+				|| map->map_line[i + 1] == '\0'))
 			return (0);
 		if (map->map_line[i] != '1' && map->map_line[i] != '0'
 			&& map->map_line[i] != ' ' && map->map_line[i] != '\n'
-				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
-					&& map->map_line[i] != 'W' && map->map_line[i] != 'S'
-						&& map->map_line[i] != 'D' && map->map_line[i] != 'O'
-							&& map->map_line[i] != 'F')
+			&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
+			&& map->map_line[i] != 'W' && map->map_line[i] != 'S'
+			&& map->map_line[i] != 'D' && map->map_line[i] != 'F')
 			return (0);
 		i++;
 	}
@@ -39,54 +38,52 @@ static int	check_map(t_map *map)
 	int	i;
 
 	i = 0;
-	if(BONUS == 1)
-		return(check_map_bonus(map));
+	if (BONUS == 1)
+		return (check_map_bonus(map));
 	while (map->map_line[i])
 	{
 		if (map->map_line[i] == '\n' && (map->map_line[i + 1] == '\n'
-			|| map->map_line[i + 1] == '\0'))
+				|| map->map_line[i + 1] == '\0'))
 			return (0);
 		if (map->map_line[i] != '1' && map->map_line[i] != '0'
 			&& map->map_line[i] != ' ' && map->map_line[i] != '\n'
-				&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
-					&& map->map_line[i] != 'W' && map->map_line[i] != 'S')
+			&& map->map_line[i] != 'N' && map->map_line[i] != 'E'
+			&& map->map_line[i] != 'W' && map->map_line[i] != 'S')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-static void	get_game_elements(int fd, t_map *map)
+static void	get_game_elements(t_data *data, t_map *map, int fd)
 {
 	char	*line;
-	t_list	*trash;
 
-	trash = NULL;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
-		check_element(map, line);
+			break ;
+		check_element(data, map, line);
 	}
-	skip_trailing_nl(map);
+	if (!map->map_line || !map->texture_line || !map->color)
+		ft_error(data, "Error:\nMissing map elements\n", 1);
 	close(fd);
 	if (!check_map(map))
-	{
-		free_trash(&trash);
-		ft_error("map invalid\n");
-	}
+		ft_error(data, "Error:\nmap invalid\n", 1);
 	map->floor_color = ft_split(map->color, '\n');
+	add_double_ptr_to_trash(data, (void **)map->floor_color);
 	map->map = ft_split(map->map_line, '\n');
+	add_double_ptr_to_trash(data, (void **)map->map);
 	map->texture = ft_split(map->texture_line, '\n');
-	free_trash(&trash);
+	add_double_ptr_to_trash(data, (void **)map->texture);
 }
 
-static void	check_player(char **map)
+static void	check_player(t_data *data, char **map)
 {
 	int	i;
 	int	flag;
-	int j;
+	int	j;
 
 	flag = 0;
 	i = 0;
@@ -96,8 +93,8 @@ static void	check_player(char **map)
 		while (map[i][j])
 		{
 			if ((map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
-				|| map[i][j] == 'S') && flag == 1)
-				ft_error("Multiple players!\n");
+					|| map[i][j] == 'S') && flag == 1)
+				ft_error(data, "Error:\nMultiple players!\n", 1);
 			else if (map[i][j] == 'E' || map[i][j] == 'W' || map[i][j] == 'N'
 				|| map[i][j] == 'S')
 				flag = 1;
@@ -106,27 +103,28 @@ static void	check_player(char **map)
 		i++;
 	}
 	if (!flag)
-		ft_error("No player!\n");
+		ft_error(data, "Error:\nNo player!\n", 1);
 }
 
-t_map   *read_map(char *file)
+t_map	*read_map(t_data *data, char *file)
 {
-	int fd;
+	int		fd;
 	t_map	*map;
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		ft_error("Error: malloc failed\n");
+		ft_error(data, "Error:\n malloc failed\n", 1);
+	add_to_trash(&data->trash, map);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		ft_error("file not found\n");
+		ft_error(data, "Error:\nfile not found\n", 1);
 	map->flag = 1;
-	map->color = "";
-	map->texture_line = "";
-	map->map_line = "";
-	get_game_elements(fd, map);
-	check_player(map->map);
-	check_if_surrounded(map->map);
-	resize_map(map);
+	map->color = NULL;
+	map->texture_line = NULL;
+	map->map_line = NULL;
+	get_game_elements(data, map, fd);
+	check_player(data, map->map);
+	check_if_surrounded(data, map->map);
+	resize_map(data, map);
 	return (map);
 }

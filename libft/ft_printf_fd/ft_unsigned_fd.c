@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "ft_printf_fd.h"
 
 void	ft_unsigned(int fd, unsigned int nb, int *count)

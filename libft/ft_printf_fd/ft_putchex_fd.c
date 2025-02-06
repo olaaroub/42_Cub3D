@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "ft_printf_fd.h"
 
 void	ft_putchex(int fd, unsigned int l, int *count)

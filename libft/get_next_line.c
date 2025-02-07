@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 15:34:43 by olaaroub          #+#    #+#             */
-/*   Updated: 2024/02/18 21:58:59 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:28:08 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char	*get_new_line(char *stat)
 	char	*line;
 
 	i = 0;
+	is_newline = 0;
 	if (!stat || stat[0] == '\0')
 		return (NULL);
 	while (stat[i] != '\n' && stat[i] != '\0')

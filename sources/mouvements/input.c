@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/06 23:14:45 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 03:31:05 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,24 @@ int	mouse_input(int x, int y, void *param)
 	float		rotation;
 	t_data		*data;
 
-	rotation = 0;
 	if (BONUS == 0)
 		return (0);
 	data = (t_data *)param;
 	(void)y;
-	sense = 0.02;
+	sense = 0.2;
 	distance = x - old_x;
-	if (distance > 0)
-		rotation = ROT_SPEED * sense * distance;
-	else if (distance < 0)
-		rotation = ROT_SPEED * sense * distance;
+	if (abs(distance) > 100)
+	{
+		old_x = x;
+		return (0);
+	}
+	rotation = ROT_SPEED * sense * distance;
 	data->angle += rotation;
-	if (data->angle >= TOW_PI)
-		data->angle -= TOW_PI;
+	if (data->angle >= TWO_PI)
+		data->angle -= TWO_PI;
 	if (data->angle < 0)
-		data->angle += TOW_PI;
+		data->angle += TWO_PI;
 	old_x = x;
-	mlx_mouse_hide(data->mlx, data->mlx_win);
 	return (0);
 }
 

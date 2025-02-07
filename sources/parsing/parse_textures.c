@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:28:02 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 23:31:58 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:32:17 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,13 @@ static void	skep_whitespace_to_texture(t_data *data, int *j, int *cont, int i)
 static void	initialize_textures(t_data *data)
 {
 	data->n_tex = (t_texture *)malloc(sizeof(t_texture));
+	add_to_trash(&data->trash, data->n_tex);
 	data->s_tex = (t_texture *)malloc(sizeof(t_texture));
+	add_to_trash(&data->trash, data->s_tex);
 	data->w_tex = (t_texture *)malloc(sizeof(t_texture));
+	add_to_trash(&data->trash, data->w_tex);
 	data->e_tex = (t_texture *)malloc(sizeof(t_texture));
+	add_to_trash(&data->trash, data->e_tex);
 	data->n_tex->path = NULL;
 	data->s_tex->path = NULL;
 	data->w_tex->path = NULL;

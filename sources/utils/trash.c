@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:43:03 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 23:37:23 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:56:52 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,26 @@ static void	bonus_cleanup(t_data *data)
 		i = 0;
 		while (i < DOOR_FRAMES && data->anim->d_tex[i])
 			mlx_destroy_image(data->mlx, data->anim->d_tex[i++]->texture);
+		free(data->anim->d_tex);
 	}
 	if (data->anim->h_tex)
 	{
 		i = 0;
 		while (i < HAND_FRAMES && data->anim->h_tex[i])
 			mlx_destroy_image(data->mlx, data->anim->h_tex[i++]->texture);
+		free(data->anim->h_tex);
 	}
 	if (data->anim->f_tex)
 	{
 		i = 0;
 		while (i < FIRE_FRAMES && data->anim->f_tex[i])
 			mlx_destroy_image(data->mlx, data->anim->f_tex[i++]->texture);
+		free(data->anim->f_tex);
 	}
 }
 
 void	ft_error(t_data *data, char *str, int exit_code)
 {
-	free_trash(&data->trash);
 	if (data->mlx != NULL)
 	{
 		if (data->n_tex->texture)
@@ -77,6 +79,7 @@ void	ft_error(t_data *data, char *str, int exit_code)
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
+	free_trash(&data->trash);
 	if (exit_code == 1)
 		ft_printf_fd(2, RED"%s\n" RESET, str);
 	else

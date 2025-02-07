@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:16:37 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 23:35:40 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:56:57 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	init_door_textures(t_data *data)
 		data->anim->d_tex[curr - 1] = malloc(sizeof(t_texture));
 		if (!data->anim->d_tex[curr - 1])
 			ft_error(data, "Error:\ntexture not found\n", 1);
+		add_to_trash(&data->trash, data->anim->d_tex[curr - 1]);
 		data->anim->d_tex[curr - 1]->texture = XPM_IMG(data->mlx, path,
 				&data->anim->d_tex[curr - 1]->width,
 				&data->anim->d_tex[curr - 1]->height);
@@ -77,6 +78,7 @@ static void	init_hand_textures(t_data *data)
 		data->anim->h_tex[curr - 1] = malloc(sizeof(t_texture));
 		if (!data->anim->h_tex[curr - 1])
 			ft_error(data, "Error:\ntexture not found\n", 1);
+		add_to_trash(&data->trash, data->anim->h_tex[curr - 1]);
 		data->anim->h_tex[curr - 1]->texture = XPM_IMG(data->mlx, path,
 				&data->anim->h_tex[curr - 1]->width,
 				&data->anim->h_tex[curr - 1]->height);
@@ -104,6 +106,7 @@ static void	init_fire_textures(t_data *data)
 		data->anim->f_tex[curr - 1] = malloc(sizeof(t_texture));
 		if (!data->anim->f_tex[curr - 1])
 			ft_error(data, "Error:\ntexture not found\n", 1);
+		add_to_trash(&data->trash, data->anim->f_tex[curr - 1]);
 		data->anim->f_tex[curr - 1]->texture = XPM_IMG(data->mlx, path,
 				&data->anim->f_tex[curr - 1]->width,
 				&data->anim->f_tex[curr - 1]->height);
@@ -137,6 +140,7 @@ void	init_game(t_data *data)
 	}
 	data->mlx_win = mlx_new_window(data->mlx, SCREEN_W, SCREEN_H, "Cub3D");
 	data->img = malloc(sizeof(t_img));
+	add_to_trash(&data->trash, data->img);
 	data->img->img = mlx_new_image(data->mlx, SCREEN_W, SCREEN_H);
 	if (!data->mlx_win || !data->img->img)
 		ft_error(data, "Error:\nmlx failed\n", 1);

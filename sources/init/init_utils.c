@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:24:51 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 23:32:42 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:51:07 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void	initialize_the_angle(t_data *data)
 	else if (map[(int)data->player.y][(int)data->player.x] == 'W')
 		data->angle = PI;
 	else if (map[(int)data->player.y][(int)data->player.x] == 'N')
-		data->angle = PI / 2;
-	else if (map[(int)data->player.y][(int)data->player.x] == 'S')
 		data->angle = 3 * PI / 2;
+	else if (map[(int)data->player.y][(int)data->player.x] == 'S')
+		data->angle = PI / 2;
 }
 
 void	initialize_variables(t_data *data)
@@ -61,6 +61,7 @@ void	initialize_variables(t_data *data)
 		ft_error(data, "Error:\nMalloc failed\n", 1);
 	add_to_trash(&data->trash, data->vars_h);
 	add_to_trash(&data->trash, data->vars_v);
+	add_to_trash(&data->trash, data->anim);
 	data->player.x = (data->player.x * SOF) + SOF / 3;
 	data->player.y = (data->player.y * SOF) + SOF / 3;
 	ft_memset((void *)&data->moves, 0, sizeof(t_moves));

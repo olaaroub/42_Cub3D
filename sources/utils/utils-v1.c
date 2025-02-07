@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 17:36:09 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 02:55:22 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:23:42 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	add_double_ptr_to_trash(t_data *data, void **add)
 	int	i;
 
 	i = 0;
+	if (!add)
+		return ;
 	while (add[i])
 	{
 		add_to_trash(&data->trash, add[i]);

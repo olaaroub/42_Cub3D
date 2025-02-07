@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 01:35:48 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 03:49:22 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 23:22:33 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	skip_trailing_nl(t_data *data, t_map *map)
 	int		len;
 	char	*str;
 
+	if (!map->map_line)
+		return ;
 	len = ft_strlen(map->map_line) - 1;
 	while (map->map_line[len] == '\n')
 		len--;

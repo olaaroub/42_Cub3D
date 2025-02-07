@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 22:00:43 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 03:35:52 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 # define SOP 4  // this is size of player (x and y)!
 # define SOF 64 // this is square size
 # define SPEED 1.5
+# define ROT_SPEED 0.06
 # define MI_SIZE 30
 
 # define XPM_IMG mlx_xpm_file_to_image
 # define ADDR mlx_get_data_addr
 
 # define PI 3.141592653589793
-# define TOW_PI 6.28318530718
-# define ROT_SPEED 0.03
+# define TWO_PI 6.28318530718
 # define FOV_ANGLE  1.0471975512
 
 # define EPSILON 1e-6
@@ -35,7 +35,7 @@
 # define DOOR_FRAME_STEP 1
 
 # define HAND_FRAMES 54
-# define ANIM_STEP 3
+# define ANIM_STEP 2
 
 # define FIRE_FRAMES 10
 # define FIRE_FRAME_STEP 4

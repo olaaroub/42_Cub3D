@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 00:19:25 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 19:08:11 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 03:00:22 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	turn(t_data *data)
 	{
 		data->angle -= ROT_SPEED;
 		if (data->angle < 0)
-			data->angle += TOW_PI;
+			data->angle += TWO_PI;
 	}
 	if (data->moves.turn_right)
 	{
 		data->angle += ROT_SPEED;
-		if (data->angle >= TOW_PI)
-			data->angle -= TOW_PI;
+		if (data->angle >= TWO_PI)
+			data->angle -= TWO_PI;
 	}
 }
 

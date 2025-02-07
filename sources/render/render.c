@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:59 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/06 18:00:37 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 03:41:39 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	render_hand(t_data *data)
 	i = 0;
 	tex = data->anim->h_tex[data->anim->h_curr];
 	pos.x = (SCREEN_W - tex->width) / 2;
-	pos.y = SCREEN_H - tex->height + data->anim->hand_y_offset;
+	pos.y = SCREEN_H - tex->height + 10;
 	while (i < tex->height)
 	{
 		j = 0;
@@ -71,7 +71,7 @@ void	render(t_data *data)
 	angle_step = FOV_ANGLE / SCREEN_W;
 	data->start_angle = data->angle - (FOV_ANGLE / 2);
 	if (data->start_angle < 0)
-		data->start_angle += TOW_PI;
+		data->start_angle += TWO_PI;
 	x = -1;
 	while (++x < SCREEN_W)
 	{

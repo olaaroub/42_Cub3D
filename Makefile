@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 17:20:01 by olaaroub          #+#    #+#              #
 #    Updated: 2025/02/07 23:15:35 by olaaroub         ###   ########.fr        #

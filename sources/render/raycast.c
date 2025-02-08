@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 13:12:01 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/06 02:49:40 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:09:02 by ohammou-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void	hit_horizontal(t_data *data, t_raycast_vars *vars, double hlen)
 	data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
 	if (data->start_draw < 0)
 		data->start_draw = 0;
-	if (data->end_draw >= SCREEN_H)
+	if (data->end_draw > SCREEN_H)
 		data->end_draw = SCREEN_H;
 }
 
@@ -119,7 +119,7 @@ static void	hit_vertical(t_data *data, t_raycast_vars *vars, double vlen)
 	data->end_draw = (SCREEN_H / 2) + (data->wallhight / 2);
 	if (data->start_draw < 0)
 		data->start_draw = 0;
-	if (data->end_draw >= SCREEN_H)
+	if (data->end_draw > SCREEN_H)
 		data->end_draw = SCREEN_H;
 }
 

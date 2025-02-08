@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:26:30 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/06 23:29:55 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 22:36:21 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	check_if_surrounded(t_data *data, char **map)
 			if ((map[j][i] == '0' || map[j][i] == 'N' || map[j][i] == 'S'
 				|| map[j][i] == 'E' || map[j][i] == 'W'
 				|| (BONUS && map[j][i] == 'D')) && !chack_if_valid(map, i, j))
-				ft_error(data, "Error:\ninvalid map\n", 1);
+				ft_error(data, "Error:\ninvalid map222\n", 1);
 			else if ((map[j][i] == 'D' && !check_door(map, i, j)) && BONUS)
 				ft_error(data, "Error:\nwrong door placement\n", 1);
 			i++;

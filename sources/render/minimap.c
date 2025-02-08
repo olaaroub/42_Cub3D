@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohammou- <ohammou-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 13:32:39 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/05 23:45:34 by ohammou-         ###   ########.fr       */
+/*   Updated: 2025/02/08 01:30:21 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,15 @@ void	draw_element(t_data *data, int x_draw, int y_draw)
 	{
 		data->minimap->offset = MI_SIZE;
 		if (map[data->minimap->map_y][data->minimap->map_x] == '1')
-			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x3B1E54);
+			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x09122C);
 		else if (map[data->minimap->map_y][data->minimap->map_x] == 'D')
-			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x2A004E);
+			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x6D2323);
+		else if (map[data->minimap->map_y][data->minimap->map_x] == 'F')
+			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x09122C);
 		else if (map[data->minimap->map_y][data->minimap->map_x] == 'O')
-			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x500073);
+			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0xA31D1D);
 		else if (map[data->minimap->map_y][data->minimap->map_x] != ' ')
-			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x9B7EBD);
+			drawing1(data, x_draw * MI_SIZE, y_draw * MI_SIZE, 0x872341);
 		get_position_of_player_in_minimap(data, x_draw, y_draw);
 		data->minimap->map_x++;
 		x_draw++;
@@ -173,20 +175,20 @@ void	minimap(t_data *data)
 // 					&& grid_x < (int)ft_strlen(map[grid_y]))
 // 				{
 // 					if (map[grid_y][grid_x] == '1')
-// 						ft_pixelput(data->img, dest_x, dest_y, 0x3B1E54);
+// 						ft_pixelput(data->img, dest_x, dest_y, 0x09122C);
 // 					else if (map[grid_y][grid_x] == 'D')
-// 						ft_pixelput(data->img, dest_x, dest_y, 0x2A004E);
+// 						ft_pixelput(data->img, dest_x, dest_y, 0x6D2323);
 // 					else if (map[grid_y][grid_x] == 'O')
-// 						ft_pixelput(data->img, dest_x, dest_y, 0x500073);
+// 						ft_pixelput(data->img, dest_x, dest_y, 0xA31D1D);
 // 					else if (map[grid_y][grid_x] == 'F')
-// 						ft_pixelput(data->img, dest_x, dest_y, 0xA888B5);
+// 						ft_pixelput(data->img, dest_x, dest_y, 0x09122C);
 // 					else if (map[grid_y][grid_x] != ' ')
-// 						ft_pixelput(data->img, dest_x, dest_y, 0x9B7EBD);
+// 						ft_pixelput(data->img, dest_x, dest_y, 0x872341);
 // 					else
-// 						ft_pixelput(data->img, dest_x, dest_y, 0x0605678);
+// 						ft_pixelput(data->img, dest_x, dest_y, 0x872341);
 // 				}
 // 				else
-// 					ft_pixelput(data->img, dest_x, dest_y, 0x0605678);
+// 					ft_pixelput(data->img, dest_x, dest_y, 0x872341);
 // 			}
 // 			dest_x++;
 // 		}

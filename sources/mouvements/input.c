@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:16:40 by ohammou-          #+#    #+#             */
-/*   Updated: 2025/02/07 03:31:05 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/07 23:02:13 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	mouse_input(int x, int y, void *param)
 		return (0);
 	data = (t_data *)param;
 	(void)y;
-	sense = 0.2;
+	sense = 0.02;
 	distance = x - old_x;
 	if (abs(distance) > 100)
 	{

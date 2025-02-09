@@ -6,14 +6,14 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/07 23:17:38 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/09 22:24:46 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VARIABLES_H
 # define VARIABLES_H
 
-# define FRM 4 
+# define FRM 4
 # define SOP 4
 # define SOF 64
 # define SPEED 1.5

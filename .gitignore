@@ -5,6 +5,4 @@
 .DS_Store
 *.swp
 *.txt
-cub3D
-.vscode/
 objects/

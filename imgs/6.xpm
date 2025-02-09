@@ -1,6 +1,6 @@
 /* XPM */
 static char *out[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars per pixel */
 "384 384 50 1 ",
 "  c #0A1113",
 ". c #101616",

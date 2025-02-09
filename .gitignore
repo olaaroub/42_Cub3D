@@ -1,6 +1,5 @@
 
 *.o
-*.a
 *.out
 *.exe
 .DS_Store
@@ -9,4 +8,3 @@
 cub3D
 .vscode/
 objects/
-# imgs/jett

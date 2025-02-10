@@ -6,18 +6,17 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/09 22:24:46 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/10 01:38:13 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VARIABLES_H
 # define VARIABLES_H
 
-# define FRM 4
-# define SOP 4
+# define FRM 3
 # define SOF 64
 # define SPEED 1.5
-# define ROT_SPEED 0.06
+# define ROT_SPEED 0.03
 # define MI_SIZE 30
 
 # define XPM_IMG mlx_xpm_file_to_image
@@ -28,17 +27,17 @@
 # define FOV_ANGLE  1.04719755119659769
 
 # define EPSILON 1e-6
-# define SCREEN_W 1920
-# define SCREEN_H 1080
+# define SCREEN_W 1900
+# define SCREEN_H 1000
 
 # define DOOR_FRAMES 22
-# define DOOR_FRAME_STEP 1
+# define DOOR_FRAME_STEP 2
 
 # define HAND_FRAMES 54
-# define ANIM_STEP 4
+# define ANIM_STEP 6
 
 # define FIRE_FRAMES 20
-# define FIRE_FRAME_STEP 4
+# define FIRE_FRAME_STEP 3
 
 # define RESET "\e[0m"
 

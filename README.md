@@ -1,5 +1,5 @@
-
 # cub3D
+
 **A Raycasting-Based 3D Maze Explorer Inspired by Wolfenstein 3D**
 <img align="center" src="help.png" alt="Screenshot of the game" />
 <img align="center" src="1.png" alt="Screenshot of the game" />

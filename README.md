@@ -42,13 +42,13 @@ This project demonstrates core principles of computer graphics and game developm
 
 2. **Install Dependencies**
    - MiniLibX (included) requires:
-     gcc
-     make
-     X11 include files (package xorg)
-     XShm extension must be present (package libxext-dev)
-     ```Utility functions from BSD systems - development files (package libbsd-dev)
+   - gcc
+   - make
+   - X11 include files (package xorg)
+   - XShm extension must be present (package libxext-dev)
+   - ```Utility functions from BSD systems - development files (package libbsd-dev)
      sudo apt-get install libxext-dev libxrandr-dev libx11-dev libxml2-dev
-     sudo apt-get install gcc make xorg libxext-dev libbsd-dev (Debian/Ubuntu)
+     sudo apt-get install gcc make xorg libxext-dev libbsd-dev 
      ```
 
 3. **Compile**

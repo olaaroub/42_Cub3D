@@ -99,4 +99,3 @@ Through this project, I mastered:
 * [**Raycasting in JS**](http://www.playfuljs.com/a-first-person-engine-in-265-lines/)
 * [**Raycasting theory from**](https://lodev.org/cgtutor/raycasting.html)
 * [**Images in minilibx**](https://github.com/keuhdall/images_example)
-```

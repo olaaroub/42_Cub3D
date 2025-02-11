@@ -47,8 +47,8 @@ This project demonstrates core principles of computer graphics and game developm
    - X11 include files (package xorg)
    - XShm extension must be present (package libxext-dev)
    - ```Utility functions from BSD systems - development files (package libbsd-dev)
+     sudo apt-get install gcc make xserver-xorg-dev xorg-dev libbsd-dev 
      sudo apt-get install libxext-dev libxrandr-dev libx11-dev libxml2-dev
-     sudo apt-get install gcc make xorg libxext-dev libbsd-dev 
      ```
 
 3. **Compile**

@@ -2,6 +2,8 @@
 
 ## A Raycasting-Based 3D Maze Explorer Inspired by Wolfenstein 3D
 
+## 🔍 Preview
+
 ![Screenshot of the game](imgs/screenshots/help.png)
 
 ![Screenshot of the game](imgs/screenshots/1.png)
@@ -18,10 +20,10 @@
 
 ## 🔍 Description
 
-cub3D is a dynamic 3D maze navigation project that brings retro FPS gameplay to life using **raycasting technology**.
-Developed in C with the MiniLibX graphics library, it transforms 2D map data into an immersive 3D environment where players explore mazes,
-interact with doors, and navigate using a real-time rotating minimap. Originally inspired by Wolfenstein 3D.
-This project demonstrates core principles of computer graphics and game development.
+Cub3D is a 3D maze navigation project inspired by the classic game Wolfenstein 3D.
+Using raycasting technology, it creates a retro-style first-person experience by transforming 2D map data into a dynamic 3D environment.
+Developed in C with the MiniLibX graphics library, the project highlights core principles of computer graphics and game development,
+offering a practical exploration of rendering techniques and real-time visual simulation.
 
 ---
 

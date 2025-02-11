@@ -1,12 +1,12 @@
 # cub3D
 
 **A Raycasting-Based 3D Maze Explorer Inspired by Wolfenstein 3D**
-<img align="center" src="help.png" alt="Screenshot of the game" />
-<img align="center" src="1.png" alt="Screenshot of the game" />
-<img align="center" src="/2.png" alt="Screenshot of the game" />
-<img align="center" src="3.png" alt="Screenshot of the game" />
-<img align="center" src="5.png" alt="Screenshot of the game" />
-<img align="center" src="4.png" alt="Screenshot of the game" />
+<img align="center" src="imgs/screenshots/help.png" alt="Screenshot of the game" />
+<img align="center" src="imgs/screenshots/1.png" alt="Screenshot of the game" />
+<img align="center" src="imgs/screenshots/2.png" alt="Screenshot of the game" />
+<img align="center" src="imgs/screenshots/3.png" alt="Screenshot of the game" />
+<img align="center" src="imgs/screenshots/5.png" alt="Screenshot of the game" />
+<img align="center" src="imgs/screenshots/4.png" alt="Screenshot of the game" />
 ---
 
 ## 🔍 Description
@@ -22,10 +22,7 @@ This project demonstrates core principles of computer graphics and game developm
   Dynamic overhead map rotates with player orientation for intuitive navigation.
 
 - **Interactive Door System**
-  Animated doors that open/close with smooth transitions (activated with `Spacebar`).
-
-- **Sprint Motion Effect**
-  Hold `Shift` to sprint, complete with FOV changes and motion blur for immersive movement.
+  Animated doors that open/close with smooth transitions.
 
 - **Raycast Rendering Engine**
   Efficient 3D projection from 2D maps using the **DDA (Digital Differential Analyzer)** algorithm.
@@ -97,7 +94,9 @@ Through this project, I mastered:
 
 ---
 
-## 🌟 Acknowledgments
-- **Wolfenstein 3D** for pioneering the FPS genre
-- Raycasting theory from [Lodev's Raycasting Tutorial](https://lodev.org/cgtutor/raycasting.html)
+## 🌟 Resources
+* [**Wolfenstein 3D**](http://users.atw.hu/wolf3d/)
+* [**Raycasting in JS**](http://www.playfuljs.com/a-first-person-engine-in-265-lines/)
+* [**Raycasting theory from**](https://lodev.org/cgtutor/raycasting.html)
+* [**Images in minilibx**](https://github.com/keuhdall/images_example)
 ```

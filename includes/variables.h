@@ -6,7 +6,7 @@
 /*   By: olaaroub <olaaroub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:14:15 by olaaroub          #+#    #+#             */
-/*   Updated: 2025/02/10 01:38:13 by olaaroub         ###   ########.fr       */
+/*   Updated: 2025/02/11 02:41:22 by olaaroub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define FRM 3
 # define SOF 64
-# define SPEED 1.5
-# define ROT_SPEED 0.03
+# define SPEED 2
+# define ROT_SPEED 0.05
 # define MI_SIZE 30
 
 # define XPM_IMG mlx_xpm_file_to_image
@@ -31,10 +31,10 @@
 # define SCREEN_H 1000
 
 # define DOOR_FRAMES 22
-# define DOOR_FRAME_STEP 2
+# define DOOR_FRAME_STEP 1
 
 # define HAND_FRAMES 54
-# define ANIM_STEP 6
+# define ANIM_STEP 3
 
 # define FIRE_FRAMES 20
 # define FIRE_FRAME_STEP 3

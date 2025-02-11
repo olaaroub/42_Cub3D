@@ -29,14 +29,15 @@ offering a practical exploration of rendering techniques and real-time visual si
 
 ## 🎮 Key Features
 
+- **Raycast Rendering Engine**
+  Efficient 3D projection from 2D maps using the **DDA (Digital Differential Analyzer)** algorithm.
+  
 - **GTA-Style Rotating Minimap**
   Dynamic overhead map rotates with player orientation for intuitive navigation.
+  Built using Inverse Mapping (Reverse Transformation/Destination-Driven Warping).
 
 - **Interactive Door System**
   Animated doors that open/close with smooth transitions.
-
-- **Raycast Rendering Engine**
-  Efficient 3D projection from 2D maps using the **DDA (Digital Differential Analyzer)** algorithm.
 
 - **Fluid Controls**
   WASD movement, mouse/trackpad camera rotation, and real-time minimap rendering.
@@ -64,24 +65,7 @@ offering a practical exploration of rendering techniques and real-time visual si
      sudo apt-get install gcc make xserver-xorg-dev xorg-dev libbsd-dev
      sudo apt-get install libxext-dev libxrandr-dev libx11-dev libxml2-dev
      ```
-
-3. **Compile**
-
-   ```bash
-   make  # Builds mandatory part
-   make bonus # For the bonus part
-   ```
-
 ---
-
-## 🕹️ Usage
-
-### Launch the Game
-
-```bash
-./cub3D --help # For help menu
-./cub3D maps/map.cub
-```
 
 ### Controls
 
@@ -92,26 +76,6 @@ offering a practical exploration of rendering techniques and real-time visual si
 | Rotate Camera         | Mouse/Trackpad  |
 | Open/Close Doors      | `F`      `E`    |
 | Quit                  | `ESC`           |
-
----
-
-## 🧠 Skills Developed
-
-Through this project, I mastered:
-
-- **Raycasting Mathematics**: Converting 2D maps to 3D environments using angle calculations and grid traversal.
-- **DDA Algorithm**: Efficiently determining wall intersections for raycasting optimization.
-- **Dynamic Animation Systems**: Door states and motion effects managed via frame-based timing.
-- **MiniLibX Graphics**: Low-level window/event management and pixel buffer manipulation.
-
----
-
-## ⚙️ Technologies
-
-- **C Programming**
-- **MiniLibX** (Lightweight X-Window graphics library)
-- **Raycasting/DDA Algorithm**
-- **Unix System Programming**
 
 ---
 

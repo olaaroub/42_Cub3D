@@ -83,5 +83,5 @@ offering a practical exploration of rendering techniques and real-time visual si
 
 - [**Wolfenstein 3D**](http://users.atw.hu/wolf3d/)
 - [**Raycasting in JS**](http://www.playfuljs.com/a-first-person-engine-in-265-lines/)
-- [**Raycasting theory from**](https://lodev.org/cgtutor/raycasting.html)
+- [**Raycasting theory**](https://lodev.org/cgtutor/raycasting.html)
 - [**Images in minilibx**](https://github.com/keuhdall/images_example)
